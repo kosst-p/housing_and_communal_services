@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const EslintWebpackPlugin = require( 'eslint-webpack-plugin' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
 const mode = process.env.NODE_ENV || 'development';
 const devMode = mode === 'development';
@@ -12,7 +13,7 @@ module.exports = {
     output: {
         path: path.resolve( __dirname, 'dist' ),
         clean: true,
-        filename: 'index.[contenthash].js'
+        filename: devMode ? '[name].js' : '[name].[contenthash].js'
     },
     mode,
     target,
@@ -23,7 +24,10 @@ module.exports = {
         } ),
         new EslintWebpackPlugin( {
             overrideConfigFile: path.resolve( __dirname, '.eslintrc.js' ),
-        } )
+        } ),
+        new MiniCssExtractPlugin({
+            filename: devMode ? '[name].css' : '[name].[contenthash].css'
+        })
     ],
     module: {
         rules: [
@@ -41,7 +45,30 @@ module.exports = {
                         }
                     }
                 ]
-            }
+            },
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[name]__[local]--[hash:base64:5]',
+                            }
+                        },
+                    },
+                ],
+            },
+        ],
+    },
+    resolve: {
+        extensions: [
+            '.js',
+            '.css',
         ],
     },
 }
