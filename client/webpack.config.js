@@ -1,12 +1,13 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require( 'path' );
+const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const EslintWebpackPlugin = require( 'eslint-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
 const mode = process.env.NODE_ENV || 'development';
 const devMode = mode === 'development';
 const target = devMode ? 'web' : 'browserslist';
-const devtool = devMode ? 'source-map': undefined;
+const devtool = devMode ? 'source-map' : undefined;
+console.log( __dirname );
 
 module.exports = {
     entry: path.resolve( __dirname, 'src', 'index.js' ),
@@ -25,9 +26,9 @@ module.exports = {
         new EslintWebpackPlugin( {
             overrideConfigFile: path.resolve( __dirname, '.eslintrc.js' ),
         } ),
-        new MiniCssExtractPlugin({
+        new MiniCssExtractPlugin( {
             filename: devMode ? '[name].css' : '[name].[contenthash].css'
-        })
+        } )
     ],
     module: {
         rules: [
@@ -71,4 +72,4 @@ module.exports = {
             '.css',
         ],
     },
-}
+};

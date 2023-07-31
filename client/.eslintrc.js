@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 module.exports = {
     env: {
         es2021: true,
@@ -7,7 +8,6 @@ module.exports = {
         'eslint:recommended',
         'plugin:react/recommended',
     ],
-    parser: '@babel/eslint-parser',
     settings: {
         react: {
             version: 'detect'
@@ -17,10 +17,10 @@ module.exports = {
         sourceType: 'module',
         ecmaVersion: 2017,
         babelOptions: {
-            presets: ['@babel/preset-react']
+            presets: [ '@babel/preset-react' ]
         }
     },
-        rules: {
+    rules: {
         'indent': [ 'error', 4 ],
         'quote-props': [
             'error',
@@ -54,4 +54,4 @@ module.exports = {
         'no-multi-spaces': 'error',
     },
     ignorePatterns: [ 'node_modules/', 'dist/' ]
-}
+};
