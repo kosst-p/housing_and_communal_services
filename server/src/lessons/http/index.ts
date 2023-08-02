@@ -8,7 +8,7 @@ import { parseBody } from './framework/middlewares/parseBody.ts';
 
 dotenv.config( { path: './.env' } );
 
-const PORT: number | string = process.env.PORT || 5000;
+const PORT: number | string = process.env.PORT ?? 5000;
 const application = new Application();
 
 application.use( parseJson );

@@ -15,7 +15,7 @@ export default class Router {
         this.endpoints = {};
     }
 
-    request( method: string = 'GET', path: string, handler: ( request: Request, response: Response ) => void ): void {
+    request( path: string, handler: ( request: Request, response: Response ) => void, method: string = 'GET' ): void {
         if ( ! this.endpoints[ path ] ) {
             this.endpoints[ path ] = {};
         }
@@ -30,18 +30,18 @@ export default class Router {
     }
 
     get( path: string, handler: ( request: Request, response: Response ) => void ): void {
-        this.request( 'GET', path, handler );
+        this.request( path, handler, 'GET' );
     }
 
     post( path: string, handler: ( request: Request, response: Response ) => void ): void {
-        this.request( 'POST', path, handler );
+        this.request( path, handler, 'POST' );
     }
 
     put( path: string, handler: ( request: Request, response: Response ) => void ): void {
-        this.request( 'PUT', path, handler );
+        this.request( path, handler, 'PUT' );
     }
 
     delete( path: string, handler: ( request: Request, response: Response ) => void ): void {
-        this.request( 'DELETE', path, handler );
+        this.request( path, handler, 'DELETE' );
     }
 }

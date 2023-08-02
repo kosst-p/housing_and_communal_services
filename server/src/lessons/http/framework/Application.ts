@@ -36,7 +36,7 @@ export default class Application {
             this.middlewares.forEach( ( middleware ) => middleware( request, response ) );
 
             request.on( 'end', () => {
-                const emitted = this.emitter.emit( this._getRouteMask( request.pathname || '', request.method || '' ), request, response );
+                const emitted = this.emitter.emit( this._getRouteMask( request.pathname ?? '', request.method ?? '' ), request, response );
 
                 if ( ! emitted ) {
                     response.end();

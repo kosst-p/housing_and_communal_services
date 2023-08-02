@@ -5,7 +5,7 @@ export type ParseUrl = ( url: string ) => ( request: Request, response: Response
 
 export function parseUrl( baseUrl: string ) {
     return function ( request: Request, _response: Response ) {
-        const parsedUrl = new URL( request.url || '', baseUrl );
+        const parsedUrl = new URL( request.url ?? '', baseUrl );
         const params: Record<string, string> = {};
 
         parsedUrl.searchParams.forEach( ( value, key ) => params[ key ] = value ); // ?
