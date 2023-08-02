@@ -7,10 +7,11 @@ const mode = process.env.NODE_ENV || 'development';
 const devMode = mode === 'development';
 const target = devMode ? 'web' : 'browserslist';
 const devtool = devMode ? 'source-map' : undefined;
+
 console.log( __dirname );
 
 module.exports = {
-    entry: path.resolve( __dirname, 'src', 'index.js' ),
+    entry: path.resolve( __dirname, 'src', 'index.tsx' ),
     output: {
         path: path.resolve( __dirname, 'dist' ),
         clean: true,
@@ -33,7 +34,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.tsx$/,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -41,9 +42,13 @@ module.exports = {
                         options: {
                             presets: [
                                 '@babel/preset-env',
-                                '@babel/preset-react'
+                                '@babel/preset-react',
+                                '@babel/preset-typescript'
                             ]
                         }
+                    },
+                    {
+                        loader: 'ts-loader',
                     }
                 ]
             },
@@ -68,8 +73,10 @@ module.exports = {
     },
     resolve: {
         extensions: [
+            '.tsx',
             '.js',
             '.css',
+            '.json'
         ],
     },
 };
