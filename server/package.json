@@ -6,7 +6,8 @@
     "scripts": {
         "compile": "npx tsc -w",
         "dev": "npx nodemon --inspect ./dist/index.js",
-        "lint": "eslint . --ext .ts"
+        "lint": "eslint . --ext .ts",
+        "reinstall": "rm -rf node_modules/ && npm i"
     },
     "author": "Konstantin P",
     "license": "ISC",
