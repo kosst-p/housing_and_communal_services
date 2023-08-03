@@ -125,6 +125,10 @@ module.exports = {
         ],
         'space-unary-ops': [ 'error', { words: true, nonwords: false, overrides: { '!': true } } ],
         'eol-last': 'error',
+        'brace-style': [
+            'error',
+            'stroustrup',
+        ],
     },
     ignorePatterns: [ 'node_modules/', 'dist/' ]
 };
