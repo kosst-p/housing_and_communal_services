@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export function updateUser( request: Request, response: Response ) {
+export function updateUser( request: Request, response: Response, next: NextFunction ) {
     try {
         const data = request.body;
 
@@ -9,9 +9,9 @@ export function updateUser( request: Request, response: Response ) {
         }
 
         // find user in db
-        response.json( data );
+        return response.json( data );
     }
     catch ( error ) {
-        response.status( 500 ).json( error );
+        return next();
     }
 }

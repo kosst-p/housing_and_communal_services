@@ -1,11 +1,14 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export function getLocations( _request: Request, response: Response ) {
+import Locations from '../../../models/locations';
+
+export async function getLocations( _request: Request, response: Response, next: NextFunction ) {
     try {
-        console.log( [ {}, {}, {} ] );
-        response.json( [ {}, {}, {} ] );
+        const locations = await Locations.find();
+
+        return response.json( locations );
     }
     catch ( error ) {
-        response.status( 500 ).json( error );
+        return next( error );
     }
 }

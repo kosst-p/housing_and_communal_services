@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export function getUser( request: Request, response: Response ) {
+export function getUser( request: Request, response: Response, next: NextFunction ) {
     try {
         const { id } = request.params;
 
@@ -11,9 +11,9 @@ export function getUser( request: Request, response: Response ) {
         }
 
         // find user in db
-        response.json( id );
+        return response.json( id );
     }
     catch ( error ) {
-        response.status( 500 ).json( error );
+        return next( error );
     }
 }

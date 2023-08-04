@@ -1,11 +1,10 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export function createLocation( request: Request, response: Response ) {
+export function createLocation( request: Request, response: Response, next: NextFunction ) {
     try {
-        console.log( request.body );
-        response.json( request.body );
+        return response.json( request.body );
     }
     catch ( error ) {
-        response.status( 500 ).json( error );
+        return next( error );
     }
 }
