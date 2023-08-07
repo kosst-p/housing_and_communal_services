@@ -3,6 +3,19 @@ import { cleanEnv, num, str } from 'envalid';
 
 dotenv.config( { path: './.env' } );
 
+interface IConfig {
+    serverPort: number
+    db: IDBConfig
+}
+
+export interface IDBConfig {
+    port: number
+    dbName: string,
+    userName: string,
+    password: string,
+    hostName: string
+}
+
 const env = cleanEnv( process.env, {
     PORT: num( { default: 5000 } ),
     MONGO_DB_ROOT_USER_NAME: str( { default: '' } ),
@@ -12,7 +25,7 @@ const env = cleanEnv( process.env, {
     MONGO_DB_HOST_NAME: str( { default: 'localhost' } ),
 } );
 
-export default {
+export const config: IConfig = {
     serverPort: env.PORT,
     db: {
         port: env.MONGO_DB_PORT,

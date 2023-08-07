@@ -1,10 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import mongoose from 'mongoose';
 
-import config from './config/index';
+import { config } from './config/index';
 import router from './routes/index';
 import middlewares from './http/middlewares/index';
+import DBService from './services/dbService';
 
 const app = express();
 
@@ -15,7 +15,9 @@ app.use( middlewares.globalErrorHandle );
 
 async function start() {
     try {
-        await mongoose.connect( `mongodb://${ config.db.userName }:${ config.db.password }@${ config.db.hostName }:${ config.db.port }/?authMechanism=DEFAULT` );
+        const DBServiceInstance = new DBService( config.db );
+
+        await DBServiceInstance.init();
         app.listen( config.serverPort, () => {
             console.log( 'Server started!' );
         } );

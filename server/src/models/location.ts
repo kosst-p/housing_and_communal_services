@@ -1,6 +1,14 @@
-import mongoose from 'mongoose';
+import DBService from '../services/dbService';
 
-const schema = new mongoose.Schema( {
+interface ILocation {
+    country: string,
+    region: string,
+    city: string,
+    address: string,
+    house_number: string
+}
+
+const schema = DBService.getSchema<ILocation>( {
     country: String,
     region: String,
     city: String,
@@ -8,4 +16,4 @@ const schema = new mongoose.Schema( {
     house_number: String
 } );
 
-export default mongoose.model( 'Location', schema );
+export default DBService.getModel<ILocation>( 'Location', schema );

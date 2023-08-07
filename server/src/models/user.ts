@@ -1,9 +1,15 @@
-import mongoose from 'mongoose';
+import DBService from '../services/dbService';
 
-const schema = new mongoose.Schema( {
+interface IUser {
+    name: string,
+    email: string,
+    password: string,
+}
+
+const schema = DBService.getSchema<IUser>( {
     name: String,
     email: String,
     password: String,
 } );
 
-export default mongoose.model( 'User', schema );
+export default DBService.getModel<IUser>( 'User', schema );
