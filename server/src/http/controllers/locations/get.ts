@@ -1,13 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 
 import Location from '../../../models/location';
+import { ValidationError } from '../../../errors';
 
 export async function getLocation( request: Request, response: Response, next: NextFunction ) {
     try {
         const { id } = request.params;
 
         if ( ! id ) {
-            response.status( 400 ).json( { message: 'ID not set' } );
+            throw new ValidationError( 'ID do not set' );
         }
 
         const locations = await Location.findById( id );

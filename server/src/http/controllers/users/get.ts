@@ -1,13 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 
 import User from '../../../models/user';
+import { ValidationError } from '../../../errors';
 
 export async function getUser( request: Request, response: Response, next: NextFunction ) {
     try {
         const { id } = request.params;
 
         if ( ! id ) {
-            response.status( 400 ).json( { message: 'ID not set' } );
+            throw new ValidationError( 'ID do not set' );
         }
 
         const user = await User.findById( id );
