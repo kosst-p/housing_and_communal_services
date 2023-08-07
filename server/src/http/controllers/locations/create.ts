@@ -1,8 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 
-export function createLocation( request: Request, response: Response, next: NextFunction ) {
+import Location from '../../../models/location';
+
+export async function createLocation( request: Request, response: Response, next: NextFunction ) {
     try {
-        return response.json( request.body );
+        const location = await Location.create( request.body );
+
+        return response.json( location );
     }
     catch ( error ) {
         return next( error );

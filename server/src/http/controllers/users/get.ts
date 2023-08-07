@@ -1,17 +1,29 @@
 import { Request, Response, NextFunction } from 'express';
 
-export function getUser( request: Request, response: Response, next: NextFunction ) {
+import User from '../../../models/user';
+
+export async function getUser( request: Request, response: Response, next: NextFunction ) {
     try {
         const { id } = request.params;
-
-        console.log( request.params );
 
         if ( ! id ) {
             response.status( 400 ).json( { message: 'ID not set' } );
         }
 
-        // find user in db
-        return response.json( id );
+        const user = await User.findById( id );
+
+        return response.json( user );
+    }
+    catch ( error ) {
+        return next( error );
+    }
+}
+
+export async function getUsers( _request: Request, response: Response, next: NextFunction ) {
+    try {
+        const Users = await User.find();
+
+        return response.json( Users );
     }
     catch ( error ) {
         return next( error );

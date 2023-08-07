@@ -3,6 +3,7 @@ import * as locationsController from '../http/controllers/locations/index';
 
 const router = express.Router();
 
+router.get( '/locations/:id', locationsController.getLocation );
 router.get( '/locations', locationsController.getLocations );
 router.post( '/locations', locationsController.createLocation );
 
