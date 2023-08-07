@@ -1,7 +1,7 @@
 import * as express from 'express';
 
-import usersRouter from './users.ts';
-import locationsRouter from './locations.ts';
+import usersRouter from './users';
+import locationsRouter from './locations';
 
 const rootRouter = express.Router();
 

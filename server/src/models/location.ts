@@ -8,4 +8,4 @@ const schema = new mongoose.Schema( {
     house_number: String
 } );
 
-export default mongoose.model( 'Locations', schema );
+export default mongoose.model( 'Location', schema );
