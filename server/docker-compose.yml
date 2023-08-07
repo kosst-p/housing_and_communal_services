@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   mongodb:
-    image: mongo
+    image: mongo:4.4-focal
     restart: always
     container_name: mongodb
     environment:
@@ -13,4 +13,4 @@ services:
     ports:
       - ${MONGO_DB_PORT}:${MONGO_DB_PORT}
     volumes:
-      - ./db-data/mongo:/data/db
+      - ${MONGO_DB_FOLDER}:/data/db
