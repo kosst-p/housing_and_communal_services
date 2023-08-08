@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import User from '../../../models/user';
+import { User } from '../../../models/user';
 import { ValidationError } from '../../../errors';
 
 export async function getUser( request: Request, response: Response, next: NextFunction ) {
