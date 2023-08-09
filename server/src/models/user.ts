@@ -1,6 +1,6 @@
 import DBService from '../services/dbService';
 
-export interface IUser {
+interface IUser {
     name: string,
     email: string,
     password: string,
@@ -22,4 +22,4 @@ const schema = DBService.getSchema<IUser>( {
     }
 } );
 
-export const User = DBService.getModel<IUser>( 'User', schema );
+export default DBService.getModel<IUser>( 'User', schema );

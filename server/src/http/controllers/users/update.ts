@@ -1,15 +1,16 @@
-import { Request, Response, NextFunction } from 'express';
+import { TRequestPut, TResponse, TNextFunction } from './types';
+import UserService from '../../services/userService';
 
-export function updateUser( request: Request, response: Response, next: NextFunction ) {
+export async function updateUser( request: TRequestPut, response: TResponse, next: TNextFunction ) {
     try {
-        const data = request.body;
+        const userService = new UserService();
 
-        if ( ! data.id ) {
-            response.status( 400 ).json( { message: 'ID not set' } );
-        }
+        await userService.updateUser( request.body );
 
-        // find user in db
-        return response.json( data );
+        return response.status( 200 ).send( {
+            status: 200,
+            message: 'User updated.'
+        } );
     }
     catch ( error ) {
         return next();

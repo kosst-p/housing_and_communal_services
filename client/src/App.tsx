@@ -1,10 +1,12 @@
 import React from 'react';
-import Registration from './components/registration';
+import SignUpForm from './components/sign-up-form';
+// import LoginForm from './components/login-form';
 
 export default function App() {
     return (
         <React.StrictMode>
-            <Registration/>
+            <SignUpForm/>
+            {/* <LoginForm/> */}
         </React.StrictMode>
     );
 }

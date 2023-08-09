@@ -1,17 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
+import { TRequestGet, TResponse, TNextFunction } from './types';
+import UserService from '../../services/userService';
 
-import { User } from '../../../models/user';
-import { ValidationError } from '../../../errors';
-
-export async function getUser( request: Request, response: Response, next: NextFunction ) {
+export async function getUser( request: TRequestGet, response: TResponse, next: TNextFunction ) {
     try {
-        const { id } = request.params;
-
-        if ( ! id ) {
-            throw new ValidationError( 'ID do not set' );
-        }
-
-        const user = await User.findById( id );
+        const userService = new UserService();
+        const user = await userService.getUserById( request.params.id );
 
         return response.json( user );
     }
@@ -20,11 +13,12 @@ export async function getUser( request: Request, response: Response, next: NextF
     }
 }
 
-export async function getUsers( _request: Request, response: Response, next: NextFunction ) {
+export async function getUsers( _request: TRequestGet, response: TResponse, next: TNextFunction ) {
     try {
-        const Users = await User.find();
+        const userService = new UserService();
+        const users = await userService.getUsers();
 
-        return response.json( Users );
+        return response.json( users );
     }
     catch ( error ) {
         return next( error );
