@@ -1,4 +1,5 @@
 import mongoose, { Model, Schema, SchemaDefinition } from 'mongoose';
+
 import { IDBConfig } from '../config';
 
 export default class DBService {

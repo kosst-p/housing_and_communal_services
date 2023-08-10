@@ -1,28 +1,22 @@
-import { Request, Response, NextFunction } from 'express';
+import { TRequestGet, TResponse, TNextFunction } from './types';
+import LocationService from '../../services/locations';
 
-import Location from '../../../models/location';
-import { ValidationError } from '../../../errors';
-
-export async function getLocation( request: Request, response: Response, next: NextFunction ) {
+export async function getLocation( request: TRequestGet, response: TResponse, next: TNextFunction ) {
     try {
-        const { id } = request.params;
+        const locationService = new LocationService();
+        const location = await locationService.getLocationById( request.params.id );
 
-        if ( ! id ) {
-            throw new ValidationError( 'ID do not set' );
-        }
-
-        const locations = await Location.findById( id );
-
-        return response.json( locations );
+        return response.json( location );
     }
     catch ( error ) {
         return next( error );
     }
 }
 
-export async function getLocations( _request: Request, response: Response, next: NextFunction ) {
+export async function getLocations( _request: TRequestGet, response: TResponse, next: TNextFunction ) {
     try {
-        const locations = await Location.find();
+        const locationService = new LocationService();
+        const locations = await locationService.getLocations();
 
         return response.json( locations );
     }

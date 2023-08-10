@@ -1,12 +1,16 @@
-import { Request, Response, NextFunction } from 'express';
+import { TRequestPost, TResponse, TNextFunction } from './types';
+import LocationService from '../../services/locations';
 
-import Location from '../../../models/location';
-
-export async function createLocation( request: Request, response: Response, next: NextFunction ) {
+export async function createLocation( request: TRequestPost, response: TResponse, next: TNextFunction ) {
     try {
-        const location = await Location.create( request.body );
+        const locationService = new LocationService();
 
-        return response.json( location );
+        await locationService.createLocation( request.body );
+
+        return response.status( 200 ).send( {
+            status: 200,
+            message: 'Location created.'
+        } );
     }
     catch ( error ) {
         return next( error );

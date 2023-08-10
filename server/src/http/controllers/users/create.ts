@@ -1,5 +1,5 @@
 import { TRequestPost, TResponse, TNextFunction } from './types';
-import UserService from '../../services/userService';
+import UserService from '../../services/user';
 
 export async function createUser( request: TRequestPost, response: TResponse, next: TNextFunction ) {
     try {

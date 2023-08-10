@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 
-import User from '../../models/user';
 import { IUser } from './types';
-import { ValidationError } from '../../errors';
+import User from '../../../models/user';
+import { ValidationError } from '../../../errors';
 
 export default class UserService {
     async createUser( data: IUser ) {

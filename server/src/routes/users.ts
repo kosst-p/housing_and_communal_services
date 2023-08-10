@@ -1,4 +1,5 @@
 import * as express from 'express';
+
 import * as usersController from '../http/controllers/users/index';
 import { validationRequestBody, validationPassword, validationId } from '../http/controllers/users/validation';
 
