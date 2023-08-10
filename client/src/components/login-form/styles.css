@@ -2,5 +2,9 @@
     width: 20rem;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
+    border: .1rem solid black;
+}
+
+.cta {
+    padding: .2rem;
 }

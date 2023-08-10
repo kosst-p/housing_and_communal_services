@@ -28,7 +28,9 @@ export default function LoginForm() {
         <div className={ styles.container }>
             <FormField description='Name' value={ details.name } name='name' type='text' onChange={ handleChange }/>
             <FormField description='Password' value={ details.password } name='password' type='password' onChange={ handleChange }/>
-            <button onClick={ handleClickCta }>
+            <button
+                className={ styles.cta }
+                onClick={ handleClickCta }>
                 Login
             </button>
         </div>

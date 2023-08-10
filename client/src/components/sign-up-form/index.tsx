@@ -40,7 +40,9 @@ export default function SignUpForm(): React.JSX.Element {
             <FormField description='Email' value={ details.email } name='email' type='email' onChange={ handleChange }/>
             <FormField description='Password' value={ details.password } name='password' type='password' onChange={ handleChange }/>
             <FormField description='Confirm Password' value={ details.confirmPassword } name='confirmPassword' type='password' onChange={ handleChange }/>
-            <button onClick={ handleClickCta }>
+            <button
+                className={ styles.cta }
+                onClick={ handleClickCta }>
                 Sign Up
             </button>
         </div>
