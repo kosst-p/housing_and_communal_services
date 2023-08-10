@@ -30,10 +30,18 @@ export function validationPassword( request: TRequestPost, _response: TResponse,
 }
 
 export function validationId( request: TRequestGet, _response: TResponse, next: TNextFunction ): void {
-    const { id } = request.params;
-
-    if ( ! id ) {
+    if ( ! request.params.id ) {
         throw new ValidationError( message );
+    }
+
+    next();
+}
+
+export function validationEmail( request: TRequestPost, _response: TResponse, next: TNextFunction ) {
+    const regx = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+
+    if ( ! regx.test( request.body.email ) ) {
+        throw new ValidationError( 'Fields are filled in incorrectly.' );
     }
 
     next();
