@@ -5,7 +5,7 @@ export async function createUser( request: TRequestPost, response: TResponse, ne
     try {
         const userService = new UserService();
 
-        await userService.createUser( request.body );
+        const user = await userService.createUser( request.body );
 
         return response.status( 200 ).send( {
             status: 200,

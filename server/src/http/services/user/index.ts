@@ -8,7 +8,7 @@ export default class UserService {
     async createUser( data: IUser ) {
 
         const { name, password } = data;
-        const candidate = await this.#getUserByName( name );
+        const candidate = await this.getUserByName( name );
 
         if ( candidate ) {
             throw new ValidationError( 'A user with this name already exists' );
@@ -18,9 +18,11 @@ export default class UserService {
         const user = await new User( { ...data, password: hashPassword } );
 
         await user.save(); // mongo error check?
+
+        return user;
     }
 
-    async #getUserByName( name: string ): Promise<null> {
+    async getUserByName( name: string ) {
         return await User.findOne( { name } ); // mongo error check?
     }
 

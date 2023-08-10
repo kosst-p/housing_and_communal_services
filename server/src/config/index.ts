@@ -4,8 +4,9 @@ import { cleanEnv, num, str } from 'envalid';
 dotenv.config( { path: './.env' } );
 
 interface IConfig {
-    serverPort: number
-    db: IDBConfig
+    serverPort: number,
+    db: IDBConfig,
+    jwt: IJwtconfig
 }
 
 export interface IDBConfig {
@@ -16,6 +17,11 @@ export interface IDBConfig {
     hostName: string
 }
 
+interface IJwtconfig {
+    accessKey: string,
+    refreshKey:string,
+}
+
 const env = cleanEnv( process.env, {
     PORT: num( { default: 5000 } ),
     MONGO_DB_ROOT_USER_NAME: str( { default: '' } ),
@@ -23,6 +29,8 @@ const env = cleanEnv( process.env, {
     MONGO_DB_PORT: num( { default: 27017 } ),
     MONGO_DB_DATABASE_NAME: str( { default: 'test' } ),
     MONGO_DB_HOST_NAME: str( { default: 'localhost' } ),
+    JWT_ACCESS_SECRET: str( { default: 'access' } ),
+    JWT_REFRESH_SECRET: str( { default: 'refresh' } )
 } );
 
 export const config: IConfig = {
@@ -33,5 +41,9 @@ export const config: IConfig = {
         userName: env.MONGO_DB_ROOT_USER_NAME,
         password: env.MONGO_DB_ROOT_PASSWORD,
         hostName: env.MONGO_DB_HOST_NAME
+    },
+    jwt: {
+        accessKey: env.JWT_ACCESS_SECRET,
+        refreshKey: env.JWT_REFRESH_SECRET
     }
 };

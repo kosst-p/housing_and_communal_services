@@ -1,4 +1,4 @@
-import { TRequestPost, TRequestGet, TResponse, TNextFunction } from './types';
+import { TRequestPost, TRequestGet, TResponse, TNextFunction } from '../users/types';
 import { ValidationError } from '../../../errors';
 
 const message = 'Fields are filled in incorrectly.';
