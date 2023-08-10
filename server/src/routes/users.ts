@@ -7,6 +7,5 @@ const router = express.Router();
 router.get( '/users/:id', validationId, usersController.getUser );
 router.get( '/users', usersController.getUsers );
 router.post( '/users', validationRequestBody, validationPassword, usersController.createUser );
-router.put( '/users/update', usersController.updateUser );
 
 export default router;

@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
 
 import User from '../../models/user';
-import { IUserBasic, IUserWithPassword } from './types';
+import { IUser } from './types';
 import { ValidationError } from '../../errors';
 
 export default class UserService {
-    async createUser( data: IUserWithPassword ) {
+    async createUser( data: IUser ) {
 
         const { name, password } = data;
         const candidate = await this.#getUserByName( name );
@@ -30,11 +30,5 @@ export default class UserService {
 
     async getUsers() {
         return await User.find(); // mongo error check?
-    }
-
-    async updateUser( data: IUserBasic ) {
-        const { name, email } = data;
-
-        await User.updateOne( { name }, { $set: { name, email } } ); // mongo error check?
     }
 }

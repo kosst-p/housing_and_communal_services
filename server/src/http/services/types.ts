@@ -1,9 +1,6 @@
-export interface IUserBasic {
+export interface IUser {
     name: string;
     email: string;
-}
-
-export interface IUserWithPassword extends IUserBasic {
     password: string;
     confirmPassword: string;
 }
