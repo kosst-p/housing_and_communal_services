@@ -33,7 +33,7 @@ export function validationEmail( request: IRegistrationRequest, _response: TResp
     const regx = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
 
     if ( ! regx.test( request.body.email ) ) {
-        throw new ValidationError( 'Fields are filled in incorrectly.' );
+        throw new ValidationError( message );
     }
 
     next();

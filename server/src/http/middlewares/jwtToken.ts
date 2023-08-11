@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
 
 import AuthService from '../services/auth';
+import { UnauthorizedError } from '../../errors';
 
 interface IJwtRequest extends Request {
     user?: JwtPayload | string;
@@ -12,19 +13,13 @@ export function validationJwt( request: IJwtRequest, response: Response, next: N
         const authorizationHeader = request.headers.authorization;
 
         if ( ! authorizationHeader ) {
-            return response.status( 401 ).send( {
-                status: 401,
-                message: 'Unauthorized'
-            } );
+            throw new UnauthorizedError();
         }
 
         const accessToken = authorizationHeader.split( ' ' )[ 1 ] ;
 
         if ( ! accessToken ) {
-            return response.status( 401 ).send( {
-                status: 401,
-                message: 'Unauthorized'
-            } );
+            throw new UnauthorizedError();
         }
 
         const authService = new AuthService();
@@ -34,9 +29,6 @@ export function validationJwt( request: IJwtRequest, response: Response, next: N
         next();
     }
     catch ( error ) {
-        return response.status( 401 ).send( {
-            status: 401,
-            message: 'Unauthorized'
-        } );
+        throw new UnauthorizedError();
     }
 }
