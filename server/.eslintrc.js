@@ -20,6 +20,16 @@ module.exports = {
     },
     rules: {
         '@typescript-eslint/no-unused-vars': [ 'warn', { argsIgnorePattern: '^_', ignoreRestSiblings: true } ],
+        '@typescript-eslint/type-annotation-spacing': [ 'error', {
+            before: false,
+            after: true,
+            overrides: {
+                arrow: {
+                    before: true,
+                    after: true
+                }
+            }
+        } ],
         'indent': [ 'error', 4 ],
         'quote-props': [
             'error',
