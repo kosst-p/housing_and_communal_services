@@ -1,15 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 
+import { ILoginRequest, TResponse, TNextFunction } from './types';
 import AuthService from '../../services/auth';
 import UserService from '../../services/user';
 
-export async function login( request: Request, response: Response, next: NextFunction ) {
+export async function login( request: ILoginRequest, response: TResponse, next: TNextFunction ) {
     try {
         const authService = new AuthService();
         const userService = new UserService();
-
-        const user = await userService.getUserByName( request.body.name ); // type
+        const user = await userService.getUserByName( request.body.name );
 
         if ( ! user ) {
             return response.status( 400 ).send( {

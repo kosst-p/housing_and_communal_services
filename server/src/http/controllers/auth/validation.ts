@@ -1,9 +1,9 @@
-import { TRequestPost, TRequestGet, TResponse, TNextFunction } from '../users/types';
+import { ILoginRequest, IRegistrationRequest, TResponse, TNextFunction } from './types';
 import { ValidationError } from '../../../errors';
 
 const message = 'Fields are filled in incorrectly.';
 
-export function validationRequestBody( request: TRequestPost, _response: TResponse, next: TNextFunction ): void {
+export function validationRequestBody( request: ILoginRequest | IRegistrationRequest, _response: TResponse, next: TNextFunction ): void {
     const { body } = request;
 
     if ( Object.keys( body ).length === 0 ) {
@@ -19,7 +19,7 @@ export function validationRequestBody( request: TRequestPost, _response: TRespon
     next();
 }
 
-export function validationPassword( request: TRequestPost, _response: TResponse, next: TNextFunction ): void {
+export function validationPasswordDuringRegistration( request: IRegistrationRequest, _response: TResponse, next: TNextFunction ): void {
     const { body } = request;
 
     if ( body.password !== body.confirmPassword ) {
@@ -29,15 +29,7 @@ export function validationPassword( request: TRequestPost, _response: TResponse,
     next();
 }
 
-export function validationId( request: TRequestGet, _response: TResponse, next: TNextFunction ): void {
-    if ( ! request.params.id ) {
-        throw new ValidationError( message );
-    }
-
-    next();
-}
-
-export function validationEmail( request: TRequestPost, _response: TResponse, next: TNextFunction ) {
+export function validationEmail( request: IRegistrationRequest, _response: TResponse, next: TNextFunction ) {
     const regx = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
 
     if ( ! regx.test( request.body.email ) ) {

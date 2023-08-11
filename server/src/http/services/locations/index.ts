@@ -1,6 +1,5 @@
 import { ILocation } from './types';
 import Location from '../../../models/location';
-import { ValidationError } from '../../../errors';
 
 export default class LocationService {
     async getLocationById( id: string ) {
