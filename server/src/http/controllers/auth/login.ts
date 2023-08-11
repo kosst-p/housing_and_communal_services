@@ -23,7 +23,7 @@ export async function login( request: ILoginRequest, response: TResponse, next: 
         if ( ! validPassword ) {
             return response.status( 400 ).send( {
                 status: 400,
-                message: 'Password iss not valid',
+                message: 'Password is not valid',
 
             } );
         }

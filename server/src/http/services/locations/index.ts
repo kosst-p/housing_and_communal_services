@@ -11,7 +11,7 @@ export default class LocationService {
     }
 
     async createLocation( data: ILocation ) {
-        const location = await new Location( { data } );
+        const location = await new Location( { ...data } );
 
         await location.save(); // mongo error check?
     }

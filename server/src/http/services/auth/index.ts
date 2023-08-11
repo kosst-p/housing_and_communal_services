@@ -1,4 +1,4 @@
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 import { IAuth } from './types';
 import { config } from '../../../config';
@@ -18,4 +18,9 @@ export default class AuthService {
             refreshToken: this.generateRefreshToken( payload )
         };
     }
+
+    validationAccessToken( token: string ) {
+        return jwt.verify( token, config.jwt.accessKey );
+    }
 }
+
