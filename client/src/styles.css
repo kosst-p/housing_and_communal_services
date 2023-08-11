@@ -87,3 +87,7 @@ label {
 legend {
     display: block;
 } */
+
+button, input[type="submit"] {
+    cursor: pointer;
+}

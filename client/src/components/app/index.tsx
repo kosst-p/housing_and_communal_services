@@ -1,13 +1,13 @@
-import React from 'react';
-import SignUpForm from '../sign-up-form';
-// import LoginForm from '../login-form';
+import React, { useState } from 'react';
 
+import AuthForm from '../auth-form';
 
 export default function App() {
+    const [ isUserRegistered, setIsUserRegistered ] = useState( false );
+
     return (
         <React.StrictMode>
-            <SignUpForm/>
-            {/* <LoginForm/> */}
+            <AuthForm isUserRegistered={ isUserRegistered } />
         </React.StrictMode>
     );
 }

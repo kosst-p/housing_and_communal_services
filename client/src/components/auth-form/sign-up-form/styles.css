@@ -3,8 +3,9 @@
     display: flex;
     flex-direction: column;
     border: .1rem solid black;
+    padding: .5rem;
 }
 
-.cta {
-    padding: .2rem;
+.signUpCta {
+    padding: .2rem 0;
 }

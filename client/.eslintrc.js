@@ -129,6 +129,40 @@ module.exports = {
             'error',
             'stroustrup',
         ],
+        // React
+        'react/prop-types': 'off',
+        'react/jsx-curly-spacing': [
+            'error',
+            {
+                when: 'always',
+                children: true,
+            },
+        ],
+        'react/jsx-max-props-per-line': [
+            'error',
+            {
+                maximum: 1,
+            },
+        ],
+        'react/jsx-first-prop-new-line': [
+            'error',
+            'multiline',
+        ],
+        'react/forbid-dom-props': [ 'error' ],
+        'react/forbid-elements': [ 'error' ],
+        'react/function-component-definition': [
+            'error',
+            {
+                namedComponents: 'function-declaration',
+            },
+        ],
+        'react/no-array-index-key': [ 'error' ],
+        'react/no-invalid-html-attribute': [ 'error' ],
+        'react/self-closing-comp': [ 'error' ],
+        'react/jsx-closing-bracket-location': [ 'error' ],
+        'react/jsx-no-useless-fragment': [ 'error' ],
+        'react/jsx-pascal-case': [ 'error' ],
+        'react/jsx-tag-spacing': [ 'error' ],
     },
     ignorePatterns: [ 'node_modules/', 'dist/' ]
 };
