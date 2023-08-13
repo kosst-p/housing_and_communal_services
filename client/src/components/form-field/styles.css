@@ -5,3 +5,7 @@
     width: 100%;
     cursor: pointer;
 }
+
+.control {
+    margin-left: 2rem;
+}

@@ -25,6 +25,7 @@ export default function FormField( {
                 type={ type }
                 name={ name }
                 onChange={ onChange }
+                className={ styles.control }
             />
         </label>
     );
