@@ -1,8 +1,12 @@
+/* stylelint-disable selector-no-qualifying-type */
+
 /* Reset and base styles  */
+
 * {
-    padding: 0px;
-    margin: 0px;
-	/* border: none; */
+    margin: 0;
+    padding: 0;
+
+    /* border: none; */
 }
 
 *,
@@ -88,6 +92,7 @@ legend {
     display: block;
 } */
 
-button, input[type="submit"] {
+button,
+input[type="submit"] {
     cursor: pointer;
 }
