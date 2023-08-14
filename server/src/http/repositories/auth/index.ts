@@ -20,8 +20,6 @@ export default class AuthRepository {
     }
 
     validationAccessToken( token: string ) {
-        console.log( config.jwt.accessKey );
-
         return jwt.verify( token, config.jwt.accessKey );
     }
 }

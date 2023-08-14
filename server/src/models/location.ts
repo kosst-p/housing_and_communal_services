@@ -1,19 +1,26 @@
 import DBService from '../services/dbService';
 import { ObjectId } from '../services/types';
 
-// ilocationcreate, use in reposetories
-
 interface ILocation {
-    user: typeof ObjectId,
+    userId: typeof ObjectId,
     country: string,
     region: string,
     city: string,
     address: string,
-    house_number: string
+    houseNumber: string
+}
+
+export interface ILocationCreate {
+    userId: string,
+    country: string,
+    region: string,
+    city: string,
+    address: string,
+    houseNumber: string
 }
 
 const schema = DBService.getSchema<ILocation>( {
-    user: {
+    userId: {
         type: ObjectId,
         ref: 'User',
         required: true,
@@ -34,7 +41,7 @@ const schema = DBService.getSchema<ILocation>( {
         type: String,
         required: true,
     },
-    house_number: {
+    houseNumber: {
         type: String,
         required: true,
     },

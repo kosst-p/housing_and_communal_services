@@ -1,5 +1,4 @@
-import { ILocation } from '../../types/locations';
-import Location from '../../../models/location';
+import Location, { ILocationCreate } from '../../../models/location';
 
 export default class LocationRepository {
     async getLocationById( id: string ) {
@@ -10,7 +9,7 @@ export default class LocationRepository {
         return await Location.find(); // mongo error check?
     }
 
-    async createLocation( data: ILocation ) {
+    async createLocation( data: ILocationCreate ) {
         const location = await new Location( { ...data } );
 
         await location.save(); // mongo error check?

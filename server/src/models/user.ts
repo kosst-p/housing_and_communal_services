@@ -6,6 +6,12 @@ interface IUser {
     password: string,
 }
 
+export interface IUserCreate {
+    name: string,
+    email: string,
+    password: string,
+}
+
 const schema = DBService.getSchema<IUser>( {
     name: {
         type: String,

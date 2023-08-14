@@ -30,8 +30,6 @@ export function validationJwt( request: IJwtRequest, response: Response, next: N
         next();
     }
     catch ( error ) {
-        console.log( error );
-
         throw new UnauthorizedError();
     }
 }

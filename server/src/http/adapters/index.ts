@@ -1,8 +1,9 @@
-import { ILocation, ILocationDto } from '../types/locations';
-import { IUser, IUserDto } from '../types/users';
+import { IUserCreate } from '../../models/user';
+import { ILocationCreate } from '../../models/location';
+import { IUserFromBody, ILocationFromBody } from './types';
 
 export default class DataAdapters {
-    static getUserDataFromBody( body: IUserDto ): IUser {
+    static getUserDataFromBody( body: IUserFromBody ): IUserCreate {
         const { name, email, password } = body;
 
         return {
@@ -12,16 +13,16 @@ export default class DataAdapters {
         };
     }
 
-    static getLocationDataFromBody( body: ILocationDto ): ILocation {
-        const { country, region, city, address, house_number } = body;
+    static getLocationDataFromBody( body: ILocationFromBody ): ILocationCreate {
+        const { userId, country, region, city, address, houseNumber } = body;
 
         return {
-            // id ?
+            userId,
             country,
             region,
             city,
             address,
-            house_number,
+            houseNumber,
         };
     }
 }

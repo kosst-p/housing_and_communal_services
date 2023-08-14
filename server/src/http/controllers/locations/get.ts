@@ -13,7 +13,7 @@ export async function getLocation( request: TRequestGet, response: Response, nex
     }
 }
 
-export async function getLocations( request: Request, response: Response, next: NextFunction ) {
+export async function getLocations( _request: Request, response: Response, next: NextFunction ) {
     try {
         const locationRepository = new LocationRepository();
         const locations = await locationRepository.getLocations();

@@ -1,11 +1,10 @@
 import bcrypt from 'bcrypt';
 
-import { IUser } from '../../types/users';
-import User from '../../../models/user';
+import User, { IUserCreate } from '../../../models/user';
 import { ValidationError } from '../../../errors';
 
 export default class UserRepository {
-    async createUser( data: IUser ) {
+    async createUser( data: IUserCreate ) {
 
         const { name, password } = data;
         const candidate = await this.getUserByName( name );

@@ -12,7 +12,7 @@ interface IRegistrationData {
     confirmPassword: string
 }
 
-export type TLoginRequest = Request<never, never, ILoginData>;
+export type TLoginRequest = Request<never, never, ILoginData>; //  check
 
 export type TRegistrationRequest = Request<never, never, IRegistrationData>;
 
