@@ -1,11 +1,10 @@
 class CustomError extends Error {
     statusCode;
-    message;
+    message: string = 'Something went wrong';
 
     constructor( message?: string ) {
         super( message );
         this.statusCode = 500;
-        this.message = 'Something went wrong';
     }
 }
 

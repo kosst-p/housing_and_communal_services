@@ -1,6 +1,6 @@
 import { globalErrorHandle } from './errorHandle';
 import { jsonParse } from './json';
-import { validationJwt } from './jwtToken';
+import { validationJwt } from './auth';
 
 export default {
     globalErrorHandle,

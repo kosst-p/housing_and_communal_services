@@ -1,7 +1,7 @@
 import * as express from 'express';
 
 import * as locationsController from '../http/controllers/locations/index';
-import { validationJwt } from '../http/middlewares/jwtToken';
+import { validationJwt } from '../http/middlewares/auth';
 
 const router = express.Router();
 

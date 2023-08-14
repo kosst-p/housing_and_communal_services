@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
 
-import AuthService from '../services/auth';
+import AuthRepository from '../repositories/auth';
 import { UnauthorizedError } from '../../errors';
 
 interface IJwtRequest extends Request {
@@ -22,13 +22,16 @@ export function validationJwt( request: IJwtRequest, response: Response, next: N
             throw new UnauthorizedError();
         }
 
-        const authService = new AuthService();
-        const result = authService.validationAccessToken( accessToken );
+        const authRepository = new AuthRepository();
+        // TODO:
+        const result = authRepository.validationAccessToken( accessToken );
 
         request.user = result;
         next();
     }
     catch ( error ) {
+        console.log( error );
+
         throw new UnauthorizedError();
     }
 }

@@ -1,6 +1,5 @@
 import mongoose, { Model, Schema, SchemaDefinition } from 'mongoose';
-
-import { IDBConfig } from '../config';
+import { IDBConfig } from './types';
 
 export default class DBService {
     #userName;
@@ -25,9 +24,5 @@ export default class DBService {
 
     static getModel<T>( name: string, schema: Schema ): Model<T> {
         return mongoose.model<T>( name, schema );
-    }
-
-    static getTypes() {
-        return Schema.Types;
     }
 }

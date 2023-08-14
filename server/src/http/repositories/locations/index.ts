@@ -1,7 +1,7 @@
-import { ILocation } from './types';
+import { ILocation } from '../../types/locations';
 import Location from '../../../models/location';
 
-export default class LocationService {
+export default class LocationRepository {
     async getLocationById( id: string ) {
         return await Location.findById( id ); // mongo error check?
     }

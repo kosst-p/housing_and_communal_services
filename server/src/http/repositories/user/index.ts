@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 
-import { IUser } from './types';
+import { IUser } from '../../types/users';
 import User from '../../../models/user';
 import { ValidationError } from '../../../errors';
 
-export default class UserService {
+export default class UserRepository {
     async createUser( data: IUser ) {
 
         const { name, password } = data;

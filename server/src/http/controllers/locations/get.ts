@@ -1,10 +1,10 @@
-import { TRequestGet, TResponse, TNextFunction } from './types';
-import LocationService from '../../services/locations';
+import { TRequestGet, Request, Response, NextFunction } from '../../types/locations';
+import LocationRepository from '../../repositories/locations';
 
-export async function getLocation( request: TRequestGet, response: TResponse, next: TNextFunction ) {
+export async function getLocation( request: TRequestGet, response: Response, next: NextFunction ) {
     try {
-        const locationService = new LocationService();
-        const location = await locationService.getLocationById( request.params.id );
+        const locationRepository = new LocationRepository();
+        const location = await locationRepository.getLocationById( request.params.id );
 
         return response.json( location );
     }
@@ -13,10 +13,12 @@ export async function getLocation( request: TRequestGet, response: TResponse, ne
     }
 }
 
-export async function getLocations( _request: TRequestGet, response: TResponse, next: TNextFunction ) {
+export async function getLocations( request: Request, response: Response, next: NextFunction ) {
     try {
-        const locationService = new LocationService();
-        const locations = await locationService.getLocations();
+        const locationRepository = new LocationRepository();
+        const locations = await locationRepository.getLocations();
+
+        // adapter
 
         return response.json( locations );
     }

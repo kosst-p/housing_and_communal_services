@@ -1,14 +1,14 @@
 import bcrypt from 'bcrypt';
 
-import { ILoginRequest, TResponse, TNextFunction } from './types';
-import AuthService from '../../services/auth';
-import UserService from '../../services/user';
+import { TLoginRequest, Response, NextFunction } from '../../types/auth';
+import AuthRepository from '../../repositories/auth';
+import UserRepository from '../../repositories/user';
 
-export async function login( request: ILoginRequest, response: TResponse, next: TNextFunction ) {
+export async function login( request: TLoginRequest, response: Response, next: NextFunction ) {
     try {
-        const authService = new AuthService();
-        const userService = new UserService();
-        const user = await userService.getUserByName( request.body.name );
+        const authRepository = new AuthRepository();
+        const userRepository = new UserRepository();
+        const user = await userRepository.getUserByName( request.body.name );
 
         if ( ! user ) {
             return response.status( 400 ).send( {
@@ -28,7 +28,7 @@ export async function login( request: ILoginRequest, response: TResponse, next: 
             } );
         }
 
-        const token = await authService.generateAccessToken( { id: user.id, name: user.name } );
+        const token = authRepository.generateAccessToken( { id: user.id, name: user.name } );
 
         return response.status( 200 ).send( {
             status: 200,

@@ -1,13 +1,15 @@
-import { IRegistrationRequest, TResponse, TNextFunction } from './types';
-import AuthService from '../../services/auth';
-import UserService from '../../services/user';
+import { TRegistrationRequest, Response, NextFunction } from '../../types/auth';
+import AuthRepository from '../../repositories/auth';
+import UserRepository from '../../repositories/user';
+import DataAdapters from '../../adapters';
 
-export async function registration( request: IRegistrationRequest, response: TResponse, next: TNextFunction ) {
+export async function registration( request: TRegistrationRequest, response: Response, next: NextFunction ) {
     try {
-        const authService = new AuthService();
-        const userService = new UserService();
-        const user = await userService.createUser( request.body );
-        const token = await authService.generateAccessToken( { id: user.id, name: user.name, email: user.email } );
+        const authRepository = new AuthRepository();
+        const userRepository = new UserRepository();
+        const adaptUserData = DataAdapters.getUserDataFromBody( request.body );
+        const user = await userRepository.createUser( adaptUserData );
+        const token = await authRepository.generateAccessToken( { id: user.id, name: user.name, email: user.email } );
 
         return response.status( 200 ).send( {
             status: 200,

@@ -1,10 +1,10 @@
-import { TRequestGet, TResponse, TNextFunction } from './types';
-import UserService from '../../services/user';
+import { TRequestGet, Request, Response, NextFunction, } from '../../types/users';
+import UserRepository from '../../repositories/user';
 
-export async function getUser( request: TRequestGet, response: TResponse, next: TNextFunction ) {
+export async function getUser( request: TRequestGet, response: Response, next: NextFunction ) {
     try {
-        const userService = new UserService();
-        const user = await userService.getUserById( request.params.id );
+        const userRepository = new UserRepository();
+        const user = await userRepository.getUserById( request.params.id );
 
         return response.json( user );
     }
@@ -13,10 +13,10 @@ export async function getUser( request: TRequestGet, response: TResponse, next: 
     }
 }
 
-export async function getUsers( _request: TRequestGet, response: TResponse, next: TNextFunction ) {
+export async function getUsers( _request: Request, response: Response, next: NextFunction ) {
     try {
-        const userService = new UserService();
-        const users = await userService.getUsers();
+        const userRepository = new UserRepository();
+        const users = await userRepository.getUsers();
 
         return response.json( users );
     }

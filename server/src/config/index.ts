@@ -19,7 +19,7 @@ export interface IDBConfig {
 
 interface IJwtconfig {
     accessKey: string,
-    refreshKey:string,
+    refreshKey: string,
 }
 
 const env = cleanEnv( process.env, {
