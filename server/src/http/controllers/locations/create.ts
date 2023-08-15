@@ -1,17 +1,17 @@
 import { TRequestPost, Response, NextFunction } from '../../types/locations';
 import LocationRepository from '../../repositories/locations';
-import DataAdapters from '../../adapters';
+import LocationsDataAdapters from '../../adapters/locations';
 
 export async function createLocation( request: TRequestPost, response: Response, next: NextFunction ) {
     try {
         const locationRepository = new LocationRepository();
-        const adaptLocationData = DataAdapters.getLocationDataFromBody( request.body );
-
-        await locationRepository.createLocation( adaptLocationData );
+        const adaptLocationData = LocationsDataAdapters.getLocationDataFromBody( request.body );
+        const location = await locationRepository.createLocation( adaptLocationData ); // adapt?
 
         return response.status( 200 ).send( {
             status: 200,
-            message: 'Location created.'
+            message: 'Location created.',
+            result: location
         } );
     }
     catch ( error ) {

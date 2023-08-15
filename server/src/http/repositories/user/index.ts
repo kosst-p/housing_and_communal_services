@@ -14,11 +14,8 @@ export default class UserRepository {
         }
 
         const hashPassword = bcrypt.hashSync( password, 7 );
-        const user = await new User( { ...data, password: hashPassword } );
 
-        await user.save(); // mongo error check?
-
-        return user;
+        return await User.create( { ...data, password: hashPassword } ); // mongo error check?
     }
 
     async getUserByName( name: string ) {

@@ -10,15 +10,12 @@ export default class LocationRepository {
     }
 
     async createLocation( data: ILocationCreate ) {
-        const location = new Location( { ...data } );
-
-        await location.save(); // mongo error check?
+        return await Location.create( data ); // mongo error check?
     }
 
     async updateLocation( id: string, data: ILocationUpdate ) {
-        return Location.findByIdAndUpdate( id, {}, {
+        return Location.findByIdAndUpdate( id, data, {
             new: true
         } );
-        // await Location.updateOne( { _id: id }, { $set: data } );
     }
 }
