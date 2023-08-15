@@ -1,7 +1,7 @@
-import { TRequestGet, Request, Response, NextFunction } from '../../types/locations';
+import { Request, Response, NextFunction } from '../../types/locations';
 import LocationRepository from '../../repositories/locations';
 
-export async function getLocation( request: TRequestGet, response: Response, next: NextFunction ) {
+export async function getLocation( request: Request, response: Response, next: NextFunction ) {
     try {
         const locationRepository = new LocationRepository();
         const location = await locationRepository.getLocationById( request.params.id );

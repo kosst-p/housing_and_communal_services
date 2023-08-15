@@ -1,14 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { JwtPayload } from 'jsonwebtoken';
 
 import AuthRepository from '../repositories/auth';
 import { UnauthorizedError } from '../../errors';
 
-interface IJwtRequest extends Request {
-    user?: JwtPayload | string;
-}
-
-export function validationJwt( request: IJwtRequest, _response: Response, next: NextFunction ) {
+export function validationJwt( request: Request, _response: Response, next: NextFunction ) {
     try {
         const authorizationHeader = request.headers.authorization;
 
@@ -23,13 +18,14 @@ export function validationJwt( request: IJwtRequest, _response: Response, next: 
         }
 
         const authRepository = new AuthRepository();
-        // TODO:
         const result = authRepository.validationAccessToken( accessToken );
 
         request.user = result;
         next();
     }
     catch ( error ) {
+        console.log( error );
+
         throw new UnauthorizedError();
     }
 }

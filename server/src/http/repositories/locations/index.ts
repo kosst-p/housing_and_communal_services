@@ -1,4 +1,4 @@
-import Location, { ILocationCreate } from '../../../models/location';
+import Location, { ILocationCreate, ILocationUpdate } from '../../../models/location';
 
 export default class LocationRepository {
     async getLocationById( id: string ) {
@@ -10,8 +10,15 @@ export default class LocationRepository {
     }
 
     async createLocation( data: ILocationCreate ) {
-        const location = await new Location( { ...data } );
+        const location = new Location( { ...data } );
 
         await location.save(); // mongo error check?
+    }
+
+    async updateLocation( id: string, data: ILocationUpdate ) {
+        return Location.findByIdAndUpdate( id, {}, {
+            new: true
+        } );
+        // await Location.updateOne( { _id: id }, { $set: data } );
     }
 }

@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 
-import { IAuth } from './types';
+import { IAuth, IValidationAccessResult } from './types';
 import { config } from '../../../config';
 
 export default class AuthRepository {
     generateAccessToken( payload: IAuth ) {
-        return jwt.sign( payload, config.jwt.accessKey, { expiresIn: '15m' } );
+        return jwt.sign( payload, config.jwt.accessKey, { expiresIn: '60m' } );
     }
 
     generateRefreshToken( payload: IAuth ) {
@@ -20,7 +20,11 @@ export default class AuthRepository {
     }
 
     validationAccessToken( token: string ) {
-        return jwt.verify( token, config.jwt.accessKey );
+        const result = jwt.verify( token, config.jwt.accessKey ) as IValidationAccessResult;
+
+        return {
+            id: result.id,
+            name: result.name,
+        };
     }
 }
-

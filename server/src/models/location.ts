@@ -19,6 +19,14 @@ export interface ILocationCreate {
     houseNumber: string
 }
 
+export interface ILocationUpdate {
+    country?: string,
+    region?: string,
+    city?: string,
+    address?: string,
+    houseNumber?: string
+}
+
 const schema = DBService.getSchema<ILocation>( {
     userId: {
         type: ObjectId,

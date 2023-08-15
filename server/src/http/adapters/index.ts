@@ -1,6 +1,6 @@
 import { IUserCreate } from '../../models/user';
-import { ILocationCreate } from '../../models/location';
-import { IUserFromBody, ILocationFromBody } from './types';
+import { ILocationCreate, ILocationUpdate } from '../../models/location';
+import { IUserFromBody, ILocationFromBody, ILocationPartialFromBody } from './types';
 
 export default class DataAdapters {
     static getUserDataFromBody( body: IUserFromBody ): IUserCreate {
@@ -24,5 +24,17 @@ export default class DataAdapters {
             address,
             houseNumber,
         };
+    }
+
+    static getLocationDataPartialFromBody( body: ILocationPartialFromBody ): ILocationUpdate {
+        const partial: ILocationUpdate = {};
+
+        for ( const property in body ) {
+            if ( Object.prototype.hasOwnProperty.call( body, property ) ) {
+                partial[ property as keyof typeof partial ] = body[ property as keyof typeof body ] ;
+            }
+        }
+
+        return partial;
     }
 }

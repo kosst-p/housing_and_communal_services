@@ -1,7 +1,7 @@
-import { TRequestGet, Request, Response, NextFunction, } from '../../types/users';
+import { Request, Response, NextFunction, } from '../../types/users';
 import UserRepository from '../../repositories/user';
 
-export async function getUser( request: TRequestGet, response: Response, next: NextFunction ) {
+export async function getUser( request: Request, response: Response, next: NextFunction ) {
     try {
         const userRepository = new UserRepository();
         const user = await userRepository.getUserById( request.params.id );
