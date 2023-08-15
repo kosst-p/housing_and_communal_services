@@ -3,7 +3,7 @@ import FormField from '../../form-field';
 
 import styles from './styles.css';
 
-export default function LoginForm() {
+export default function LoginForm(): React.JSX.Element {
     const [ details, setDetails ] = useState( {
         name: '',
         password: '',
@@ -18,7 +18,7 @@ export default function LoginForm() {
         } ) );
     }
 
-    async function handleClickCta( event: React.MouseEvent<HTMLButtonElement> ) {
+    async function handleLoginClickCta( event: React.MouseEvent<HTMLButtonElement> ): Promise<void> {
         event.preventDefault();
 
         const response = await fetch( 'http://localhost:3000/api/login', {
@@ -58,7 +58,7 @@ export default function LoginForm() {
             </a>
             <button
                 className={ styles.loginCta }
-                onClick={ handleClickCta }
+                onClick={ handleLoginClickCta }
             >
                 Login
             </button>

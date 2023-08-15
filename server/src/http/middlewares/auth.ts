@@ -8,7 +8,7 @@ interface IJwtRequest extends Request {
     user?: JwtPayload | string;
 }
 
-export function validationJwt( request: IJwtRequest, response: Response, next: NextFunction ) {
+export function validationJwt( request: IJwtRequest, _response: Response, next: NextFunction ) {
     try {
         const authorizationHeader = request.headers.authorization;
 
