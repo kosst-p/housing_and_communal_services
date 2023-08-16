@@ -1,5 +1,5 @@
 import DBService from '../services/dbService';
-import { ObjectId } from '../services/types';
+import { ObjectId, Document } from '../services/types';
 
 interface ILocation {
     userId: typeof ObjectId,
@@ -26,6 +26,8 @@ export interface ILocationUpdate {
     address?: string,
     houseNumber?: string
 }
+
+export type TLocation = Document & ILocation;
 
 const schema = DBService.getSchema<ILocation>( {
     userId: {

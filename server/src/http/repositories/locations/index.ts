@@ -14,7 +14,7 @@ export default class LocationRepository {
     }
 
     async updateLocation( id: string, data: ILocationUpdate ) {
-        return Location.findByIdAndUpdate( id, data, {
+        return await Location.findByIdAndUpdate( id, data, {
             new: true
         } );
     }

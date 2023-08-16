@@ -5,14 +5,11 @@ import LocationsDataAdapters from '../../adapters/locations';
 export async function createLocation( request: TRequestPost, response: Response, next: NextFunction ) {
     try {
         const locationRepository = new LocationRepository();
-        const adaptLocationData = LocationsDataAdapters.getLocationDataFromBody( request.body );
-        const location = await locationRepository.createLocation( adaptLocationData ); // adapt?
+        const adaptedLocationFromBody = LocationsDataAdapters.getLocationFromBody( request.body );
+        const createdLocation = await locationRepository.createLocation( adaptedLocationFromBody );
+        const adaptedCreatedLocation = LocationsDataAdapters.getLocationFull( createdLocation );
 
-        return response.status( 200 ).send( {
-            status: 200,
-            message: 'Location created.',
-            result: location
-        } );
+        return response.status( 200 ).send( adaptedCreatedLocation );
     }
     catch ( error ) {
         return next( error );

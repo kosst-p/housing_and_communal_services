@@ -17,20 +17,17 @@ export async function updateLocation( request: IRequestPath, response: Response,
         }
 
         if ( location.userId.toString() !== userId ) {
-            return response.status( 404 ).send( {
-                status: 404,
-                message: 'Location is not exist',
+            return response.status( 403 ).send( {
+                status: 403,
+                message: 'You do not have permission to access this resource.',
             } );
         }
 
-        const adaptLocationData = LocationsDataAdapters.getLocationDataPartialFromBody( request.body );
-        const updatedLocation = await locationRepository.updateLocation( locationId, adaptLocationData );
+        const adaptedLocationFromBody = LocationsDataAdapters.getLocationPartialFromBody( request.body );
+        const updatedLocation = await locationRepository.updateLocation( locationId, adaptedLocationFromBody );
+        const adaptedUpdatedLocation = LocationsDataAdapters.getLocationFull( updatedLocation! );
 
-        return response.status( 200 ).send( {
-            status: 200,
-            message: 'Location updated.',
-            result: updatedLocation
-        } );
+        return response.status( 200 ).send( adaptedUpdatedLocation );
 
     }
     catch ( error ) {
