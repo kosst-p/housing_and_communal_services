@@ -5,6 +5,7 @@ dotenv.config( { path: './.env' } );
 
 interface IConfig {
     serverPort: number,
+    clientUrl: string,
     db: IDBConfig,
     jwt: IJwtconfig
 }
@@ -24,17 +25,19 @@ interface IJwtconfig {
 
 const env = cleanEnv( process.env, {
     PORT: num( { default: 5000 } ),
+    CLIENT_URL: str( { default: 'http://localhost:8080' } ),
     MONGO_DB_ROOT_USER_NAME: str( { default: '' } ),
     MONGO_DB_ROOT_PASSWORD: str( { default: '' } ),
     MONGO_DB_PORT: num( { default: 27017 } ),
     MONGO_DB_DATABASE_NAME: str( { default: 'test' } ),
     MONGO_DB_HOST_NAME: str( { default: 'localhost' } ),
-    JWT_ACCESS_SECRET: str( { default: 'access' } ),
-    JWT_REFRESH_SECRET: str( { default: 'refresh' } )
+    JWT_ACCESS_SECRET: str( { default: '' } ),
+    JWT_REFRESH_SECRET: str( { default: '' } )
 } );
 
 export const config: IConfig = {
     serverPort: env.PORT,
+    clientUrl: env.CLIENT_URL,
     db: {
         port: env.MONGO_DB_PORT,
         dbName: env.MONGO_DB_DATABASE_NAME,

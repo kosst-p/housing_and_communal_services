@@ -7,7 +7,7 @@ import DBService from './services/dbService';
 
 const app = express();
 
-app.use( middlewares.cors() );
+app.use( middlewares.withCors );
 app.use( middlewares.jsonParse );
 app.use( router );
 app.use( middlewares.globalErrorHandle );

@@ -41,7 +41,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx$/,
+                test: /\.(ts)x?$/,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -81,6 +81,7 @@ module.exports = {
     resolve: {
         extensions: [
             '.tsx',
+            '.ts',
             '.js',
             '.css',
             '.json'
