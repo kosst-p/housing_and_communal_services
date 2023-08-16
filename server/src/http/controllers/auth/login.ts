@@ -1,13 +1,10 @@
 import bcrypt from 'bcrypt';
 
 import { TLoginRequest, Response, NextFunction } from '../../types/auth';
-import AuthRepository from '../../repositories/auth';
-import UserRepository from '../../repositories/user';
+import { authRepository, userRepository } from '../../../repositories/index';
 
 export async function login( request: TLoginRequest, response: Response, next: NextFunction ) {
     try {
-        const authRepository = new AuthRepository();
-        const userRepository = new UserRepository();
         const user = await userRepository.getUserByName( request.body.name );
 
         if ( ! user ) {
@@ -29,6 +26,8 @@ export async function login( request: TLoginRequest, response: Response, next: N
         }
 
         const token = authRepository.generateAccessToken( { id: user.id, name: user.name } );
+
+        response.cookie( 'accessToken', token, { httpOnly: true } );
 
         return response.status( 200 ).send( {
             status: 200,

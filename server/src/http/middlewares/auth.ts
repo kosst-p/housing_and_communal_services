@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import AuthRepository from '../repositories/auth';
+import { authRepository } from '../../repositories/index';
 import { UnauthorizedError } from '../../errors';
 
 export function validationJwt( request: Request, _response: Response, next: NextFunction ) {
@@ -17,15 +17,12 @@ export function validationJwt( request: Request, _response: Response, next: Next
             throw new UnauthorizedError();
         }
 
-        const authRepository = new AuthRepository();
         const result = authRepository.validationAccessToken( accessToken );
 
         request.user = result;
         next();
     }
     catch ( error ) {
-        console.log( error );
-
         throw new UnauthorizedError();
     }
 }

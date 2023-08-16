@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import { IAuth, IValidationAccessResult } from './types';
-import { config } from '../../../config';
+import { config } from '../../config';
 
 export default class AuthRepository {
     generateAccessToken( payload: IAuth ) {

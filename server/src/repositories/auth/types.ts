@@ -7,6 +7,6 @@ export interface IAuth {
 }
 
 export interface IValidationAccessResult extends JwtPayload {
-    id?: string,
-    name?: string
+    id: string,
+    name: string
 }

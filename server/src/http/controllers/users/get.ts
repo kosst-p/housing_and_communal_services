@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction, } from '../../types/users';
-import UserRepository from '../../repositories/user';
+import { userRepository } from '../../../repositories/index';
 
 export async function getUser( request: Request, response: Response, next: NextFunction ) {
     try {
-        const userRepository = new UserRepository();
         const user = await userRepository.getUserById( request.params.id );
 
         return response.json( user );
@@ -15,7 +14,6 @@ export async function getUser( request: Request, response: Response, next: NextF
 
 export async function getUsers( _request: Request, response: Response, next: NextFunction ) {
     try {
-        const userRepository = new UserRepository();
         const users = await userRepository.getUsers();
 
         return response.json( users );

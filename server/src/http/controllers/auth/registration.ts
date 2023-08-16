@@ -1,15 +1,14 @@
 import { TRegistrationRequest, Response, NextFunction } from '../../types/auth';
-import AuthRepository from '../../repositories/auth';
-import UserRepository from '../../repositories/user';
+import { authRepository, userRepository } from '../../../repositories/index';
 import UserDataAdapters from '../../adapters/users';
 
 export async function registration( request: TRegistrationRequest, response: Response, next: NextFunction ) {
     try {
-        const authRepository = new AuthRepository();
-        const userRepository = new UserRepository();
         const adaptUserData = UserDataAdapters.getUserDataFromBody( request.body );
         const user = await userRepository.createUser( adaptUserData );
         const token = authRepository.generateAccessToken( { id: user.id, name: user.name, email: user.email } );
+
+        response.cookie( 'accessToken', token, { httpOnly: true } );
 
         return response.status( 200 ).send( {
             status: 200,

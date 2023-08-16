@@ -12,6 +12,12 @@ export interface IUserCreate {
     password: string,
 }
 
+export interface IUserAuth {
+    id: string,
+    name: string,
+}
+
+
 const schema = DBService.getSchema<IUser>( {
     name: {
         type: String,

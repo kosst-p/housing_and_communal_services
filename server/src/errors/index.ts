@@ -24,8 +24,26 @@ class UnauthorizedError extends CustomError {
     }
 }
 
+class PermissionError extends CustomError {
+    constructor( message?: string ) {
+        super( message );
+        this.statusCode = 403;
+        this.message = 'You do not have permission to access this resource.';
+    }
+}
+
+class NotFoundError extends CustomError {
+    constructor( message?: string ) {
+        super( message );
+        this.statusCode = 404;
+        this.message = 'Location is not exist.';
+    }
+}
+
 export {
     CustomError,
     ValidationError,
-    UnauthorizedError
+    UnauthorizedError,
+    PermissionError,
+    NotFoundError
 };
