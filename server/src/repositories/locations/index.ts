@@ -1,4 +1,4 @@
-import { FilterQuery } from 'mongoose';
+import { FilterQuery } from '../../services/types';
 import Location, { ILocation, ILocationCreate, ILocationQueryParamsOptions, ILocationUpdate } from '../../models/location';
 
 export default class LocationRepository {
