@@ -1,4 +1,4 @@
-import { ILocationUpdate } from '../../models/location';
+import { ILocationQueryParamsOptions, ILocationUpdate } from '../../models/location';
 import { locationRepository } from '../../repositories/index';
 import { IUserAuth } from '../../models/user';
 import { NotFoundError, PermissionError } from '../../errors';
@@ -18,8 +18,8 @@ export default class Actions {
         return location;
     }
 
-    async get( id: string ) {
-        return await locationRepository.get( id );
+    async get( options: ILocationQueryParamsOptions ) {
+        return await locationRepository.get( options );
     }
 
     async update( id: string, data: ILocationUpdate ) {

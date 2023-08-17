@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from '../../types/locations';
+import { Request, Response, NextFunction, IRequestGet } from '../../types/locations';
 import LocationsDataAdapters from '../../adapters/locations';
 import { locationsActions } from '../../../actions/index';
 import { PermissionError } from '../../../errors';
@@ -15,7 +15,7 @@ export async function getLocation( request: Request, response: Response, next: N
     }
 }
 
-export async function getLocations( request: Request, response: Response, next: NextFunction ) {
+export async function getLocations( request: IRequestGet, response: Response, next: NextFunction ) {
     try {
         const userId = request.user.id;
 
@@ -23,11 +23,10 @@ export async function getLocations( request: Request, response: Response, next: 
             throw new PermissionError();
         }
 
-        // пагинация, сортировка, фильтр\поиск (пагинация по дефолту 10 штб ограничивать максимальное число 500)
-        const locations = await locationsActions.get( userId );
+        const queryParamsOptions = LocationsDataAdapters.getQueryParamsOptions( userId, request.query );
+        const locations = await locationsActions.get( queryParamsOptions );
         const adaptedLocations = locations.map( ( location ) => LocationsDataAdapters.getLocationFull( location ) );
 
-        // mongoose.paginate, сортировка по имени.
         return response.send( adaptedLocations );
     }
     catch ( error ) {

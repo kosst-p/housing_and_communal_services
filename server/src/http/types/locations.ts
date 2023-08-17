@@ -23,6 +23,23 @@ export interface IRequestPath extends Request {
     body: ILocationPathData
 }
 
+export interface IRequestGet extends Request {
+    query: {
+        search?: string, // search
+        page?: string, // pagination
+        sort?: string, // page
+        count?: string // count of records
+    }
+}
+
+export interface ILocationQueryParamsOptions {
+    userId: string,
+    search?: string,
+    page: number,
+    sort?: string,
+    count: number
+}
+
 export { Request }; // remove
 
 export { Response };

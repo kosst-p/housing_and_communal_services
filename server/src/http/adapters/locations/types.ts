@@ -16,3 +16,18 @@ export interface ILocationPartialFromBody {
     houseNumber?: string,
 }
 
+export interface ILocationQueryParams {
+    search?: string,
+    page?: string,
+    sort?: string,
+    count?: string
+}
+
+export interface ILocationQueryParamsOptions {
+    userId: string,
+    search?: string,
+    page?: string,
+    sort?: string,
+    count: number,
+    skip?: number
+}
