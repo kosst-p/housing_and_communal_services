@@ -27,8 +27,6 @@ export async function login( request: ILoginRequest, response: Response, next: N
 
         const token = authRepository.generateAccessToken( { id: user.id, name: user.name } );
 
-        response.cookie( 'accessToken', token, { httpOnly: true } );
-
         return response.status( 200 ).send( {
             status: 200,
             message: 'Login',
