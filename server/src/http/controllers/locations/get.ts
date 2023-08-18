@@ -23,7 +23,7 @@ export async function getLocations( request: IRequestGet, response: Response, ne
             throw new PermissionError();
         }
 
-        const queryParamsOptions = LocationsDataAdapters.getQueryParamsOptions( userId, request.query );
+        const queryParamsOptions = LocationsDataAdapters.getQueryParamsOptions( request );
         const locations = await locationsActions.get( queryParamsOptions );
         const adaptedLocations = locations.map( ( location ) => LocationsDataAdapters.getLocationFull( location ) );
 

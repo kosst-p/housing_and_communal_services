@@ -1,9 +1,9 @@
 import { IUserCreate } from '../../../models/user';
-import { IUserFromBody } from './types';
+import { IRegistrationRequest } from '../../types/auth';
 
 export default class DataAdapters {
-    static getUserDataFromBody( body: IUserFromBody ): IUserCreate {
-        const { name, email, password } = body;
+    static getUserDataFromBody( request: IRegistrationRequest ): IUserCreate {
+        const { name, email, password } = request.body;
 
         return {
             name,

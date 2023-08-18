@@ -1,5 +1,4 @@
-import { FilterQuery } from '../../services/types';
-import Location, { ILocation, ILocationCreate, ILocationQueryParamsOptions, ILocationUpdate } from '../../models/location';
+import Location, { ILocationCreate, ILocationQueryParamsOptions, ILocationUpdate } from '../../models/location';
 
 export default class LocationRepository {
     async getById( id: string ) {
@@ -8,33 +7,15 @@ export default class LocationRepository {
     }
 
     async get( data: ILocationQueryParamsOptions ) {
-        const params: FilterQuery<ILocation> = { // add type from mongoose
+        return await Location.find( {
             userId: data.userId,
-        };
-
-        if ( data.search ) {
-            params.$or = [
+            $or: [
                 { country: { $regex: data.search, $options: 'i' } },
-                { region: { $regex: data.search, $options: 'i' } }
-            ];
-        }
-
-        const query = Location.find( params );
-
-        if ( data.sort ) {
-            query.sort( data.sort );
-        }
-
-        if ( data.skip ) {
-            query.skip( data.count );
-        }
-
-        if ( data.count ) {
-            query.limit( data.count );
-        }
-
-        return await query;
-
+            ]
+        } )
+            .sort( data.sort )
+            .skip( data.skip )
+            .limit( data.count );
     }
 
     async create( data: ILocationCreate ) {

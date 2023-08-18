@@ -1,33 +1,11 @@
-export interface ILocationFromBody {
-    userId: string,
-    country: string,
-    region: string,
-    city: string,
-    address: string,
-    houseNumber: string,
-}
-
-export interface ILocationPartialFromBody {
-    userId?: string,
-    country?: string,
-    region?: string,
-    city?: string,
-    address?: string,
-    houseNumber?: string,
-}
-
-export interface ILocationQueryParams {
-    search?: string,
-    page?: string,
-    sort?: string,
-    count?: string
-}
+import { SortOrder } from '../../../services/types';
 
 export interface ILocationQueryParamsOptions {
     userId: string,
-    search?: string,
-    page?: string,
-    sort?: string,
+    search: string,
+    sort: {
+        [key: string]: SortOrder
+    },
     count: number,
-    skip?: number
+    skip: number
 }

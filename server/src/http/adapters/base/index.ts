@@ -1,25 +1,55 @@
+import { IRequestGet } from '../../types/locations';
+import { TSortOrderValue, ISortParam } from './types';
+
 export default class BaseAdapter {
-    static #defaultSortParam = '_id';
-    static #defaultSearchParam = '';
-    static #defaultPageParam = 1;
-    static #defaultCountParam = 10;
-    static #defaultMaxCountParam = 500;
+    protected static defaultSortParam: ISortParam = {
+        _id: 'asc'
+    };
+    protected static defaultSearchParam = '';
+    protected static defaultPageParam = '1';
+    protected static defaultCountParam = '10';
+    protected static defaultMaxCountParam = 500;
 
-    static getSortQueryParam( param: string ) {
-        return param?.split( ',' ).join( ' ' ) || this.#defaultSortParam;
+    static getSortQueryParam( request: IRequestGet ): ISortParam {
+        const { sort } = request.query;
+        const sortQueries = sort?.split( '|' );
+
+        if ( ! sortQueries?.length ) {
+            return this.defaultSortParam;
+        }
+
+        const result: ISortParam = {} ;
+
+        if ( sortQueries?.length ) {
+            for ( const queries of sortQueries ) {
+                if ( queries ) {
+                    const sortQuery = queries.split( ',' );
+
+                    result[ sortQuery[ 0 ] ] = sortQuery[ 1 ] as TSortOrderValue;
+                }
+            }
+        }
+
+        return result;
     }
 
-    static getSearchQueryParam( param: string ) {
-        return param || this.#defaultSearchParam;
+    static getSearchQueryParam( request: IRequestGet ): string {
+        const { search } = request.query;
+
+        return search || this.defaultSearchParam;
     }
 
-    static getPageQueryParam( param: string ) {
-        return parseInt( param ) || this.#defaultPageParam;
+    static getPageQueryParam( request: IRequestGet ): number {
+        const { page = this.defaultPageParam } = request.query;
+
+        return parseInt( page );
     }
 
-    static getCountQueryParam( param: string ) {
-        const count = parseInt( param ) || this.#defaultCountParam;
+    static getCountQueryParam( request: IRequestGet ): number {
+        const { count = this.defaultCountParam } = request.query;
+        const parsedCount = parseInt( count );
 
-        return count < this.#defaultMaxCountParam ? count : this.#defaultMaxCountParam;
+        return parsedCount < this.defaultMaxCountParam ? parsedCount : this.defaultMaxCountParam;
+
     }
 }

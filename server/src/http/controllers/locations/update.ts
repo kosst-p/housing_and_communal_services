@@ -6,7 +6,7 @@ export async function updateLocation( request: IRequestPath, response: Response,
     try {
         const locationId = request.params.id;
         const location = await locationsActions.getById( request.user, locationId );
-        const adaptedLocationFromBody = LocationsDataAdapters.getLocationPartialFromBody( request.body );
+        const adaptedLocationFromBody = LocationsDataAdapters.getLocationPartialFromBody( request );
         const updatedLocation = await locationsActions.update( location.id, adaptedLocationFromBody );
         const adaptedUpdatedLocation = LocationsDataAdapters.getLocationFull( updatedLocation! );
 

@@ -1,6 +1,6 @@
 import { ILocationQueryParamsOptions, ILocationUpdate } from '../../models/location';
-import { locationRepository } from '../../repositories/index';
 import { IUserAuth } from '../../models/user';
+import { locationRepository } from '../../repositories/index';
 import { NotFoundError, PermissionError } from '../../errors';
 
 export default class Actions {

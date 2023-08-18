@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 
-import { TLoginRequest, Response, NextFunction } from '../../types/auth';
+import { ILoginRequest, Response, NextFunction } from '../../types/auth';
 import { authRepository, userRepository } from '../../../repositories/index';
 
-export async function login( request: TLoginRequest, response: Response, next: NextFunction ) {
+export async function login( request: ILoginRequest, response: Response, next: NextFunction ) {
     try {
         const user = await userRepository.getUserByName( request.body.name );
 

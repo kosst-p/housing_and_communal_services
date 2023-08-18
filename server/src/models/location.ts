@@ -1,5 +1,5 @@
 import DBService from '../services/dbService';
-import { ObjectId, Document } from '../services/types';
+import { ObjectId, Document, SortOrder } from '../services/types';
 
 export interface ILocation {
     userId: typeof ObjectId,
@@ -31,11 +31,12 @@ export type TLocation = Document & ILocation;
 
 export interface ILocationQueryParamsOptions {
     userId: string,
-    search?: string,
-    page?: string,
-    sort?: string,
+    search: string,
+    sort: {
+        [ key: string ]: SortOrder
+    },
     count: number,
-    skip?: number
+    skip: number
 }
 
 const schema = DBService.getSchema<ILocation>(

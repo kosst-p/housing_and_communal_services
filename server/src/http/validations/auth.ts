@@ -1,9 +1,9 @@
-import { TRegistrationRequest, Response, NextFunction } from '../types/auth';
+import { IRegistrationRequest, Response, NextFunction } from '../types/auth';
 import { ValidationError } from '../../errors';
 
 const message = 'Fields are filled in incorrectly.';
 
-export function registrationValidation( request: TRegistrationRequest, response: Response, next: NextFunction ): void {
+export function registrationValidation( request: IRegistrationRequest, _response: Response, next: NextFunction ): void {
     const { body } = request;
 
     if ( body.password !== body.confirmPassword ) {

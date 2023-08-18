@@ -1,12 +1,13 @@
 import { ILocationCreate, ILocationUpdate, TLocation } from '../../../models/location';
+import { IRequestGet, IRequestPath, IRequestPost } from '../../types/locations';
+import { ILocationQueryParamsOptions } from './types';
 import BaseAdapter from '../base';
-import { ILocationFromBody, ILocationPartialFromBody, ILocationQueryParams, ILocationQueryParamsOptions } from './types';
 
 export default class DataAdapters extends BaseAdapter {
-    static allowedFieldsName = [ 'country', 'region', 'city', 'address', 'houseNumber' ];
+    static #allowedFieldsName = [ 'country', 'region', 'city', 'address', 'houseNumber' ];
 
-    static getLocationFromBody( body: ILocationFromBody ): ILocationCreate {
-        const { userId, country, region, city, address, houseNumber } = body;
+    static getLocationFromBody( request: IRequestPost ): ILocationCreate {
+        const { userId, country, region, city, address, houseNumber } = request.body;
 
         return {
             userId,
@@ -18,10 +19,11 @@ export default class DataAdapters extends BaseAdapter {
         };
     }
 
-    static getLocationPartialFromBody( body: ILocationPartialFromBody ): ILocationUpdate {
+    static getLocationPartialFromBody( request: IRequestPath ): ILocationUpdate {
+        const { body } = request;
         const locationPartial: ILocationUpdate = {};
 
-        for ( const allowedFieldName of this.allowedFieldsName ) {
+        for ( const allowedFieldName of this.#allowedFieldsName ) {
             if ( body[ allowedFieldName as keyof typeof body ] ) {
                 locationPartial[ allowedFieldName as keyof typeof locationPartial ] = body[ allowedFieldName as keyof typeof body ];
             }
@@ -41,33 +43,16 @@ export default class DataAdapters extends BaseAdapter {
         };
     }
 
-    static getQueryParamsOptions( userId: string, queryParams: ILocationQueryParams ) {
-        const options: ILocationQueryParamsOptions = {
-            userId,
-            count: 5
+    static getQueryParamsOptions( request: IRequestGet ): ILocationQueryParamsOptions {
+        const pageParam = this.getPageQueryParam( request );
+        const countParam = this.getCountQueryParam( request );
+
+        return {
+            userId: request.user.id,
+            search: this.getSearchQueryParam( request ),
+            sort: this.getSortQueryParam( request ),
+            count: countParam,
+            skip: ( pageParam - 1 ) * countParam,
         };
-
-        const searchQueryParam = this.getSearchQueryParam( queryParams.search );
-        const sortQueryParam = this.getSortQueryParam( queryParams.sort );
-        const countQueryParam = this.getCountQueryParam( queryParams.count );
-        const pageQueryParam = this.getPageQueryParam( queryParams.page );
-
-        if ( searchQueryParam ) {
-            options.search = searchQueryParam;
-        }
-
-        if ( sortQueryParam ) {
-            options.sort = sortQueryParam;
-        }
-
-        if ( countQueryParam ) {
-            options.count = countQueryParam;
-        }
-
-        if ( pageQueryParam && countQueryParam ) {
-            options.skip = ( pageQueryParam - 1 ) * countQueryParam;
-        }
-
-        return options;
     }
 }

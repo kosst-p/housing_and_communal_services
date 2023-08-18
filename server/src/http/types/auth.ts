@@ -12,9 +12,13 @@ interface IRegistrationData {
     confirmPassword: string
 }
 
-export type TLoginRequest = Request<never, never, ILoginData>; //  check
+export interface ILoginRequest extends Request {
+    body: ILoginData
+}
 
-export type TRegistrationRequest = Request<never, never, IRegistrationData>;
+export interface IRegistrationRequest extends Request {
+    body: IRegistrationData
+}
 
 export { Response };
 

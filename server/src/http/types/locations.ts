@@ -17,7 +17,9 @@ export interface ILocationPathData {
     houseNumber?: string,
 }
 
-export type TRequestPost = Request<never, never, ILocationPostData>;
+export interface IRequestPost extends Request {
+    body: ILocationPostData
+}
 
 export interface IRequestPath extends Request {
     body: ILocationPathData
@@ -25,22 +27,14 @@ export interface IRequestPath extends Request {
 
 export interface IRequestGet extends Request {
     query: {
-        search?: string, // search
-        page?: string, // pagination
-        sort?: string, // page
-        count?: string // count of records
+        search?: string,
+        page?: string,
+        sort?: string,
+        count?: string
     }
 }
 
-export interface ILocationQueryParamsOptions {
-    userId: string,
-    search?: string,
-    page: number,
-    sort?: string,
-    count: number
-}
-
-export { Request }; // remove
+export { Request };
 
 export { Response };
 
