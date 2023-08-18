@@ -1,7 +1,7 @@
 import { ILocationQueryParamsOptions, ILocationUpdate } from '../../models/location';
 import { IUserAuth } from '../../models/user';
 import { locationRepository } from '../../repositories/index';
-import { NotFoundError, PermissionError } from '../../errors';
+import { NotFoundError, ForbiddenError } from '../../errors';
 
 export default class Actions {
     async getById( user: IUserAuth, locationId: string ) {
@@ -12,7 +12,7 @@ export default class Actions {
         }
 
         if ( location.userId.toString() !== user.id ) {
-            throw new PermissionError();
+            throw new ForbiddenError();
         }
 
         return location;

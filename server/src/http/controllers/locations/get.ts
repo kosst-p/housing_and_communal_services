@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, IRequestGet } from '../../types/locations';
 import LocationsDataAdapters from '../../adapters/locations';
 import { locationsActions } from '../../../actions/index';
-import { PermissionError } from '../../../errors';
+import { ForbiddenError } from '../../../errors';
 
 export async function getLocation( request: Request, response: Response, next: NextFunction ) {
     try {
@@ -20,7 +20,7 @@ export async function getLocations( request: IRequestGet, response: Response, ne
         const userId = request.user.id;
 
         if ( ! userId ) {
-            throw new PermissionError();
+            throw new ForbiddenError();
         }
 
         const queryParamsOptions = LocationsDataAdapters.getQueryParamsOptions( request );

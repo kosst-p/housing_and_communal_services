@@ -24,7 +24,7 @@ class UnauthorizedError extends CustomError {
     }
 }
 
-class PermissionError extends CustomError {
+class ForbiddenError extends CustomError {
     constructor( message?: string ) {
         super( message );
         this.statusCode = 403;
@@ -44,6 +44,6 @@ export {
     CustomError,
     ValidationError,
     UnauthorizedError,
-    PermissionError,
+    ForbiddenError,
     NotFoundError
 };
