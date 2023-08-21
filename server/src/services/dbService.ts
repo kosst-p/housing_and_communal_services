@@ -1,6 +1,5 @@
-import mongoose, { DefaultSchemaOptions, Model, Schema, SchemaDefinition, SchemaOptions, } from 'mongoose';
+import mongoose, { Model, Schema, SchemaDefinition } from 'mongoose';
 import { IDBConfig } from './types';
-import { ResolveSchemaOptions } from 'mongoose';
 
 export default class DBService {
     #userName;

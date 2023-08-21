@@ -1,19 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 
 import { authRepository } from '../../repositories/index';
+import { cacheService } from '../../services';
 import { UnauthorizedError } from '../../errors';
 
-export function validationJwt( request: Request, _response: Response, next: NextFunction ) {
+export async function validationJwt( request: Request, _response: Response, next: NextFunction ) {
     try {
-        const authorizationHeader = request.headers.authorization;
+        const accessToken = authRepository.parseAccessToken( request.headers.authorization );
 
-        if ( ! authorizationHeader ) {
+        if ( ! accessToken ) {
             throw new UnauthorizedError();
         }
 
-        const accessToken = authorizationHeader.split( ' ' )[ 1 ] ;
+        const cacheAccessTokenApplicable = await cacheService.check( accessToken );
 
-        if ( ! accessToken ) {
+        if ( ! cacheAccessTokenApplicable ) {
             throw new UnauthorizedError();
         }
 
@@ -23,6 +24,6 @@ export function validationJwt( request: Request, _response: Response, next: Next
         next();
     }
     catch ( error ) {
-        throw new UnauthorizedError();
+        return next( error );
     }
 }

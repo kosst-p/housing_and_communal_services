@@ -1,5 +1,6 @@
 import { IRegistrationRequest, Response, NextFunction } from '../../types/auth';
 import { authRepository, userRepository } from '../../../repositories/index';
+import { cacheService } from '../../../services';
 import UserDataAdapters from '../../adapters/users';
 
 export async function registration( request: IRegistrationRequest, response: Response, next: NextFunction ) {
@@ -7,6 +8,8 @@ export async function registration( request: IRegistrationRequest, response: Res
         const adaptUserData = UserDataAdapters.getUserDataFromBody( request );
         const user = await userRepository.createUser( adaptUserData );
         const token = authRepository.generateAccessToken( { id: user.id, name: user.name, email: user.email } );
+
+        await cacheService.set( token, true );
 
         return response.status( 200 ).send( {
             status: 200,

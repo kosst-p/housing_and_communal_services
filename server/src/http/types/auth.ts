@@ -20,6 +20,8 @@ export interface IRegistrationRequest extends Request {
     body: IRegistrationData
 }
 
+export { Request };
+
 export { Response };
 
 export { NextFunction };

@@ -20,13 +20,14 @@ export interface IDBConfig {
 }
 
 export interface ICacheConfig {
-    port: number
+    port: number,
     hostName: string
 }
 
 interface IJwtconfig {
     accessKey: string,
     refreshKey: string,
+    accessExpirationTimeInSeconds: number
 }
 
 const env = cleanEnv( process.env, {
@@ -39,6 +40,7 @@ const env = cleanEnv( process.env, {
     MONGO_DB_HOST_NAME: str( { default: 'localhost' } ),
     JWT_ACCESS_SECRET: str( { default: '' } ),
     JWT_REFRESH_SECRET: str( { default: '' } ),
+    JWT_ACCESS_EXPIRATION_TIME_IN_SECONDS: num( { default: 900 } ),
     REDIS_PORT: num( { default: 6379 } ),
     REDIS_HOST_NAME: str( { default: 'localhost' } )
 } );
@@ -55,10 +57,11 @@ export const config: IConfig = {
     },
     jwt: {
         accessKey: env.JWT_ACCESS_SECRET,
-        refreshKey: env.JWT_REFRESH_SECRET
+        refreshKey: env.JWT_REFRESH_SECRET,
+        accessExpirationTimeInSeconds: env.JWT_ACCESS_EXPIRATION_TIME_IN_SECONDS
     },
     cache: {
         port: env.REDIS_PORT,
-        hostName: env.REDIS_HOST_NAME
+        hostName: env.REDIS_HOST_NAME,
     }
 };

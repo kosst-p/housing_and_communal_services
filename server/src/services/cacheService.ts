@@ -3,12 +3,14 @@ import * as redis from 'redis';
 import { ICacheConfig } from '../config';
 
 export default class CacheService {
+    #seconds;
     #client;
 
-    constructor( config: ICacheConfig ) {
+    constructor( config: ICacheConfig, expirationTime: number ) {
         this.#client = redis.createClient( {
             url: `redis://${ config.hostName }:${ config.port }`
         } );
+        this.#seconds = expirationTime;
 
         this.#client.on( 'connect', () => console.log( 'Connected to Redis' ) );
         this.#client.on( 'ready ', () => console.log( 'Redis ready to use' ) );
@@ -19,11 +21,21 @@ export default class CacheService {
         await this.#client.connect();
     }
 
-    get( key: string ) {
-        this.#client.GET( key );
+    async get( key: string ): Promise<void> {
+        await this.#client.GET( key ); // handle error?
     }
 
-    set( key: string, value: string ) {
-        this.#client.SET( key, value );
+    async set<T>( key: string, value: T ): Promise<void> {
+        await this.#client.SET( key, JSON.stringify( value ), {
+            EX: this.#seconds
+        } ); // handle error?
+    }
+
+    async delete( key: string ): Promise<void> {
+        await this.#client.DEL( key ); // handle error?
+    }
+
+    async check( key: string ): Promise<number> {
+        return await this.#client.EXISTS( key );
     }
 }

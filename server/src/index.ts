@@ -3,7 +3,7 @@ import express from 'express';
 import { config } from './config/index';
 import router from './routes/index';
 import middlewares from './http/middlewares/index';
-import { cacheServiceInstance, dbServiceInstance } from './services';
+import { cacheService, dbService } from './services';
 
 const app = express();
 
@@ -14,8 +14,8 @@ app.use( middlewares.globalErrorHandle );
 
 async function start() {
     try {
-        await cacheServiceInstance.init();
-        await dbServiceInstance.init();
+        await cacheService.init();
+        await dbService.init();
         app.listen( config.serverPort, () => {
             console.log( 'Server started!' );
         } );

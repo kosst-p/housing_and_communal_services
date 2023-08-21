@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 
 import { ILoginRequest, Response, NextFunction } from '../../types/auth';
+import { cacheService } from '../../../services';
 import { authRepository, userRepository } from '../../../repositories/index';
 
 export async function login( request: ILoginRequest, response: Response, next: NextFunction ) {
@@ -11,7 +12,6 @@ export async function login( request: ILoginRequest, response: Response, next: N
             return response.status( 400 ).send( {
                 status: 400,
                 message: 'User not found',
-
             } );
         }
 
@@ -21,11 +21,12 @@ export async function login( request: ILoginRequest, response: Response, next: N
             return response.status( 400 ).send( {
                 status: 400,
                 message: 'Password is not valid',
-
             } );
         }
 
         const token = authRepository.generateAccessToken( { id: user.id, name: user.name } );
+
+        await cacheService.set( token, token );
 
         return response.status( 200 ).send( {
             status: 200,

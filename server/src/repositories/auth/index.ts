@@ -4,8 +4,14 @@ import { IAuth, IValidationAccessResult } from './types';
 import { config } from '../../config';
 
 export default class AuthRepository {
+    #minutes;
+
+    constructor( expirationTime: number ) {
+        this.#minutes = expirationTime / 60;
+    }
+
     generateAccessToken( payload: IAuth ) {
-        return jwt.sign( payload, config.jwt.accessKey, { expiresIn: '60m' } );
+        return jwt.sign( payload, config.jwt.accessKey, { expiresIn: `${ this.#minutes }m` } );
     }
 
     generateRefreshToken( payload: IAuth ) {
@@ -26,5 +32,13 @@ export default class AuthRepository {
             id: result.id,
             name: result.name,
         };
+    }
+
+    parseAccessToken( token?: string ) {
+        if ( ! token ) {
+            return null;
+        }
+
+        return token.split( ' ' )[ 1 ];
     }
 }
