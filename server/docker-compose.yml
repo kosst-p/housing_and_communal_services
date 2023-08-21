@@ -23,3 +23,12 @@ services:
       - ${REDIS_PORT}:${REDIS_PORT}
     volumes:
       - ${REDIS_FOLDER}:/data
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    restart: always
+    container_name: redisinsight
+    ports:
+      - ${REDISINSIGHT_PORT}:${REDISINSIGHT_PORT}
+    volumes:
+      - ${REDISINSIGHT_FOLDER}:/db
