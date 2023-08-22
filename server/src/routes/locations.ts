@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import * as controller from '../http/controllers/locations/index';
+import * as controller from '../http/controllers/location/index';
 import { validationRequestBody } from '../http/validations/request';
 import middlewares from '../http/middlewares/index';
 
