@@ -1,5 +1,4 @@
-import { IRequestGet } from '../../types/locations';
-import { TSortOrderValue, ISortParam } from './types';
+import { IRequestGet, TSortOrderValue, ISortParam } from './types';
 
 export default class BaseAdapter {
     protected static defaultSortParam: ISortParam = {
@@ -50,6 +49,5 @@ export default class BaseAdapter {
         const parsedCount = parseInt( count );
 
         return parsedCount < this.defaultMaxCountParam ? parsedCount : this.defaultMaxCountParam;
-
     }
 }

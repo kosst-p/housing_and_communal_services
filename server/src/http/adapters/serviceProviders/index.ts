@@ -1,5 +1,6 @@
 import { IServiceProviderCreate, TServiceProvider } from '../../../models/serviceProvider';
-import { IRequestPost } from '../../types/serviceProviders';
+import { IRequestGet, IRequestPost } from '../../types/serviceProviders';
+import { IServiceProviderQueryParamsOptions } from './types';
 import BaseAdapter from '../base';
 
 export default class DataAdapters extends BaseAdapter {
@@ -15,6 +16,18 @@ export default class DataAdapters extends BaseAdapter {
         return {
             id: data._id,
             name: data.name,
+        };
+    }
+
+    static getQueryParamsOptions( request: IRequestGet ): IServiceProviderQueryParamsOptions {
+        const pageParam = this.getPageQueryParam( request );
+        const countParam = this.getCountQueryParam( request );
+
+        return {
+            search: this.getSearchQueryParam( request ),
+            sort: this.getSortQueryParam( request ),
+            count: countParam,
+            skip: ( pageParam - 1 ) * countParam,
         };
     }
 }
