@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from '../../types/index';
 import { cacheService } from '../../../services';
-import { authRepository } from '../../../repositories';
-import { ForbiddenError, UnauthorizedError } from '../../../errors';
+import { authRepository } from '@repositories/index';
+import { ForbiddenError, UnauthorizedError } from '@errors/index';
 
 export async function logout( request: Request, response: Response, next: NextFunction ) {
     try {

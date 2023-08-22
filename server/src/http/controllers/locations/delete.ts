@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from '../../types/index';
 import LocationsDataAdapters from '../../adapters/locations';
-import { locationsActions } from '../../../actions/index';
+import { locationsActions } from '@actions/index';
 
 export async function deleteLocation( request: Request, response: Response, next: NextFunction ) {
     try {

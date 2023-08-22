@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import { Response, NextFunction } from '../../types/index';
 import { ILoginRequest } from '../../types/auth';
 import { cacheService } from '../../../services';
-import { authRepository, userRepository } from '../../../repositories/index';
+import { authRepository, userRepository } from '@repositories/index';
 
 export async function login( request: ILoginRequest, response: Response, next: NextFunction ) {
     try {

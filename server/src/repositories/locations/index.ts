@@ -1,4 +1,4 @@
-import Location, { ILocationCreate, ILocationQueryParamsOptions, ILocationUpdate } from '../../models/location';
+import Location, { ILocationCreate, ILocationQueryParamsOptions, ILocationUpdate } from '@models/location';
 
 export default class LocationRepository {
     async getById( id: string ) {

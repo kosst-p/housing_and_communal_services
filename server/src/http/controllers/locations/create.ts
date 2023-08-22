@@ -1,6 +1,6 @@
 import { Response, NextFunction } from '../../types/index';
 import { IRequestPost } from '../../types/locations';
-import { locationsActions } from '../../../actions/index';
+import { locationsActions } from '@actions/index';
 import LocationsDataAdapters from '../../adapters/locations';
 
 export async function createLocation( request: IRequestPost, response: Response, next: NextFunction ) {

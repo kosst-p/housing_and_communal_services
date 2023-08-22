@@ -1,4 +1,4 @@
-import ServiceLocation, { IServiceProviderCreate, IServiceProviderQueryParamsOptions } from '../../models/serviceProvider';
+import ServiceLocation, { IServiceProviderCreate, IServiceProviderQueryParamsOptions } from '@models/serviceProvider';
 
 export default class ServiceProviderRepository {
     async get( data: IServiceProviderQueryParamsOptions ) {

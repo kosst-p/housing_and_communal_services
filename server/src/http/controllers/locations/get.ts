@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from '../../types/index';
 import { IRequestGet } from '../../types/locations';
 import LocationsDataAdapters from '../../adapters/locations';
-import { locationsActions } from '../../../actions/index';
-import { ForbiddenError } from '../../../errors';
+import { locationsActions } from '@actions/index';
+import { ForbiddenError } from '@errors/index';
 
 export async function getLocation( request: Request, response: Response, next: NextFunction ) {
     try {

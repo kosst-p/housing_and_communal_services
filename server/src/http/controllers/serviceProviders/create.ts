@@ -1,7 +1,7 @@
 import { Response, NextFunction } from '../../types/index';
 import { IRequestPost } from '../../types/serviceProviders';
 import ServiceProvidersDataAdapters from '../../adapters/serviceProviders';
-import { serviceProvidersActions } from '../../../actions';
+import { serviceProvidersActions } from '@actions/index';
 
 export async function createServiceProvider( request: IRequestPost, response: Response, next: NextFunction ) {
     try {

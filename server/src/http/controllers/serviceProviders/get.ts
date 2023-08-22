@@ -1,7 +1,7 @@
 import { Response, NextFunction } from '../../types/index';
 import { IRequestGet } from '../../types/serviceProviders';
 import ServiceProvidersDataAdapters from '../../adapters/serviceProviders';
-import { serviceProvidersActions } from '../../../actions';
+import { serviceProvidersActions } from '@actions/index';
 
 export async function getServiceProviders( request: IRequestGet, response: Response, next: NextFunction ) {
     try {

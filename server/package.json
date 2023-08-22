@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "compile": "npx tsc -w",
-        "dev": "nodemon --exec node --loader ts-node/esm --trace-warnings src/index.ts",
+        "dev": "nodemon --exec node -r tsconfig-paths/register --loader ts-node/esm --trace-warnings src/index.ts",
         "lint": "eslint . --ext .ts",
         "reinstall": "rm -rf node_modules/ && npm i"
     },
@@ -34,6 +34,7 @@
         "eslint-plugin-import": "^2.28.0",
         "nodemon": "^3.0.1",
         "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.2.0",
         "typescript": "^5.1.6"
     }
 }

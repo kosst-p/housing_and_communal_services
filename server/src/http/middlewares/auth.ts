@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from '../types/index';
 
-import { authRepository } from '../../repositories/index';
+import { authRepository } from '@repositories/index';
 import { cacheService } from '../../services';
-import { UnauthorizedError } from '../../errors';
+import { UnauthorizedError } from '@errors/index';
 
 export async function validationJwt( request: Request, _response: Response, next: NextFunction ) {
     try {

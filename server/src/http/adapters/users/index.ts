@@ -1,4 +1,4 @@
-import { IUserCreate } from '../../../models/user';
+import { IUserCreate } from '@models/user';
 import { IRegistrationRequest } from '../../types/auth';
 
 export default class DataAdapters {

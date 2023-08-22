@@ -1,7 +1,7 @@
-import { ILocationCreate, ILocationUpdate, ILocationQueryParamsOptions } from '../../models/location';
-import { IUserAuth } from '../../models/user';
-import { locationRepository } from '../../repositories/index';
-import { NotFoundError, ForbiddenError } from '../../errors';
+import { ILocationCreate, ILocationUpdate, ILocationQueryParamsOptions } from '@models/location';
+import { IUserAuth } from '@models/user';
+import { locationRepository } from '@repositories/index';
+import { NotFoundError, ForbiddenError } from '@errors/index';
 
 export default class Actions {
     async getById( user: IUserAuth, locationId: string ) {

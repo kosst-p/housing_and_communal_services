@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from '../../types/index';
-import { userRepository } from '../../../repositories/index';
+import { userRepository } from '@repositories/index';
 
 export async function getUser( request: Request, response: Response, next: NextFunction ) {
     try {

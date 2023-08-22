@@ -1,4 +1,4 @@
-import { IServiceProviderCreate, TServiceProvider } from '../../../models/serviceProvider';
+import { IServiceProviderCreate, TServiceProvider } from '@models/serviceProvider';
 import { IRequestGet, IRequestPost } from '../../types/serviceProviders';
 import { IServiceProviderQueryParamsOptions } from './types';
 import BaseAdapter from '../base';

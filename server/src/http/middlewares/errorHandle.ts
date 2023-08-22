@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from '../types/index';
-import { CustomError, } from '../../errors';
+import { CustomError } from '@errors/index';
 
 export function globalErrorHandle( error: CustomError, _request: Request, response: Response, _next: NextFunction ) {
     console.log( error );

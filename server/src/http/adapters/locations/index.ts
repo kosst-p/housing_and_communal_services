@@ -1,4 +1,4 @@
-import { ILocationCreate, ILocationUpdate, TLocation } from '../../../models/location';
+import { ILocationCreate, ILocationUpdate, TLocation } from '@models/location';
 import { IRequestGet, IRequestPath, IRequestPost } from '../../types/locations';
 import { ILocationQueryParamsOptions } from './types';
 import BaseAdapter from '../base';

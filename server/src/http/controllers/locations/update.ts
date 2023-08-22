@@ -1,7 +1,7 @@
 import { Response, NextFunction } from '../../types/index';
 import { IRequestPath } from '../../types/locations';
 import LocationsDataAdapters from '../../adapters/locations';
-import { locationsActions } from '../../../actions/index';
+import { locationsActions } from '@actions/index';
 
 export async function updateLocation( request: IRequestPath, response: Response, next: NextFunction ) {
     try {

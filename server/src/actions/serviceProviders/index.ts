@@ -1,5 +1,5 @@
-import { IServiceProviderCreate, IServiceProviderQueryParamsOptions } from '../../models/serviceProvider';
-import { serviceProviderRepository } from '../../repositories';
+import { IServiceProviderCreate, IServiceProviderQueryParamsOptions } from '@models/serviceProvider';
+import { serviceProviderRepository } from '@repositories/index';
 
 export default class Actions {
     async get( options: IServiceProviderQueryParamsOptions ) {
