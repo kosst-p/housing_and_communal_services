@@ -1,13 +1,16 @@
 import * as express from 'express';
 
 import authRouter from './auth';
-import usersRouter from './users';
-import locationsRouter from './locations';
+import userRouter from './users';
+import locationRouter from './locations';
+import serviceProviderRouter from './serviceProvider';
 
 const rootRouter = express.Router();
+const routePrefix = '/api';
 
-rootRouter.use( '/api', authRouter );
-rootRouter.use( '/api', usersRouter );
-rootRouter.use( '/api', locationsRouter );
+rootRouter.use( routePrefix, authRouter );
+rootRouter.use( routePrefix, userRouter );
+rootRouter.use( routePrefix, locationRouter );
+rootRouter.use( routePrefix, serviceProviderRouter );
 
 export default rootRouter;

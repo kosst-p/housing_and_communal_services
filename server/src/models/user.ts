@@ -17,7 +17,6 @@ export interface IUserAuth {
     name: string,
 }
 
-
 const schema = DBService.getSchema<IUser>( {
     name: {
         type: String,
