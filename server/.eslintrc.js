@@ -19,7 +19,7 @@ module.exports = {
         sourceType: 'module'
     },
     rules: {
-        '@typescript-eslint/no-unused-vars': [ 'warn', { argsIgnorePattern: '^_', ignoreRestSiblings: true } ],
+        '@typescript-eslint/no-unused-vars': [ 'error', { argsIgnorePattern: '^_', ignoreRestSiblings: true } ],
         '@typescript-eslint/type-annotation-spacing': [ 'error', {
             before: false,
             after: true,
