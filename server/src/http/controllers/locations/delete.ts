@@ -13,5 +13,4 @@ export async function deleteLocation( request: Request, response: Response, next
     catch ( error ) {
         return next( error );
     }
-
 }
