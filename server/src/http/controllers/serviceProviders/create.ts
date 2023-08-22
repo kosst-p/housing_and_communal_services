@@ -7,7 +7,7 @@ export async function createServiceProvider( request: IRequestPost, response: Re
     try {
         const adaptedServiceProviderFromBody = ServiceProvidersDataAdapters.getServiceProviderFromBody( request );
         const createdServiceProvider = await serviceProvidersActions.create( adaptedServiceProviderFromBody );
-        const adaptedCreatedServiceProvider = ServiceProvidersDataAdapters.getLocationFull( createdServiceProvider );
+        const adaptedCreatedServiceProvider = ServiceProvidersDataAdapters.getServiceProviderFull( createdServiceProvider );
 
         return response.send( adaptedCreatedServiceProvider );
     }

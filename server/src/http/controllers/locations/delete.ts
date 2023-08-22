@@ -6,9 +6,9 @@ export async function deleteLocation( request: Request, response: Response, next
     try {
         const location = await locationsActions.getById( request.user, request.params.id );
         const deletedLocation = await locationsActions.delete( location.id );
-        const deletedUpdatedLocation = LocationsDataAdapters.getLocationFull( deletedLocation! );
+        const adaptedDeletedLocation = LocationsDataAdapters.getLocationFull( deletedLocation! );
 
-        return response.send( deletedUpdatedLocation );
+        return response.send( adaptedDeletedLocation );
     }
     catch ( error ) {
         return next( error );

@@ -4,18 +4,18 @@ import { locationRepository } from '@repositories/index';
 import { NotFoundError, ForbiddenError } from '@errors/index';
 
 export default class Actions {
-    async getById( user: IUserAuth, locationId: string ) {
-        const location = await locationRepository.getById( locationId );
+    async getById( user: IUserAuth, id: string ) {
+        const item = await locationRepository.getById( id );
 
-        if ( ! location ) {
+        if ( ! item ) {
             throw new NotFoundError();
         }
 
-        if ( location.userId.toString() !== user.id ) {
+        if ( item.userId.toString() !== user.id ) {
             throw new ForbiddenError();
         }
 
-        return location;
+        return item;
     }
 
     async get( options: ILocationQueryParamsOptions ) {

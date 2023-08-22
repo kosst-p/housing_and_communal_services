@@ -10,5 +10,6 @@ router.get( '/serviceProviders/:id', middlewares.validationJwt, () => console.lo
 router.get( '/serviceProviders', middlewares.validationJwt, controller.getServiceProviders );
 router.post( '/serviceProviders', middlewares.validationJwt, controller.createServiceProvider );
 router.patch( '/serviceProviders/:id', middlewares.validationJwt, validationRequestBody, () => console.log() );
+router.delete( '/serviceProviders/:id', middlewares.validationJwt, controller.deleteServiceProvider );
 
 export default router;

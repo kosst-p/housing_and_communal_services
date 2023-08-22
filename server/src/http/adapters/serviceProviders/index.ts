@@ -12,7 +12,7 @@ export default class DataAdapters extends BaseAdapter {
         };
     }
 
-    static getLocationFull( data: TServiceProvider ) {
+    static getServiceProviderFull( data: TServiceProvider ) {
         return {
             id: data._id,
             name: data.name,

@@ -7,7 +7,7 @@ export async function getServiceProviders( request: IRequestGet, response: Respo
     try {
         const queryParamsOptions = ServiceProvidersDataAdapters.getQueryParamsOptions( request );
         const serviceProviders = await serviceProvidersActions.get( queryParamsOptions );
-        const adaptedServiceProviders = serviceProviders.map( ( serviceProvider ) => ServiceProvidersDataAdapters.getLocationFull( serviceProvider ) );
+        const adaptedServiceProviders = serviceProviders.map( ( serviceProvider ) => ServiceProvidersDataAdapters.getServiceProviderFull( serviceProvider ) );
 
         return response.send( adaptedServiceProviders );
     }
