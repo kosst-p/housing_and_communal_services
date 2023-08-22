@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from '../types/index';
 import { CustomError, } from '../../errors';
 
 export function globalErrorHandle( error: CustomError, _request: Request, response: Response, _next: NextFunction ) {

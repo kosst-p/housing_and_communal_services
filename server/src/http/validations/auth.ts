@@ -1,4 +1,5 @@
-import { IRegistrationRequest, Response, NextFunction } from '../types/auth';
+import { Response, NextFunction } from '../types/index';
+import { IRegistrationRequest } from '../types/auth';
 import { ValidationError } from '../../errors';
 
 const message = 'Fields are filled in incorrectly.';

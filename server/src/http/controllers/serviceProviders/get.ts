@@ -1,4 +1,5 @@
-import { IRequestGet, Response, NextFunction } from '../../types/serviceProviders';
+import { Response, NextFunction } from '../../types/index';
+import { IRequestGet } from '../../types/serviceProviders';
 import ServiceProvidersDataAdapters from '../../adapters/serviceProviders';
 import { serviceProvidersActions } from '../../../actions';
 

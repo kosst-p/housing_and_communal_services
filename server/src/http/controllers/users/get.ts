@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, } from '../../types/users';
+import { Request, Response, NextFunction } from '../../types/index';
 import { userRepository } from '../../../repositories/index';
 
 export async function getUser( request: Request, response: Response, next: NextFunction ) {

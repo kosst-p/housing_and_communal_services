@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request } from './index';
 
 export interface IServiceProviderPostData {
     name: string
@@ -18,7 +18,3 @@ export interface IRequestGet extends Request {
 }
 
 export { Request };
-
-export { Response };
-
-export { NextFunction };

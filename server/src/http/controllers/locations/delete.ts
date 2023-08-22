@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from '../../types/locations';
+import { Request, Response, NextFunction } from '../../types/index';
 import LocationsDataAdapters from '../../adapters/locations';
 import { locationsActions } from '../../../actions/index';
 

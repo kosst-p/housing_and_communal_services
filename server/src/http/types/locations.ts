@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request } from './index';
 
 export interface ILocationPostData {
     userId: string,
@@ -33,9 +33,3 @@ export interface IRequestGet extends Request {
         count?: string
     }
 }
-
-export { Request };
-
-export { Response };
-
-export { NextFunction };

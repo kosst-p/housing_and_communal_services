@@ -1,4 +1,5 @@
-import { IRequestPath, Response, NextFunction } from '../../types/locations';
+import { Response, NextFunction } from '../../types/index';
+import { IRequestPath } from '../../types/locations';
 import LocationsDataAdapters from '../../adapters/locations';
 import { locationsActions } from '../../../actions/index';
 

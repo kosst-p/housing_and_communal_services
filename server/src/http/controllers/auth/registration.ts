@@ -1,4 +1,5 @@
-import { IRegistrationRequest, Response, NextFunction } from '../../types/auth';
+import { Response, NextFunction } from '../../types/index';
+import { IRegistrationRequest } from '../../types/auth';
 import { authRepository, userRepository } from '../../../repositories/index';
 import { cacheService } from '../../../services';
 import UserDataAdapters from '../../adapters/users';

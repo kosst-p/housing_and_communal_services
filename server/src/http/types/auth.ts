@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request } from './index';
 
 interface ILoginData {
     name: string,
@@ -19,9 +19,3 @@ export interface ILoginRequest extends Request {
 export interface IRegistrationRequest extends Request {
     body: IRegistrationData
 }
-
-export { Request };
-
-export { Response };
-
-export { NextFunction };
