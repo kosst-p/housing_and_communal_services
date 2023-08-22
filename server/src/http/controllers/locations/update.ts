@@ -4,8 +4,7 @@ import { locationsActions } from '../../../actions/index';
 
 export async function updateLocation( request: IRequestPath, response: Response, next: NextFunction ) {
     try {
-        const locationId = request.params.id;
-        const location = await locationsActions.getById( request.user, locationId );
+        const location = await locationsActions.getById( request.user, request.params.id );
         const adaptedLocationFromBody = LocationsDataAdapters.getLocationPartialFromBody( request );
         const updatedLocation = await locationsActions.update( location.id, adaptedLocationFromBody );
         const adaptedUpdatedLocation = LocationsDataAdapters.getLocationFull( updatedLocation! );

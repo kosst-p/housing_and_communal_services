@@ -25,4 +25,8 @@ export default class Actions {
     async update( id: string, data: ILocationUpdate ) {
         return await locationRepository.update( id, data );
     }
+
+    async delete( id: string ) {
+        return await locationRepository.delete( id );
+    }
 }

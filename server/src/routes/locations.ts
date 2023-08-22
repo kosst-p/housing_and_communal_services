@@ -10,5 +10,6 @@ router.get( '/locations/:id', middlewares.validationJwt, controller.getLocation 
 router.get( '/locations', middlewares.validationJwt, controller.getLocations );
 router.post( '/locations', middlewares.validationJwt, controller.createLocation );
 router.patch( '/locations/:id', middlewares.validationJwt, validationRequestBody, controller.updateLocation );
+router.delete( '/locations/:id', middlewares.validationJwt, controller.deleteLocation );
 
 export default router;

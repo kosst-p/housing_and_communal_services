@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, IRequestGet } from '../../types/locations';
+import { IRequestGet, Request, Response, NextFunction } from '../../types/locations';
 import LocationsDataAdapters from '../../adapters/locations';
 import { locationsActions } from '../../../actions/index';
 import { ForbiddenError } from '../../../errors';

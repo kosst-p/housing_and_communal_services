@@ -27,4 +27,8 @@ export default class LocationRepository {
             new: true
         } );
     }
+
+    async delete( id: string ) {
+        return await Location.findByIdAndRemove( id ); // mongo error check?
+    }
 }
