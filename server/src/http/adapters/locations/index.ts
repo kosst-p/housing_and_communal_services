@@ -48,7 +48,6 @@ export default class DataAdapters extends BaseAdapter {
         const countParam = this.getCountQueryParam( request );
 
         return {
-            userId: request.user.id,
             search: this.getSearchQueryParam( request ),
             sort: this.getSortQueryParam( request ),
             count: countParam,

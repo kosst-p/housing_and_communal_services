@@ -1,4 +1,4 @@
-import Location, { ILocationCreate, ILocationQueryParamsOptions, ILocationUpdate } from '@models/location';
+import Location, { ILocationCreate, ILocationUpdate, ILocationPaginate } from '@models/location';
 
 export default class LocationRepository {
     async getById( id: string ) {
@@ -6,12 +6,12 @@ export default class LocationRepository {
         return await Location.findById( id ); // mongo error check?
     }
 
-    async get( data: ILocationQueryParamsOptions ) {
+    async get( data: ILocationPaginate ) {
+
+        // count. mongoose paginate
         return await Location.find( {
             userId: data.userId,
-            $or: [
-                { country: { $regex: data.search, $options: 'i' } },
-            ]
+            country: { $regex: data.search, $options: 'i' }
         } )
             .sort( data.sort )
             .skip( data.skip )

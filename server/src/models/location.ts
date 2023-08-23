@@ -28,15 +28,16 @@ export interface ILocationUpdate {
 }
 
 export type TLocation = Document & ILocation;
-
 export interface ILocationQueryParamsOptions {
-    userId: string,
     search: string,
     sort: {
         [ key: string ]: SortOrder
     },
     count: number,
     skip: number
+}
+export interface ILocationPaginate extends ILocationQueryParamsOptions {
+    userId: string
 }
 
 const schema = DBService.getSchema<ILocation>(
