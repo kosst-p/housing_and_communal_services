@@ -25,7 +25,9 @@ services:
       - ${REDIS_FOLDER}:/data
 
   redisinsight:
-    image: redislabs/redisinsight:latest
+    build:
+      context: .
+      dockerfile: ./docker/redisinsight/Dockerfile
     restart: always
     container_name: redisinsight
     ports:
