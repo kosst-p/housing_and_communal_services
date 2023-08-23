@@ -4,11 +4,13 @@ import { config } from './config/index';
 import router from './routes/index';
 import middlewares from './http/middlewares/index';
 import { cacheService, dbService } from './services';
+import { logger } from './logger';
 
 const app = express();
 
 app.use( middlewares.withCors );
 app.use( middlewares.jsonParse );
+app.use( middlewares.routerLogger );
 app.use( router );
 app.use( middlewares.globalErrorHandle );
 
@@ -17,11 +19,11 @@ async function start() {
         await cacheService.init();
         await dbService.init();
         app.listen( config.serverPort, () => {
-            console.log( 'Server started!' );
+            logger.info( 'Server started!' );
         } );
     }
     catch ( error ) {
-        console.log( error );
+        logger.error( error );
     }
 }
 

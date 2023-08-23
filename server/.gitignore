@@ -1,5 +1,6 @@
 db-data
 redis-data
+logs
 dist
 node_modules
 .env

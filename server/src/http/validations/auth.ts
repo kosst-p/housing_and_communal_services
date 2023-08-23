@@ -7,6 +7,10 @@ const message = 'Fields are filled in incorrectly.';
 export function registrationValidation( request: IRegistrationRequest, _response: Response, next: NextFunction ): void {
     const { body } = request;
 
+    if ( ! body.name || ! body.email || ! body.password ) {
+        throw new ValidationError( message );
+    }
+
     if ( body.password !== body.confirmPassword ) {
         throw new ValidationError( message );
     }
