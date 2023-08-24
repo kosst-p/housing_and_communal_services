@@ -1,5 +1,4 @@
 import { Request } from '../../types/index';
-
 import { SortOrder } from '../../../services/types';
 
 export interface IRequestGet extends Request {
@@ -7,7 +6,7 @@ export interface IRequestGet extends Request {
         search?: string,
         page?: string,
         sort?: string,
-        count?: string
+        limit?: string
     }
 }
 

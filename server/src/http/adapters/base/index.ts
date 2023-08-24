@@ -6,8 +6,8 @@ export default class BaseAdapter {
     };
     protected static defaultSearchParam = '';
     protected static defaultPageParam = '1';
-    protected static defaultCountParam = '10';
-    protected static defaultMaxCountParam = 500;
+    protected static defaultLimitParam = '10';
+    protected static defaultMaxLimitParam = 500;
 
     static getSortQueryParam( request: IRequestGet ): ISortParam {
         const { sort } = request.query;
@@ -44,10 +44,10 @@ export default class BaseAdapter {
         return parseInt( page );
     }
 
-    static getCountQueryParam( request: IRequestGet ): number {
-        const { count = this.defaultCountParam } = request.query;
-        const parsedCount = parseInt( count );
+    static getLimitQueryParam( request: IRequestGet ): number {
+        const { limit = this.defaultLimitParam } = request.query;
+        const parsedLimit = parseInt( limit );
 
-        return parsedCount < this.defaultMaxCountParam ? parsedCount : this.defaultMaxCountParam;
+        return parsedLimit < this.defaultMaxLimitParam ? parsedLimit : this.defaultMaxLimitParam;
     }
 }

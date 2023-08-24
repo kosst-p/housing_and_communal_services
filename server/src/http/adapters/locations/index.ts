@@ -1,6 +1,7 @@
 import { ILocationCreate, ILocationUpdate, TLocation } from '@models/location';
 import { IRequestGet, IRequestPath, IRequestPost } from '../../types/locations';
-import { ILocationQueryParamsOptions } from './types';
+import { PaginateResult } from '@/services/types';
+import { ILocationQueryParamsOptions, ILocationFull, ILocationPaginateResult } from './types';
 import BaseAdapter from '../base';
 
 export default class DataAdapters extends BaseAdapter {
@@ -32,9 +33,10 @@ export default class DataAdapters extends BaseAdapter {
         return locationPartial;
     }
 
-    static getLocationFull( data: TLocation ) {
+    static getLocationFull( data: TLocation ): ILocationFull {
         return {
             id: data._id,
+
             country: data.country,
             region: data.region,
             city: data.city,
@@ -45,13 +47,26 @@ export default class DataAdapters extends BaseAdapter {
 
     static getQueryParamsOptions( request: IRequestGet ): ILocationQueryParamsOptions {
         const pageParam = this.getPageQueryParam( request );
-        const countParam = this.getCountQueryParam( request );
+        const limitParam = this.getLimitQueryParam( request );
 
         return {
             search: this.getSearchQueryParam( request ),
             sort: this.getSortQueryParam( request ),
-            count: countParam,
-            skip: ( pageParam - 1 ) * countParam,
+            limit: limitParam,
+            skip: ( pageParam - 1 ) * limitParam,
+        };
+    }
+
+    static getPaginateData( data: PaginateResult<TLocation> ): ILocationPaginateResult {
+        const adaptedDocs = data.docs.map( ( doc ) => this.getLocationFull( doc ) );
+
+        return {
+            docs: adaptedDocs,
+            totalDocs: data.totalDocs,
+            limit: data.limit,
+            page: data.page,
+            totalPages: data.totalPages,
+            offset: data.offset
         };
     }
 }

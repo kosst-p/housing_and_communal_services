@@ -6,16 +6,18 @@ export default class LocationRepository {
         return await Location.findById( id ); // mongo error check?
     }
 
-    async get( data: ILocationPaginate ) {
-
-        // count. mongoose paginate
-        return await Location.find( {
-            userId: data.userId,
-            country: { $regex: data.search, $options: 'i' }
-        } )
-            .sort( data.sort )
-            .skip( data.skip )
-            .limit( data.count );
+    async paginate( data: ILocationPaginate ) {
+        return await Location.paginate(
+            {
+                userId: data.userId,
+                country: { $regex: data.search, $options: 'i' }
+            },
+            {
+                sort: data.sort,
+                limit: data.limit,
+                offset: data.skip
+            }
+        );
     }
 
     async create( data: ILocationCreate ) {

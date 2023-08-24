@@ -1,4 +1,4 @@
-import ServiceLocation, { IServiceProviderCreate, IServiceProviderQueryParamsOptions } from '@models/serviceProvider';
+import ServiceLocation, { IServiceProviderCreate, IServiceProviderPaginate } from '@models/serviceProvider';
 
 export default class ServiceProviderRepository {
     async getById( id: string ) {
@@ -6,15 +6,17 @@ export default class ServiceProviderRepository {
         return await ServiceLocation.findById( id ); // mongo error check?
     }
 
-    async get( data: IServiceProviderQueryParamsOptions ) {
-        return await ServiceLocation.find( {
-            $or: [
-                { name: { $regex: data.search, $options: 'i' } },
-            ]
-        } )
-            .sort( data.sort )
-            .skip( data.skip )
-            .limit( data.count );
+    async paginate( data: IServiceProviderPaginate ) {
+        return await ServiceLocation.paginate(
+            {
+                name: { $regex: data.search, $options: 'i' }
+            },
+            {
+                sort: data.sort,
+                limit: data.limit,
+                offset: data.skip
+            }
+        );
     }
 
     async create( data: IServiceProviderCreate ) {

@@ -5,6 +5,20 @@ export interface IServiceProviderQueryParamsOptions {
     sort: {
         [key: string]: SortOrder
     },
-    count: number,
+    limit: number,
     skip: number
+}
+
+export interface IServiceProviderFull {
+    id: string,
+    name: string
+}
+
+export interface IServiceProviderPaginateResult {
+    docs: IServiceProviderFull[],
+    totalDocs: number;
+    limit: number;
+    page?: number | undefined;
+    totalPages: number;
+    offset: number;
 }

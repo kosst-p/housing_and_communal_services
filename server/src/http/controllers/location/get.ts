@@ -15,13 +15,13 @@ export async function getLocation( request: Request, response: Response, next: N
     }
 }
 
-export async function getLocations( request: IRequestGet, response: Response, next: NextFunction ) {
+export async function paginateLocations( request: IRequestGet, response: Response, next: NextFunction ) {
     try {
         const queryParamsOptions = LocationsDataAdapters.getQueryParamsOptions( request );
-        const locations = await locationsActions.get( request.user, queryParamsOptions );
-        const adaptedLocations = locations.map( ( location ) => LocationsDataAdapters.getLocationFull( location ) );
+        const paginateData = await locationsActions.paginate( request.user, queryParamsOptions );
+        const adaptedPaginateData = LocationsDataAdapters.getPaginateData( paginateData ) ;
 
-        return response.send( adaptedLocations );
+        return response.send( adaptedPaginateData );
     }
     catch ( error ) {
         return next( error );

@@ -1,5 +1,7 @@
+import mongoosePaginate from 'mongoose-paginate-v2';
+
 import DBService from '../services/dbService';
-import { Document, SortOrder } from '../services/types';
+import { Document, SortOrder, PaginateModel } from '../services/types';
 
 interface IServiceProvider {
     name: string
@@ -16,9 +18,11 @@ export interface IServiceProviderQueryParamsOptions {
     sort: {
         [ key: string ]: SortOrder
     },
-    count: number,
+    limit: number,
     skip: number
 }
+
+export type IServiceProviderPaginate = IServiceProviderQueryParamsOptions;
 
 const schema = DBService.getSchema<IServiceProvider>( {
     name: {
@@ -28,4 +32,4 @@ const schema = DBService.getSchema<IServiceProvider>( {
     }
 } );
 
-export default DBService.getModel<IServiceProvider>( 'ServiceProvider', schema );
+export default DBService.getModel<IServiceProvider, PaginateModel<IServiceProvider>>( 'ServiceProvider', schema.plugin( mongoosePaginate ) );

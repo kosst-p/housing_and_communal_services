@@ -26,7 +26,7 @@ export default class DBService {
     //     return new Schema<T>( template, options );
     // }
 
-    static getModel<T>( name: string, schema: Schema ): Model<T> {
-        return mongoose.model<T>( name, schema );
+    static getModel<T, U = Model<T>>( name: string, schema: Schema<T> ): U {
+        return mongoose.model<T, U>( name, schema );
     }
 }

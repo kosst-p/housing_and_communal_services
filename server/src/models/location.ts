@@ -1,5 +1,7 @@
+import mongoosePaginate from 'mongoose-paginate-v2';
+
 import DBService from '../services/dbService';
-import { ObjectId, Document, SortOrder } from '../services/types';
+import { ObjectId, Document, SortOrder, PaginateModel } from '../services/types';
 
 export interface ILocation {
     userId: typeof ObjectId,
@@ -33,7 +35,7 @@ export interface ILocationQueryParamsOptions {
     sort: {
         [ key: string ]: SortOrder
     },
-    count: number,
+    limit: number,
     skip: number
 }
 export interface ILocationPaginate extends ILocationQueryParamsOptions {
@@ -71,4 +73,4 @@ const schema = DBService.getSchema<ILocation>(
     // { timestamps: true }
 );
 
-export default DBService.getModel<ILocation>( 'Location', schema );
+export default DBService.getModel<ILocation, PaginateModel<ILocation>>( 'Location', schema.plugin( mongoosePaginate ) );

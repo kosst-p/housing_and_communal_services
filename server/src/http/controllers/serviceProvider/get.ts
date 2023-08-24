@@ -3,13 +3,13 @@ import { IRequestGet } from '../../types/serviceProviders';
 import ServiceProvidersDataAdapters from '../../adapters/serviceProviders';
 import { serviceProvidersActions } from '@actions/index';
 
-export async function getServiceProviders( request: IRequestGet, response: Response, next: NextFunction ) {
+export async function paginateServiceProviders( request: IRequestGet, response: Response, next: NextFunction ) {
     try {
         const queryParamsOptions = ServiceProvidersDataAdapters.getQueryParamsOptions( request );
-        const serviceProviders = await serviceProvidersActions.get( queryParamsOptions );
-        const adaptedServiceProviders = serviceProviders.map( ( serviceProvider ) => ServiceProvidersDataAdapters.getServiceProviderFull( serviceProvider ) );
+        const paginateData = await serviceProvidersActions.paginate( queryParamsOptions );
+        const adaptedPaginateData = ServiceProvidersDataAdapters.getPaginateData( paginateData );
 
-        return response.send( adaptedServiceProviders );
+        return response.send( adaptedPaginateData );
     }
     catch ( error ) {
         return next( error );

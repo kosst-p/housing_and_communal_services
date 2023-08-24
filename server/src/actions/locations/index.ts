@@ -18,13 +18,13 @@ export default class Actions {
         return item;
     }
 
-    async get( user: IUserAuth, options: ILocationQueryParamsOptions ) {
+    async paginate( user: IUserAuth, options: ILocationQueryParamsOptions ) {
         const data: ILocationPaginate = {
             userId: user.id,
             ...options,
         };
 
-        return await locationRepository.get( data );
+        return await locationRepository.paginate( data );
     }
 
     async create( data: ILocationCreate ) {

@@ -13,8 +13,8 @@ export default class Actions {
         return item;
     }
 
-    async get( options: IServiceProviderQueryParamsOptions ) {
-        return await serviceProviderRepository.get( options );
+    async paginate( options: IServiceProviderQueryParamsOptions ) {
+        return await serviceProviderRepository.paginate( options );
     }
 
     async create( data: IServiceProviderCreate ) {

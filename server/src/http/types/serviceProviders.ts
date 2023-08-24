@@ -13,7 +13,7 @@ export interface IRequestGet extends Request {
         search?: string,
         page?: string,
         sort?: string,
-        count?: string
+        limit?: string
     }
 }
 
