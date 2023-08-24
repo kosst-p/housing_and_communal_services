@@ -8,7 +8,7 @@ export interface ILocationFull {
 }
 export interface ILocationPaginateResult {
     docs: ILocationFull[],
-    totalDocs: number;
-    limit: number;
-    page?: number | undefined;
+    totalDocs: number,
+    limit: number,
+    page?: number | undefined
 }

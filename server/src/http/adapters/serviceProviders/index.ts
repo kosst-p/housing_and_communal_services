@@ -40,8 +40,6 @@ export default class DataAdapters extends BaseAdapter {
             totalDocs: data.totalDocs,
             limit: data.limit,
             page: data.page,
-            totalPages: data.totalPages,
-            offset: data.offset
         };
     }
 }

@@ -5,9 +5,7 @@ export interface IServiceProviderFull {
 
 export interface IServiceProviderPaginateResult {
     docs: IServiceProviderFull[],
-    totalDocs: number;
-    limit: number;
-    page?: number | undefined;
-    totalPages: number;
-    offset: number;
+    totalDocs: number,
+    limit: number,
+    page?: number | undefined
 }
