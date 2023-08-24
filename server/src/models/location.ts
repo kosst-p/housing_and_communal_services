@@ -30,6 +30,7 @@ export interface ILocationUpdate {
 }
 
 export type TLocation = Document & ILocation;
+
 export interface ILocationQueryParamsOptions {
     search: string,
     sort: {

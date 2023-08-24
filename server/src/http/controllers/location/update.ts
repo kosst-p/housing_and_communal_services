@@ -1,6 +1,6 @@
-import { Response, NextFunction } from '../../types/index';
-import { IRequestPath } from '../../types/locations';
-import LocationsDataAdapters from '../../adapters/locations';
+import { Response, NextFunction } from '@http/types/index';
+import { IRequestPath } from '@http/types/locations';
+import LocationsDataAdapters from '@http/adapters/locations';
 import { locationsActions } from '@actions/index';
 
 export async function updateLocation( request: IRequestPath, response: Response, next: NextFunction ) {

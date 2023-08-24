@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from '../../types/index';
-import { IRequestGet } from '../../types/locations';
-import LocationsDataAdapters from '../../adapters/locations';
+import { Request, Response, NextFunction } from '@http/types/index';
+import { IRequestGet } from '@http/types/locations';
+import LocationsDataAdapters from '@http/adapters/locations';
 import { locationsActions } from '@actions/index';
 
 export async function getLocation( request: Request, response: Response, next: NextFunction ) {

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from '../../types/index';
+import { Request, Response, NextFunction } from '@http/types/index';
 import { cacheService } from '@services/index';
 import { authRepository } from '@repositories/index';
 import { ForbiddenError, UnauthorizedError } from '@errors/index';

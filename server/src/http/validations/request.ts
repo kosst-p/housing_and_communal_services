@@ -1,5 +1,5 @@
-import { Response, NextFunction } from '../types/index';
-import { IRequestPath } from '../types/locations';
+import { Response, NextFunction } from '@http/types/index';
+import { IRequestPath } from '@http/types/locations';
 import { ValidationError } from '@errors/index';
 
 const message = 'Fields are filled in incorrectly.';

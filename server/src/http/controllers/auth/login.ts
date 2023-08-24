@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
-import { Response, NextFunction } from '../../types/index';
-import { ILoginRequest } from '../../types/auth';
+import { Response, NextFunction } from '@http/types/index';
+import { ILoginRequest } from '@http/types/auth';
 import { cacheService } from '@services/index';
 import { authRepository, userRepository } from '@repositories/index';
 

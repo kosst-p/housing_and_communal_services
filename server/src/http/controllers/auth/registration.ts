@@ -1,8 +1,8 @@
-import { Response, NextFunction } from '../../types/index';
-import { IRegistrationRequest } from '../../types/auth';
+import { Response, NextFunction } from '@http/types/index';
+import { IRegistrationRequest } from '@http/types/auth';
 import { authRepository, userRepository } from '@repositories/index';
 import { cacheService } from '@services/index';
-import UserDataAdapters from '../../adapters/users';
+import UserDataAdapters from '@http/adapters/users';
 
 export async function registration( request: IRegistrationRequest, response: Response, next: NextFunction ) {
     try {

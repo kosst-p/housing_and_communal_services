@@ -1,8 +1,8 @@
 import { IServiceProviderCreate, TServiceProvider } from '@models/serviceProvider';
-import { IRequestGet, IRequestPost } from '../../types/serviceProviders';
+import { IRequestGet, IRequestPost } from '@http/types/serviceProviders';
 import { IServiceProviderFull, IServiceProviderPaginateResult, IServiceProviderQueryParamsOptions } from './types';
-import BaseAdapter from '../base';
 import { PaginateResult } from '@/services/types';
+import BaseAdapter from '../base';
 
 export default class DataAdapters extends BaseAdapter {
     static getServiceProviderFromBody( request: IRequestPost ): IServiceProviderCreate {

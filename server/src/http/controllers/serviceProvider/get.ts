@@ -1,6 +1,6 @@
-import { Response, NextFunction } from '../../types/index';
-import { IRequestGet } from '../../types/serviceProviders';
-import ServiceProvidersDataAdapters from '../../adapters/serviceProviders';
+import { Response, NextFunction } from '@http/types/index';
+import { IRequestGet } from '@http/types/serviceProviders';
+import ServiceProvidersDataAdapters from '@http/adapters/serviceProviders';
 import { serviceProvidersActions } from '@actions/index';
 
 export async function paginateServiceProviders( request: IRequestGet, response: Response, next: NextFunction ) {

@@ -1,5 +1,5 @@
-import { ILocationCreate, ILocationUpdate, TLocation } from '@models/location';
-import { IRequestGet, IRequestPath, IRequestPost } from '../../types/locations';
+import { TLocation, ILocationCreate, ILocationUpdate } from '@models/location';
+import { IRequestGet, IRequestPost, IRequestPath } from '@http/types/locations';
 import { PaginateResult } from '@/services/types';
 import { ILocationQueryParamsOptions, ILocationFull, ILocationPaginateResult } from './types';
 import BaseAdapter from '../base';
