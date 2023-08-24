@@ -51,7 +51,4 @@ const logger = createLogger( {
     ],
 } );
 
-export { routerLogger, logger };
-
-
-
+export default { routerLogger, logger };
