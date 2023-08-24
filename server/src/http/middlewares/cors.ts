@@ -1,6 +1,6 @@
 import cors from 'cors';
 
-import { config } from '../../config';
+import { config } from '@config/index';
 
 const withCors = cors( {
     origin: config.clientUrl,

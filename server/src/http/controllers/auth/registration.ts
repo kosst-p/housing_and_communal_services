@@ -1,7 +1,7 @@
 import { Response, NextFunction } from '../../types/index';
 import { IRegistrationRequest } from '../../types/auth';
 import { authRepository, userRepository } from '@repositories/index';
-import { cacheService } from '../../../services';
+import { cacheService } from '@services/index';
 import UserDataAdapters from '../../adapters/users';
 
 export async function registration( request: IRegistrationRequest, response: Response, next: NextFunction ) {

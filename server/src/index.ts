@@ -1,9 +1,9 @@
 import express from 'express';
 
-import { config } from './config/index';
+import { config } from '@config/index';
 import router from './routes/index';
-import middlewares from './http/middlewares/index';
-import { cacheService, dbService, loggerService } from './services';
+import middlewares from '@http/middlewares/index';
+import { cacheService, dbService, loggerService } from '@services/index';
 
 const app = express();
 

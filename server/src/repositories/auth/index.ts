@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import { IAuth, IValidationAccessResult } from './types';
-import { config } from '../../config';
+import { config } from '@config/index';
 
 export default class AuthRepository {
     #minutes;

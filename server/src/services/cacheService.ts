@@ -1,6 +1,6 @@
 import * as redis from 'redis';
 
-import { ICacheConfig } from '../config';
+import { ICacheConfig } from '@config/index';
 
 export default class CacheService {
     #seconds;

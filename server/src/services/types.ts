@@ -6,4 +6,4 @@ export { FilterQuery };
 export { SortOrder };
 export { PaginateModel };
 export { PaginateResult };
-export { IDBConfig } from '../config/index';
+export { IDBConfig } from '@config/index';

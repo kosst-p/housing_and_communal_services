@@ -1,8 +1,8 @@
 import * as express from 'express';
 
-import * as controller from '../http/controllers/serviceProvider/index';
-import { validationRequestBody } from '../http/validations/request';
-import middlewares from '../http/middlewares/index';
+import * as controller from '@http/controllers/serviceProvider/index';
+import { validationRequestBody } from '@http/validations/request';
+import middlewares from '@http/middlewares/index';
 
 const router = express.Router();
 
