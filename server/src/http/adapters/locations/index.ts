@@ -1,17 +1,16 @@
-import { TLocation, ILocationCreate, ILocationUpdate } from '@models/location';
+import { ILocationCreate, ILocationUpdate, ILocationDocument, ILocationQueryParams } from '@models/location';
 import { IRequestGet, IRequestPost, IRequestPath } from '@http/types/locations';
 import { PaginateResult } from '@/services/types';
-import { ILocationQueryParamsOptions, ILocationFull, ILocationPaginateResult } from './types';
+import { ILocationFull, ILocationPaginateResult } from './types';
 import BaseAdapter from '../base';
 
 export default class DataAdapters extends BaseAdapter {
     static #allowedFieldsName = [ 'country', 'region', 'city', 'address', 'houseNumber' ];
 
     static getLocationFromBody( request: IRequestPost ): ILocationCreate {
-        const { userId, country, region, city, address, houseNumber } = request.body;
+        const { country, region, city, address, houseNumber } = request.body;
 
         return {
-            userId,
             country,
             region,
             city,
@@ -33,10 +32,9 @@ export default class DataAdapters extends BaseAdapter {
         return locationPartial;
     }
 
-    static getLocationFull( data: TLocation ): ILocationFull {
+    static getLocationFull( data: ILocationDocument ): ILocationFull {
         return {
-            id: data._id,
-
+            id: data.id,
             country: data.country,
             region: data.region,
             city: data.city,
@@ -45,7 +43,7 @@ export default class DataAdapters extends BaseAdapter {
         };
     }
 
-    static getQueryParamsOptions( request: IRequestGet ): ILocationQueryParamsOptions {
+    static getQueryParamsOptions( request: IRequestGet ): ILocationQueryParams {
         const pageParam = this.getPageQueryParam( request );
         const limitParam = this.getLimitQueryParam( request );
 
@@ -57,7 +55,7 @@ export default class DataAdapters extends BaseAdapter {
         };
     }
 
-    static getPaginateData( data: PaginateResult<TLocation> ): ILocationPaginateResult {
+    static getPaginateData( data: PaginateResult<ILocationDocument> ): ILocationPaginateResult {
         const adaptedDocs = data.docs.map( ( doc ) => this.getLocationFull( doc ) );
 
         return {
@@ -65,8 +63,6 @@ export default class DataAdapters extends BaseAdapter {
             totalDocs: data.totalDocs,
             limit: data.limit,
             page: data.page,
-            totalPages: data.totalPages,
-            offset: data.offset
         };
     }
 }

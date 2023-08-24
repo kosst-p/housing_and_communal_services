@@ -13,7 +13,6 @@ export interface ILocation {
 }
 
 export interface ILocationCreate {
-    userId: string,
     country: string,
     region: string,
     city: string,
@@ -29,18 +28,15 @@ export interface ILocationUpdate {
     houseNumber?: string
 }
 
-export type TLocation = Document & ILocation;
+export interface ILocationDocument extends ILocation, Document {}
 
-export interface ILocationQueryParamsOptions {
+export interface ILocationQueryParams {
     search: string,
     sort: {
         [ key: string ]: SortOrder
     },
     limit: number,
     skip: number
-}
-export interface ILocationPaginate extends ILocationQueryParamsOptions {
-    userId: string
 }
 
 const schema = DBService.getSchema<ILocation>(

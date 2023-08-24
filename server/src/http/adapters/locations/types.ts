@@ -1,14 +1,3 @@
-import { SortOrder } from '../../../services/types';
-
-export interface ILocationQueryParamsOptions {
-    search: string,
-    sort: {
-        [key: string]: SortOrder
-    },
-    limit: number,
-    skip: number
-}
-
 export interface ILocationFull {
     id: string,
     country: string,
@@ -22,6 +11,4 @@ export interface ILocationPaginateResult {
     totalDocs: number;
     limit: number;
     page?: number | undefined;
-    totalPages: number;
-    offset: number;
 }

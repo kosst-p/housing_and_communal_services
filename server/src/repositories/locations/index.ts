@@ -1,4 +1,4 @@
-import Location, { ILocationCreate, ILocationUpdate, ILocationPaginate } from '@models/location';
+import Location, { ILocationCreate, ILocationUpdate, ILocationQueryParams } from '@models/location';
 
 export default class LocationRepository {
     async getById( id: string ) {
@@ -6,21 +6,21 @@ export default class LocationRepository {
         return await Location.findById( id ); // mongo error check?
     }
 
-    async paginate( data: ILocationPaginate ) {
+    async paginate( params: ILocationQueryParams & { userId: string } ) {
         return await Location.paginate(
             {
-                userId: data.userId,
-                country: { $regex: data.search, $options: 'i' }
+                userId: params.userId,
+                country: { $regex: params.search, $options: 'i' }
             },
             {
-                sort: data.sort,
-                limit: data.limit,
-                offset: data.skip
+                sort: params.sort,
+                limit: params.limit,
+                offset: params.skip
             }
         );
     }
 
-    async create( data: ILocationCreate ) {
+    async create( data: ILocationCreate & { userId: string } ) {
         return await Location.create( data ); // mongo error check?
     }
 

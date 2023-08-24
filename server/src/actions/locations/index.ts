@@ -1,4 +1,4 @@
-import { ILocationCreate, ILocationUpdate, ILocationQueryParamsOptions, ILocationPaginate } from '@models/location';
+import { ILocationCreate, ILocationUpdate, ILocationQueryParams } from '@models/location';
 import { IUserAuth } from '@models/user';
 import { locationRepository } from '@repositories/index';
 import { NotFoundError, ForbiddenError } from '@errors/index';
@@ -18,17 +18,22 @@ export default class Actions {
         return item;
     }
 
-    async paginate( user: IUserAuth, options: ILocationQueryParamsOptions ) {
-        const data: ILocationPaginate = {
+    async paginate( user: IUserAuth, params: ILocationQueryParams ) {
+        const updatedParams: ILocationQueryParams & { userId: string } = {
             userId: user.id,
-            ...options,
+            ...params,
         };
 
-        return await locationRepository.paginate( data );
+        return await locationRepository.paginate( updatedParams );
     }
 
-    async create( data: ILocationCreate ) {
-        return await locationRepository.create( data );
+    async create( user: IUserAuth, data: ILocationCreate ) {
+        const updatedData: ILocationCreate & { userId: string } = {
+            userId: user.id,
+            ...data,
+        };
+
+        return await locationRepository.create( updatedData );
     }
 
     async update( id: string, data: ILocationUpdate ) {

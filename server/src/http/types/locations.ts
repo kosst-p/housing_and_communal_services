@@ -1,7 +1,6 @@
 import { Request } from './index';
 
 export interface ILocationPostData {
-    userId: string,
     country: string,
     region: string,
     city: string,
