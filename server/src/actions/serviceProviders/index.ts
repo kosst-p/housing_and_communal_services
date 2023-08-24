@@ -1,4 +1,4 @@
-import { IServiceProviderCreate, IServiceProviderQueryParamsOptions } from '@models/serviceProvider';
+import { IServiceProviderCreate, IServiceProviderQueryParams } from '@models/serviceProvider';
 import { serviceProviderRepository } from '@repositories/index';
 import { NotFoundError } from '@/errors';
 
@@ -13,8 +13,8 @@ export default class Actions {
         return item;
     }
 
-    async paginate( options: IServiceProviderQueryParamsOptions ) {
-        return await serviceProviderRepository.paginate( options );
+    async paginate( params: IServiceProviderQueryParams ) {
+        return await serviceProviderRepository.paginate( params );
     }
 
     async create( data: IServiceProviderCreate ) {

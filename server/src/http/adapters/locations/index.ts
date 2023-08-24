@@ -43,7 +43,7 @@ export default class DataAdapters extends BaseAdapter {
         };
     }
 
-    static getQueryParamsOptions( request: IRequestGet ): ILocationQueryParams {
+    static getQueryParams( request: IRequestGet ): ILocationQueryParams {
         const pageParam = this.getPageQueryParam( request );
         const limitParam = this.getLimitQueryParam( request );
 

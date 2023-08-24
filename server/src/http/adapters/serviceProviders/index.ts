@@ -1,6 +1,6 @@
-import { IServiceProviderCreate, TServiceProvider } from '@models/serviceProvider';
+import { IServiceProviderCreate, IServiceProviderDocument, IServiceProviderQueryParams } from '@models/serviceProvider';
 import { IRequestGet, IRequestPost } from '@http/types/serviceProviders';
-import { IServiceProviderFull, IServiceProviderPaginateResult, IServiceProviderQueryParamsOptions } from './types';
+import { IServiceProviderFull, IServiceProviderPaginateResult } from './types';
 import { PaginateResult } from '@/services/types';
 import BaseAdapter from '../base';
 
@@ -13,14 +13,14 @@ export default class DataAdapters extends BaseAdapter {
         };
     }
 
-    static getServiceProviderFull( data: TServiceProvider ): IServiceProviderFull {
+    static getServiceProviderFull( data: IServiceProviderDocument ): IServiceProviderFull {
         return {
-            id: data._id,
+            id: data.id,
             name: data.name,
         };
     }
 
-    static getQueryParamsOptions( request: IRequestGet ): IServiceProviderQueryParamsOptions {
+    static getQueryParams( request: IRequestGet ): IServiceProviderQueryParams {
         const pageParam = this.getPageQueryParam( request );
         const limitParam = this.getLimitQueryParam( request );
 
@@ -32,7 +32,7 @@ export default class DataAdapters extends BaseAdapter {
         };
     }
 
-    static getPaginateData( data: PaginateResult<TServiceProvider> ): IServiceProviderPaginateResult {
+    static getPaginateData( data: PaginateResult<IServiceProviderDocument> ): IServiceProviderPaginateResult {
         const adaptedDocs = data.docs.map( ( doc ) => this.getServiceProviderFull( doc ) );
 
         return {

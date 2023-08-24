@@ -5,8 +5,8 @@ import { serviceProvidersActions } from '@actions/index';
 
 export async function paginateServiceProviders( request: IRequestGet, response: Response, next: NextFunction ) {
     try {
-        const queryParamsOptions = ServiceProvidersDataAdapters.getQueryParamsOptions( request );
-        const paginateData = await serviceProvidersActions.paginate( queryParamsOptions );
+        const queryParams = ServiceProvidersDataAdapters.getQueryParams( request );
+        const paginateData = await serviceProvidersActions.paginate( queryParams );
         const adaptedPaginateData = ServiceProvidersDataAdapters.getPaginateData( paginateData );
 
         return response.send( adaptedPaginateData );

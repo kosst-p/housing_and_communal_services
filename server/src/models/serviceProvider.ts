@@ -11,9 +11,10 @@ export interface IServiceProviderCreate {
     name: string
 }
 
-export type TServiceProvider = Document & IServiceProvider;
 
-export interface IServiceProviderQueryParamsOptions {
+export interface IServiceProviderDocument extends IServiceProvider, Document {}
+
+export interface IServiceProviderQueryParams {
     search: string,
     sort: {
         [ key: string ]: SortOrder
@@ -22,7 +23,7 @@ export interface IServiceProviderQueryParamsOptions {
     skip: number
 }
 
-export type IServiceProviderPaginate = IServiceProviderQueryParamsOptions;
+export type IServiceProviderPaginate = IServiceProviderQueryParams;
 
 const schema = DBService.getSchema<IServiceProvider>( {
     name: {

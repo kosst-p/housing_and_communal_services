@@ -1,14 +1,3 @@
-import { SortOrder } from '../../../services/types';
-
-export interface IServiceProviderQueryParamsOptions {
-    search: string,
-    sort: {
-        [key: string]: SortOrder
-    },
-    limit: number,
-    skip: number
-}
-
 export interface IServiceProviderFull {
     id: string,
     name: string

@@ -17,8 +17,8 @@ export async function getLocation( request: Request, response: Response, next: N
 
 export async function paginateLocations( request: IRequestGet, response: Response, next: NextFunction ) {
     try {
-        const queryParamsOptions = LocationsDataAdapters.getQueryParamsOptions( request );
-        const paginateData = await locationsActions.paginate( request.user, queryParamsOptions );
+        const queryParams = LocationsDataAdapters.getQueryParams( request );
+        const paginateData = await locationsActions.paginate( request.user, queryParams );
         const adaptedPaginateData = LocationsDataAdapters.getPaginateData( paginateData ) ;
 
         return response.send( adaptedPaginateData );
