@@ -6,11 +6,18 @@ const message = 'Fields are filled in incorrectly.';
 export function getValidationRequestBodyForCreate<T extends Request>( fieldNames: string[] ): ( request: T, response: Response, next: NextFunction ) => void {
     return function ( request: T, _response: Response, next: NextFunction ) {
         const { body } = request;
+        const errorFieldNames: string[] = [];
 
         for ( const name of fieldNames ) {
             if ( ! body[ name as keyof typeof body ] ) {
-                throw new ValidationError( message );
+                errorFieldNames.push( name );
             }
+        }
+
+        if ( errorFieldNames.length > 0 ) {
+            const updatedMessage = `${ message } Fields: ${ errorFieldNames.join( ', ' ) }.`;
+
+            throw new ValidationError( updatedMessage );
         }
 
         next();
@@ -20,6 +27,7 @@ export function getValidationRequestBodyForCreate<T extends Request>( fieldNames
 export function getValidationRequestBodyForUpdate<T extends Request>( fieldNames: string[] ): ( request: T, response: Response, next: NextFunction ) => void {
     return function ( request: T, _response: Response, next: NextFunction ) {
         const { body } = request;
+        const errorFieldNames: string[] = [];
         const currentFieldsName = Object.keys( body );
 
         if ( currentFieldsName.length === 0 ) {
@@ -31,14 +39,20 @@ export function getValidationRequestBodyForUpdate<T extends Request>( fieldNames
                 const value = body[ key as keyof typeof body ];
 
                 if ( ! value ) {
-                    throw new ValidationError( message );
+                    errorFieldNames.push( key );
                 }
 
                 if ( ! fieldNames.includes( key ) ) {
-                    throw new ValidationError( message );
+                    errorFieldNames.push( key );
                 }
 
             }
+        }
+
+        if ( errorFieldNames.length > 0 ) {
+            const updatedMessage = `${ message } Fields: ${ errorFieldNames.join( ', ' ) }.`;
+
+            throw new ValidationError( updatedMessage );
         }
 
         next();
