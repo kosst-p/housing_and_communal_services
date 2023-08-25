@@ -16,6 +16,10 @@ export interface ILocationPathData {
     houseNumber?: string,
 }
 
+export interface ILocationServiceProviderPostData {
+    id: string
+}
+
 export interface IRequestPost extends Request {
     body: ILocationPostData
 }
@@ -24,6 +28,9 @@ export interface IRequestPath extends Request {
     body: ILocationPathData
 }
 
+export interface IRequestPostServiceProvider extends Request {
+    body: ILocationServiceProviderPostData
+}
 export interface IRequestGet extends Request {
     query: {
         search?: string,

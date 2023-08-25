@@ -33,4 +33,8 @@ export default class LocationRepository {
     async delete( id: string ) {
         return await Location.findByIdAndRemove( id ); // mongo error check?
     }
+
+    async attach( masterId: string, slaveId: string ) {
+        return LocationServiceProvider;
+    }
 }

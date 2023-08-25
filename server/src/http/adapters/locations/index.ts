@@ -1,5 +1,5 @@
 import { ILocationCreate, ILocationUpdate, ILocationDocument, ILocationQueryParams } from '@models/location';
-import { IRequestGet, IRequestPost, IRequestPath } from '@http/types/locations';
+import { IRequestGet, IRequestPost, IRequestPath, IRequestPostServiceProvider } from '@http/types/locations';
 import { PaginateResult } from '@/services/types';
 import { ILocationFull, ILocationPaginateResult } from './types';
 import BaseAdapter from '../base';
@@ -64,5 +64,11 @@ export default class DataAdapters extends BaseAdapter {
             limit: data.limit,
             page: data.page,
         };
+    }
+
+    static getServiceProviderFromBody( request: IRequestPostServiceProvider ): string {
+        const { id } = request.body;
+
+        return id;
     }
 }
