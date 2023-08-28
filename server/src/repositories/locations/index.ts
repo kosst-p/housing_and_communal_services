@@ -1,5 +1,6 @@
 import Location, { ILocationCreate, ILocationUpdate, ILocationQueryParams } from '@models/location';
 import LocationServiceProvider from '@/models/locationServiceProvider';
+import { ValidationError } from '@/errors';
 
 export default class LocationRepository {
     async getById( id: string ) {
@@ -35,7 +36,18 @@ export default class LocationRepository {
         return await Location.findByIdAndRemove( id ); // mongo error check?
     }
 
+    async getAttachedServiceProvider( id: string, serviceProviderId: string ) {
+        return await LocationServiceProvider.findOne( { locationId: id, serviceProviderId } ); // mongo error check?
+    }
+
     async attachServiceProvider( id: string, serviceProviderId: string ) {
+
+        const candidate = await this.getAttachedServiceProvider( id, serviceProviderId );
+
+        if ( candidate ) {
+            throw new ValidationError( 'This entry already exists' );
+        }
+
         return LocationServiceProvider.create( { locationId: id, serviceProviderId } ); // mongo error check?
     }
 }
