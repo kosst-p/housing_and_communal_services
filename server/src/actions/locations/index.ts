@@ -1,6 +1,7 @@
-import { ILocationCreate, ILocationUpdate, ILocationQueryParams } from '@models/location';
+import { ILocationCreate, ILocationUpdate, ILocationQueryParams, ILocationDocument } from '@models/location';
 import { IUserAuth } from '@models/user';
-import { locationRepository } from '@repositories/index';
+import { IServiceProviderDocument } from '@/models/serviceProvider';
+import { locationRepository, userRepository } from '@repositories/index';
 import { NotFoundError, ForbiddenError } from '@errors/index';
 
 export default class Actions {
@@ -44,18 +45,31 @@ export default class Actions {
         return await locationRepository.delete( id );
     }
 
-    async getAttachedServiceProvider( attachedServiceProviderId: string ) {
+    async getAttachedServiceProvider( user: IUserAuth, attachedServiceProviderId: string ) {
         const item = await locationRepository.getAttachedServiceProviderById( attachedServiceProviderId );
 
         if ( ! item ) {
             throw new NotFoundError( 'Attached ServiceProvider is not exist.' );
         }
 
+        const currentUser = userRepository.getUserById( user.id );
+
+        if ( ! currentUser ) {
+            throw new ForbiddenError();
+        }
+
         return item;
     }
 
-    async attachServiceProvider( id: string, serviceProviderId: string ) {
-        return await locationRepository.attachServiceProvider( id, serviceProviderId );
+    async attachServiceProvider( location: ILocationDocument, serviceProvider: IServiceProviderDocument ) {
+        const locationFullName = [ location.country, location.region, location.city, location.address, location.houseNumber ].join( ', ' );
+
+        return await locationRepository.attachServiceProvider( {
+            locationId: location.id,
+            locationFullName: locationFullName,
+            serviceProviderId: serviceProvider.id,
+            serviceProviderName: serviceProvider.name
+        } );
     }
 
     async detachServiceProvider( attachedServiceProviderId: string ) {

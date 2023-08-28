@@ -7,7 +7,7 @@ export async function attachServiceProvider( request: IRequestPostLocationServic
     try {
         const location = await locationsActions.getById( request.user, request.params.id );
         const serviceProvider = await serviceProvidersActions.getById( request.body.id );
-        const attachedServiceProvider = await locationsActions.attachServiceProvider( location.id, serviceProvider.id );
+        const attachedServiceProvider = await locationsActions.attachServiceProvider( location, serviceProvider );
         const adaptedAttachedServiceProvider = LocationsDataAdapters.getAttachedServiceProviderFull( attachedServiceProvider );
 
         return response.send( adaptedAttachedServiceProvider );
