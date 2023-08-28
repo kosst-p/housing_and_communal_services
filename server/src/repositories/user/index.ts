@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
 import User, { IUserCreate } from '@models/user';
-import { ValidationError } from '@errors/index';
+import { AlreadyExistError } from '@errors/index';
 
 export default class UserRepository {
     async createUser( data: IUserCreate ) {
@@ -10,7 +10,7 @@ export default class UserRepository {
         const candidate = await this.getUserByName( name );
 
         if ( candidate ) {
-            throw new ValidationError( 'A user with this name already exists' );
+            throw new AlreadyExistError( 'User is already exist.' );
         }
 
         const hashPassword = bcrypt.hashSync( password, 7 );

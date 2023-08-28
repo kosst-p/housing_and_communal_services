@@ -40,10 +40,19 @@ class NotFoundError extends CustomError {
     }
 }
 
+class AlreadyExistError extends CustomError {
+    constructor( message: string ) {
+        super( message );
+        this.statusCode = 409;
+        this.message = message;
+    }
+}
+
 export {
     CustomError,
     ValidationError,
     UnauthorizedError,
     ForbiddenError,
-    NotFoundError
+    NotFoundError,
+    AlreadyExistError
 };

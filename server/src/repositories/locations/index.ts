@@ -1,6 +1,6 @@
 import Location, { ILocationCreate, ILocationUpdate, ILocationQueryParams } from '@models/location';
 import LocationServiceProvider from '@/models/locationServiceProvider';
-import { ValidationError } from '@/errors';
+import { AlreadyExistError } from '@/errors';
 
 export default class LocationRepository {
     async getById( id: string ) {
@@ -48,7 +48,7 @@ export default class LocationRepository {
         const candidate = await this.getAttachedServiceProvider( id, serviceProviderId );
 
         if ( candidate ) {
-            throw new ValidationError( 'This entry already exists' );
+            throw new AlreadyExistError( 'Attached Service Provider is already exist.' );
         }
 
         return LocationServiceProvider.create( { locationId: id, serviceProviderId } ); // mongo error check?
