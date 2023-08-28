@@ -44,7 +44,7 @@ export default class Actions {
         return await locationRepository.delete( id );
     }
 
-    async attachServiceProvider( mainId: string, slaveId: string ) {
-        return locationRepository.attach( mainId, slaveId );
+    async attachServiceProvider( id: string, serviceProviderId: string ) {
+        return locationRepository.attachServiceProvider( id, serviceProviderId );
     }
 }

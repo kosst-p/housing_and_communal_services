@@ -1,11 +1,13 @@
 import DBService from '../services/dbService';
 
-import { ObjectId } from '../services/types';
+import { Document, ObjectId } from '../services/types';
 
 export interface ILocationServiceProvider {
     locationId: typeof ObjectId,
     serviceProviderId: typeof ObjectId
 }
+
+export interface ILocationServiceProviderDocument extends ILocationServiceProvider, Document {}
 
 const schema = DBService.getSchema<ILocationServiceProvider>(
     {

@@ -1,7 +1,8 @@
 import { ILocationCreate, ILocationUpdate, ILocationDocument, ILocationQueryParams } from '@models/location';
-import { IRequestGet, IRequestPost, IRequestPath, IRequestPostServiceProvider } from '@http/types/locations';
+import { ILocationServiceProviderDocument } from '@/models/locationServiceProvider';
+import { IRequestGet, IRequestPost, IRequestPath } from '@http/types/locations';
 import { PaginateResult } from '@/services/types';
-import { ILocationFull, ILocationPaginateResult } from './types';
+import { ILocationFull, ILocationPaginateResult, ILocationServiceProviderFull } from './types';
 import BaseAdapter from '../base';
 
 export default class DataAdapters extends BaseAdapter {
@@ -66,9 +67,11 @@ export default class DataAdapters extends BaseAdapter {
         };
     }
 
-    static getServiceProviderFromBody( request: IRequestPostServiceProvider ): string {
-        const { id } = request.body;
-
-        return id;
+    static getAttachedServiceProviderFull( data: ILocationServiceProviderDocument ): ILocationServiceProviderFull {
+        return {
+            id: data.id,
+            locationId: data.locationId.toString(),
+            serviceProviderId: data.serviceProviderId.toString()
+        };
     }
 }

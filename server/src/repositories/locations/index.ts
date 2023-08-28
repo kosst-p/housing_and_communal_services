@@ -1,4 +1,5 @@
 import Location, { ILocationCreate, ILocationUpdate, ILocationQueryParams } from '@models/location';
+import LocationServiceProvider from '@/models/locationServiceProvider';
 
 export default class LocationRepository {
     async getById( id: string ) {
@@ -34,7 +35,7 @@ export default class LocationRepository {
         return await Location.findByIdAndRemove( id ); // mongo error check?
     }
 
-    async attach( masterId: string, slaveId: string ) {
-        return LocationServiceProvider;
+    async attachServiceProvider( id: string, serviceProviderId: string ) {
+        return LocationServiceProvider.create( { locationId: id, serviceProviderId } ); // mongo error check?
     }
 }

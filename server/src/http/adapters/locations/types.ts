@@ -12,3 +12,9 @@ export interface ILocationPaginateResult {
     limit: number,
     page?: number | undefined
 }
+
+export interface ILocationServiceProviderFull {
+    id: string,
+    locationId: string,
+    serviceProviderId: string,
+}
