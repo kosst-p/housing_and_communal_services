@@ -28,8 +28,15 @@ export interface IRequestPath extends Request {
     body: ILocationPathData
 }
 
-export interface IRequestPostServiceProvider extends Request {
+export interface IRequestPostLocationServiceProvider extends Request {
     body: ILocationServiceProviderPostData
+}
+
+export interface IRequestDeleteLocationServiceProvider extends Request {
+    params: {
+        id: string,
+        attachedServiceProviderId: string
+    }
 }
 export interface IRequestGet extends Request {
     query: {

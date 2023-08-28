@@ -33,10 +33,10 @@ class ForbiddenError extends CustomError {
 }
 
 class NotFoundError extends CustomError {
-    constructor( message?: string ) {
+    constructor( message: string ) {
         super( message );
         this.statusCode = 404;
-        this.message = 'Location is not exist.';
+        this.message = message;
     }
 }
 

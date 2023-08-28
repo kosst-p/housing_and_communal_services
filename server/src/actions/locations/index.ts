@@ -8,7 +8,7 @@ export default class Actions {
         const item = await locationRepository.getById( id );
 
         if ( ! item ) {
-            throw new NotFoundError();
+            throw new NotFoundError( 'Location is not exist.' );
         }
 
         if ( item.userId.toString() !== user.id ) {
@@ -44,7 +44,21 @@ export default class Actions {
         return await locationRepository.delete( id );
     }
 
+    async getAttachedServiceProvider( attachedServiceProviderId: string ) {
+        const item = await locationRepository.getAttachedServiceProviderById( attachedServiceProviderId );
+
+        if ( ! item ) {
+            throw new NotFoundError( 'Attached ServiceProvider is not exist.' );
+        }
+
+        return item;
+    }
+
     async attachServiceProvider( id: string, serviceProviderId: string ) {
-        return locationRepository.attachServiceProvider( id, serviceProviderId );
+        return await locationRepository.attachServiceProvider( id, serviceProviderId );
+    }
+
+    async detachServiceProvider( attachedServiceProviderId: string ) {
+        return await locationRepository.detachServiceProvider( attachedServiceProviderId );
     }
 }

@@ -36,12 +36,15 @@ export default class LocationRepository {
         return await Location.findByIdAndRemove( id ); // mongo error check?
     }
 
+    async getAttachedServiceProviderById( attachedServiceProviderId: string ) {
+        return await LocationServiceProvider.findById( attachedServiceProviderId ); // mongo error check?
+    }
+
     async getAttachedServiceProvider( id: string, serviceProviderId: string ) {
         return await LocationServiceProvider.findOne( { locationId: id, serviceProviderId } ); // mongo error check?
     }
 
     async attachServiceProvider( id: string, serviceProviderId: string ) {
-
         const candidate = await this.getAttachedServiceProvider( id, serviceProviderId );
 
         if ( candidate ) {
@@ -49,5 +52,9 @@ export default class LocationRepository {
         }
 
         return LocationServiceProvider.create( { locationId: id, serviceProviderId } ); // mongo error check?
+    }
+
+    async detachServiceProvider( attachedServiceProviderId: string ) {
+        return await LocationServiceProvider.findByIdAndRemove( attachedServiceProviderId ); // mongo error check?
     }
 }

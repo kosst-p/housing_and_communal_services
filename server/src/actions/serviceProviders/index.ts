@@ -7,7 +7,7 @@ export default class Actions {
         const item = await serviceProviderRepository.getById( id );
 
         if ( ! item ) {
-            throw new NotFoundError();
+            throw new NotFoundError( 'ServiceProvider is not exist.' );
         }
 
         return item;
