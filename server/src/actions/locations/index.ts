@@ -62,7 +62,7 @@ export default class Actions {
     }
 
     async attachServiceProvider( location: ILocationDocument, serviceProvider: IServiceProviderDocument ) {
-        const locationFullName = [ location.country, location.region, location.city, location.address, location.houseNumber ].join( ', ' );
+        const locationFullName = [ location.country, location.region, location.city, location.address, location.houseNumber ].filter( Boolean ).join( ', ' );
 
         return await locationRepository.attachServiceProvider( {
             locationId: location.id,

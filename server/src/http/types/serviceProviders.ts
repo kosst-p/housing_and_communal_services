@@ -24,5 +24,3 @@ export interface IRequestGet extends Request {
         limit?: string
     }
 }
-
-export { Request };
