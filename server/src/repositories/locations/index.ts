@@ -1,5 +1,5 @@
-import Location, { ILocationCreate, ILocationUpdate, ILocationQueryParams } from '@models/location';
-import LocationServiceProvider, { ILocationServiceProviderAttach, ILocationServiceProviderFilterQuery } from '@/models/locationServiceProvider';
+import Location, { ILocationCreate, ILocationUpdate, ILocationQueryParams, ILocationDocument } from '@models/location';
+import LocationServiceProvider, { ILocationServiceProviderAttach, ILocationServiceProviderFilterQuery, ILocationServiceProviderUpdate } from '@/models/locationServiceProvider';
 import { AlreadyExistError } from '@/errors';
 
 export default class LocationRepository {
@@ -26,10 +26,10 @@ export default class LocationRepository {
         return await Location.create( data ); // mongo error check?
     }
 
-    async update( id: string, data: ILocationUpdate ) {
+    async update( id: string, data: ILocationUpdate ): Promise<ILocationDocument> {
         return await Location.findByIdAndUpdate( id, data, { // mongo error check?
             new: true
-        } );
+        } ) as ILocationDocument;
     }
 
     async delete( id: string ) {
@@ -56,5 +56,11 @@ export default class LocationRepository {
 
     async detachServiceProvider( attachedServiceProviderId: string ) {
         return await LocationServiceProvider.findByIdAndRemove( attachedServiceProviderId ); // mongo error check?
+    }
+
+    async updateAttachedServiceProvider( attachedServiceProviderId: string, data: ILocationServiceProviderUpdate ) {
+        return await LocationServiceProvider.findByIdAndUpdate( attachedServiceProviderId, data, { // mongo error check?
+            new: true
+        } );
     }
 }

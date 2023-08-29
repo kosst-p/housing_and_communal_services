@@ -18,7 +18,11 @@ export interface ILocationServiceProviderAttach {
     locationFullName: string,
     serviceProviderId: string,
     serviceProviderName: string
+}
 
+export interface ILocationServiceProviderUpdate {
+    locationFullName?: string,
+    serviceProviderName?: string
 }
 
 const schema = DBService.getSchema<ILocationServiceProvider>(
