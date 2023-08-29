@@ -1,13 +1,13 @@
 import { IServiceProviderCreate, IServiceProviderQueryParams } from '@models/serviceProvider';
-import { serviceProviderRepository } from '@repositories/index';
-import { NotFoundError } from '@/errors';
+import { locationRepository, serviceProviderRepository } from '@repositories/index';
+import { NotFoundError, RelationsError } from '@/errors';
 
 export default class Actions {
     async getById( id: string ) {
         const item = await serviceProviderRepository.getById( id );
 
         if ( ! item ) {
-            throw new NotFoundError( 'ServiceProvider is not exist.' );
+            throw new NotFoundError( 'This Service Provider doesn\'t exist.' );
         }
 
         return item;
@@ -22,6 +22,12 @@ export default class Actions {
     }
 
     async delete( id: string ) {
+        const attachedServiceProvider = await locationRepository.getAttachedServiceProvider( { serviceProviderId: id } );
+
+        if ( attachedServiceProvider ) {
+            throw new RelationsError( 'This Service Provider has relations and cannot be removed.' );
+        }
+
         return await serviceProviderRepository.delete( id );
     }
 }

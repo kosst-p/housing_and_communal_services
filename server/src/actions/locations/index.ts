@@ -9,7 +9,7 @@ export default class Actions {
         const item = await locationRepository.getById( id );
 
         if ( ! item ) {
-            throw new NotFoundError( 'Location is not exist.' );
+            throw new NotFoundError( 'This Location doesn\'t exist.' );
         }
 
         if ( item.userId.toString() !== user.id ) {
@@ -55,7 +55,7 @@ export default class Actions {
         const item = await locationRepository.getAttachedServiceProviderById( attachedServiceProviderId );
 
         if ( ! item ) {
-            throw new NotFoundError( 'Attached ServiceProvider is not exist.' );
+            throw new NotFoundError( 'Attached Service Provider doesn\'t exist.' );
         }
 
         const currentUser = await userRepository.getUserById( user.id );

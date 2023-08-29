@@ -10,7 +10,7 @@ export default class UserRepository {
         const candidate = await this.getUserByName( name );
 
         if ( candidate ) {
-            throw new AlreadyExistError( 'User is already exist.' );
+            throw new AlreadyExistError( 'The user already exists.' );
         }
 
         const hashPassword = bcrypt.hashSync( password, 7 );
