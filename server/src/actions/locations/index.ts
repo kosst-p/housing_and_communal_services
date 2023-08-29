@@ -2,7 +2,7 @@ import { ILocationCreate, ILocationUpdate, ILocationQueryParams, ILocationDocume
 import { IUserAuth } from '@models/user';
 import { IServiceProviderDocument } from '@/models/serviceProvider';
 import { locationRepository, userRepository } from '@repositories/index';
-import { NotFoundError, ForbiddenError } from '@errors/index';
+import { NotFoundError, ForbiddenError, RelationsError } from '@errors/index';
 
 export default class Actions {
     async getById( user: IUserAuth, id: string ) {
@@ -42,17 +42,23 @@ export default class Actions {
     }
 
     async delete( id: string ) {
+        const attachedServiceProvider = await locationRepository.getAttachedServiceProvider( { locationId: id } );
+
+        if ( attachedServiceProvider ) {
+            throw new RelationsError( 'This Location has relations and cannot be removed.' );
+        }
+
         return await locationRepository.delete( id );
     }
 
-    async getAttachedServiceProvider( user: IUserAuth, attachedServiceProviderId: string ) {
+    async getAttachedServiceProviderById( user: IUserAuth, attachedServiceProviderId: string ) {
         const item = await locationRepository.getAttachedServiceProviderById( attachedServiceProviderId );
 
         if ( ! item ) {
             throw new NotFoundError( 'Attached ServiceProvider is not exist.' );
         }
 
-        const currentUser = userRepository.getUserById( user.id );
+        const currentUser = await userRepository.getUserById( user.id );
 
         if ( ! currentUser ) {
             throw new ForbiddenError();

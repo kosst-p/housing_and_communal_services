@@ -1,5 +1,5 @@
 import Location, { ILocationCreate, ILocationUpdate, ILocationQueryParams } from '@models/location';
-import LocationServiceProvider, { ILocationServiceProviderAttach } from '@/models/locationServiceProvider';
+import LocationServiceProvider, { ILocationServiceProviderAttach, ILocationServiceProviderFilterQuery } from '@/models/locationServiceProvider';
 import { AlreadyExistError } from '@/errors';
 
 export default class LocationRepository {
@@ -40,12 +40,12 @@ export default class LocationRepository {
         return await LocationServiceProvider.findById( attachedServiceProviderId ); // mongo error check?
     }
 
-    async getAttachedServiceProvider( id: string, serviceProviderId: string ) {
-        return await LocationServiceProvider.findOne( { locationId: id, serviceProviderId } ); // mongo error check?
+    async getAttachedServiceProvider<T extends ILocationServiceProviderFilterQuery>( filter: T ) {
+        return await LocationServiceProvider.findOne( filter );
     }
 
     async attachServiceProvider( data: ILocationServiceProviderAttach ) {
-        const candidate = await this.getAttachedServiceProvider( data.locationId, data.serviceProviderId );
+        const candidate = await this.getAttachedServiceProvider( data );
 
         if ( candidate ) {
             throw new AlreadyExistError( 'Attached Service Provider is already exist.' );

@@ -5,7 +5,7 @@ import LocationsDataAdapters from '@http/adapters/locations';
 
 export async function detachServiceProvider( request: IRequestDeleteLocationServiceProvider, response: Response, next: NextFunction ) {
     try {
-        const attachedServiceProvider = await locationsActions.getAttachedServiceProvider( request.user, request.params.attachedServiceProviderId );
+        const attachedServiceProvider = await locationsActions.getAttachedServiceProviderById( request.user, request.params.attachedServiceProviderId );
         const deletedAttachedServiceProvider = await locationsActions.detachServiceProvider( attachedServiceProvider.id );
         const adaptedDeletedAttachedServiceProvider = LocationsDataAdapters.getAttachedServiceProviderFull( deletedAttachedServiceProvider! );
 

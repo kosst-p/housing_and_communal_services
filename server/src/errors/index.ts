@@ -48,11 +48,20 @@ class AlreadyExistError extends CustomError {
     }
 }
 
+class RelationsError extends CustomError {
+    constructor( message: string ) {
+        super( message );
+        this.statusCode = 409;
+        this.message = message;
+    }
+}
+
 export {
     CustomError,
     ValidationError,
     UnauthorizedError,
     ForbiddenError,
     NotFoundError,
-    AlreadyExistError
+    AlreadyExistError,
+    RelationsError
 };
