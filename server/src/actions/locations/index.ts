@@ -38,15 +38,14 @@ export default class Actions {
     }
 
     async update( id: string, data: ILocationUpdate ) {
+        const location = await locationRepository.update( id, data );
         const attachedServiceProvider = await locationRepository.getAttachedServiceProvider( { locationId: id } );
 
         if ( attachedServiceProvider ) {
-            // locationRepository.updateAttachedServiceProvider(attachedServiceProvider.id)
-            locationRepository.ge;
+            await locationRepository.updateAttachedServiceProvider( attachedServiceProvider.id, { locationFullName: location.fullName } );
         }
 
-        const location = await locationRepository.update( id, data );
-        const fullName = location.fullName;
+        return location;
     }
 
     async delete( id: string ) {

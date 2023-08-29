@@ -29,7 +29,7 @@ export interface ILocationUpdate {
 }
 
 export interface ILocationDocument extends ILocation, Document {
-    fullName: string
+    fullName?: string
 }
 
 export interface ILocationQueryParams {
