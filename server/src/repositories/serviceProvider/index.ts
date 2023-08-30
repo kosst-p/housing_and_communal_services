@@ -1,13 +1,13 @@
-import ServiceLocation, { IServiceProviderCreate, IServiceProviderDocument, IServiceProviderPaginate, IServiceProviderUpdate } from '@models/serviceProvider';
+import ServiceProvider, { IServiceProviderCreate, IServiceProviderDocument, IServiceProviderPaginate, IServiceProviderUpdate } from '@models/serviceProvider';
 
 export default class ServiceProviderRepository {
     async getById( id: string ) {
         // TODO check id before
-        return await ServiceLocation.findById( id ); // mongo error check?
+        return await ServiceProvider.findById( id ); // mongo error check?
     }
 
     async paginate( data: IServiceProviderPaginate ) {
-        return await ServiceLocation.paginate(
+        return await ServiceProvider.paginate(
             {
                 name: { $regex: data.search, $options: 'i' }
             },
@@ -20,15 +20,15 @@ export default class ServiceProviderRepository {
     }
 
     async create( data: IServiceProviderCreate ) {
-        return await ServiceLocation.create( data ); // mongo error check?
+        return await ServiceProvider.create( data ); // mongo error check?
     }
 
     async delete( id: string ) {
-        return await ServiceLocation.findByIdAndRemove( id ); // mongo error check?
+        return await ServiceProvider.findByIdAndRemove( id ); // mongo error check?
     }
 
     async update( id: string, data: IServiceProviderUpdate ): Promise<IServiceProviderDocument> {
-        return await ServiceLocation.findByIdAndUpdate( id, data, { // mongo error check?
+        return await ServiceProvider.findByIdAndUpdate( id, data, { // mongo error check?
             new: true
         } ) as IServiceProviderDocument;
     }
