@@ -1,7 +1,7 @@
 import { ILocationCreate, ILocationUpdate, ILocationQueryParams, ILocationDocument } from '@models/location';
 import { IUserAuth } from '@models/user';
 import { IServiceProviderDocument } from '@/models/serviceProvider';
-import { locationRepository, userRepository } from '@repositories/index';
+import { locationRepository, transactionRepository, userRepository } from '@repositories/index';
 import { NotFoundError, ForbiddenError, RelationsError } from '@errors/index';
 
 export default class Actions {
@@ -86,6 +86,12 @@ export default class Actions {
     }
 
     async detachServiceProvider( attachedServiceProviderId: string ) {
+        const transaction = await transactionRepository.get( { locationServiceProviderId: attachedServiceProviderId } );
+
+        if ( transaction ) {
+            throw new RelationsError( 'This Location Service Provider has relations and cannot be removed.' );
+        }
+
         return await locationRepository.detachServiceProvider( attachedServiceProviderId );
     }
 }

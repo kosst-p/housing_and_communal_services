@@ -9,6 +9,6 @@ router.get( '/transactions/:id', middlewares.validationJwt, controller.getTransa
 router.get( '/transactions' );
 router.post( '/transactions', middlewares.validationJwt, controller.createTransaction );
 router.patch( '/transactions/:id' );
-router.delete( '/transactions/:id' );
+router.delete( '/transactions/:id', middlewares.validationJwt, controller.deleteTransaction );
 
 export default router;

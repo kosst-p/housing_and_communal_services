@@ -16,4 +16,8 @@ export default class Actions {
     async create( data: ITransactionCreate ) {
         return await transactionRepository.create( data );
     }
+
+    async delete( id: string ) {
+        return await transactionRepository.delete( id );
+    }
 }
