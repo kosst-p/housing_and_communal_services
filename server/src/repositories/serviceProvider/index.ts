@@ -1,4 +1,3 @@
-import { AlreadyExistError } from '@/errors';
 import ServiceProvider, { IServiceProvider, IServiceProviderDocument, IServiceProviderFilterQuery, IServiceProviderPaginate } from '@models/serviceProvider';
 
 export default class Repository {
@@ -33,12 +32,6 @@ export default class Repository {
     }
 
     async update( id: string, data: IServiceProvider ): Promise<IServiceProviderDocument> {
-        const candidate = await this.get( { name: data.name } );
-
-        if ( candidate ) {
-            throw new AlreadyExistError( 'This name is already taken.' );
-        }
-
         return await ServiceProvider.findByIdAndUpdate( id, data, { // mongo error check?
             new: true
         } ) as IServiceProviderDocument;

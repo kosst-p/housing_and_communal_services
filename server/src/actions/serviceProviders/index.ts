@@ -1,6 +1,6 @@
 import { IServiceProvider, IServiceProviderQueryParams } from '@models/serviceProvider';
 import { locationRepository, serviceProviderRepository } from '@repositories/index';
-import { NotFoundError, RelationsError } from '@/errors';
+import { AlreadyExistError, NotFoundError, RelationsError } from '@/errors';
 
 export default class Actions {
     async getById( id: string ) {
@@ -18,6 +18,12 @@ export default class Actions {
     }
 
     async create( data: IServiceProvider ) {
+        const candidate = await serviceProviderRepository.get( { name: data.name } );
+
+        if ( candidate ) {
+            throw new AlreadyExistError( 'The Service Provider already exists.' );
+        }
+
         return await serviceProviderRepository.create( data );
     }
 
@@ -32,6 +38,12 @@ export default class Actions {
     }
 
     async update( id: string, data: IServiceProvider ) {
+        const candidate = await serviceProviderRepository.get( { name: data.name } );
+
+        if ( candidate ) {
+            throw new AlreadyExistError( 'The Service Provider already exists.' );
+        }
+
         const serviceProvider = await serviceProviderRepository.update( id, data );
         const attachedServiceProvider = await locationRepository.getAttachedServiceProvider( { serviceProviderId: id } );
 
