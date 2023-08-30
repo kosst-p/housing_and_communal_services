@@ -1,4 +1,4 @@
-import Transaction, { ITransactionCreate, ITransactionFilterQuery } from '@models/transaction';
+import Transaction, { ITransactionCreate, ITransactionFilterQuery, ITransactionUpdate } from '@models/transaction';
 
 export default class Repository {
     async getById( id: string ) {
@@ -15,5 +15,11 @@ export default class Repository {
 
     async delete( id: string ) {
         return await Transaction.findByIdAndRemove( id );
+    }
+
+    async update( id: string, data: ITransactionUpdate ) {
+        return await Transaction.findByIdAndUpdate( id, data, {
+            new: true
+        } );
     }
 }

@@ -13,6 +13,11 @@ export interface ITransactionCreate {
     price: number
 }
 
+export interface ITransactionUpdate {
+    date?: Date,
+    price?: number
+}
+
 export interface ITransactionDocument extends ITransaction, Document {}
 
 export interface ITransactionFilterQuery extends FilterQuery<ITransaction> {}

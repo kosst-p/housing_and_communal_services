@@ -1,4 +1,4 @@
-import { ITransactionCreate } from '@/models/transaction';
+import { ITransactionCreate, ITransactionUpdate } from '@/models/transaction';
 import { transactionRepository } from '@/repositories';
 import { NotFoundError } from '@/errors';
 
@@ -19,5 +19,9 @@ export default class Actions {
 
     async delete( id: string ) {
         return await transactionRepository.delete( id );
+    }
+
+    async update( id: string, data: ITransactionUpdate ) {
+        return await transactionRepository.update( id, data );
     }
 }

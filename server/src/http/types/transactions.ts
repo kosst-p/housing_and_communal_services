@@ -6,6 +6,15 @@ export interface ITransactionPostData {
     price: number
 }
 
+export interface ITransactionPathData {
+    date?: Date,
+    price?: number
+}
+
 export interface IRequestPost extends Request {
     body: ITransactionPostData
+}
+
+export interface IRequestPath extends Request {
+    body: ITransactionPathData
 }
