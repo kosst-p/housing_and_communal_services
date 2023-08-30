@@ -21,16 +21,7 @@ export default class DataAdapters extends BaseAdapter {
     }
 
     static getLocationPartialFromBody( request: IRequestPath ): ILocationUpdate {
-        const { body } = request;
-        const locationPartial: ILocationUpdate = {};
-
-        for ( const allowedFieldName of this.#allowedFieldsName ) {
-            if ( body[ allowedFieldName as keyof typeof body ] ) {
-                locationPartial[ allowedFieldName as keyof typeof locationPartial ] = body[ allowedFieldName as keyof typeof body ];
-            }
-        }
-
-        return locationPartial;
+        return super.getPartialFromBody<IRequestPath, ILocationUpdate>( request, this.#allowedFieldsName );
     }
 
     static getLocationFull( data: ILocationDocument ): ILocationFull {

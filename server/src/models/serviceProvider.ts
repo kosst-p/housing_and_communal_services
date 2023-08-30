@@ -3,18 +3,9 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 import DBService from '../services/dbService';
 import { Document, SortOrder, PaginateModel } from '../services/types';
 
-interface IServiceProvider {
+export interface IServiceProvider {
     name: string
 }
-
-export interface IServiceProviderCreate {
-    name: string
-}
-
-export interface IServiceProviderUpdate {
-    name?: string
-}
-
 
 export interface IServiceProviderDocument extends IServiceProvider, Document {
     name: string

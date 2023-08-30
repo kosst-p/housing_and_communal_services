@@ -1,8 +1,8 @@
 import { AlreadyExistError } from '@/errors';
-import ServiceProvider, { IServiceProviderCreate, IServiceProviderDocument, IServiceProviderPaginate, IServiceProviderUpdate } from '@models/serviceProvider';
+import ServiceProvider, { IServiceProvider, IServiceProviderDocument, IServiceProviderPaginate } from '@models/serviceProvider';
 
 export default class ServiceProviderRepository {
-    async getByName( name?: string ) {
+    async getByName( name: string ) {
         return await ServiceProvider.findOne( { name } ); // mongo error check?
     }
 
@@ -24,7 +24,7 @@ export default class ServiceProviderRepository {
         );
     }
 
-    async create( data: IServiceProviderCreate ) {
+    async create( data: IServiceProvider ) {
         return await ServiceProvider.create( data ); // mongo error check?
     }
 
@@ -32,7 +32,7 @@ export default class ServiceProviderRepository {
         return await ServiceProvider.findByIdAndRemove( id ); // mongo error check?
     }
 
-    async update( id: string, data: IServiceProviderUpdate ): Promise<IServiceProviderDocument> {
+    async update( id: string, data: IServiceProvider ): Promise<IServiceProviderDocument> {
         const candidate = await this.getByName( data.name );
 
         if ( candidate ) {

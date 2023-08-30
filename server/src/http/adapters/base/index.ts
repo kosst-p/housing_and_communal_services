@@ -1,3 +1,4 @@
+import { Request } from '@http/types/index';
 import { IRequestGet, TSortOrderValue, ISortParam } from './types';
 
 export default class BaseAdapter {
@@ -49,5 +50,18 @@ export default class BaseAdapter {
         const parsedLimit = parseInt( limit );
 
         return parsedLimit < this.defaultMaxLimitParam ? parsedLimit : this.defaultMaxLimitParam;
+    }
+
+    static getPartialFromBody<T extends Request, U>( request: T, fieldsName: string[] ): U {
+        const { body } = request;
+        const partial: U = {} as U;
+
+        for ( const fieldName of fieldsName ) {
+            if ( body[ fieldName as keyof typeof body ] ) {
+                partial[ fieldName as keyof typeof partial ] = body[ fieldName as keyof typeof body ];
+            }
+        }
+
+        return partial;
     }
 }

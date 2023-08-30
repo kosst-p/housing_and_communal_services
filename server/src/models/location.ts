@@ -29,7 +29,7 @@ export interface ILocationUpdate {
 }
 
 export interface ILocationDocument extends ILocation, Document {
-    fullName?: string
+    fullName: string
 }
 
 export interface ILocationQueryParams {
@@ -41,7 +41,7 @@ export interface ILocationQueryParams {
     skip: number
 }
 
-const schema = DBService.getSchema<ILocation>(
+const schema = DBService.getSchema<ILocationDocument>(
     {
         userId: {
             type: ObjectId,
@@ -77,4 +77,4 @@ schema.virtual( 'fullName' ).get( function () {
     return [ this.country, this.region, this.city, this.address, this.houseNumber ].filter( Boolean ).join( ', ' );
 } );
 
-export default DBService.getModel<ILocation, PaginateModel<ILocation>>( 'Location', schema.plugin( mongoosePaginate ) );
+export default DBService.getModel<ILocationDocument, PaginateModel<ILocationDocument>>( 'Location', schema.plugin( mongoosePaginate ) );
