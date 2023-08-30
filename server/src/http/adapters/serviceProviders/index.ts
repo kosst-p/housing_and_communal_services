@@ -1,10 +1,12 @@
-import { IServiceProviderCreate, IServiceProviderDocument, IServiceProviderQueryParams } from '@models/serviceProvider';
-import { IRequestGet, IRequestPost } from '@http/types/serviceProviders';
+import { IServiceProviderCreate, IServiceProviderDocument, IServiceProviderQueryParams, IServiceProviderUpdate } from '@models/serviceProvider';
+import { IRequestGet, IRequestPost, IRequestPath } from '@http/types/serviceProviders';
 import { IServiceProviderFull, IServiceProviderPaginateResult } from './types';
 import { PaginateResult } from '@/services/types';
 import BaseAdapter from '../base';
 
 export default class DataAdapters extends BaseAdapter {
+    static #allowedFieldsName = [ 'name' ];
+
     static getServiceProviderFromBody( request: IRequestPost ): IServiceProviderCreate {
         const { name } = request.body;
 
@@ -41,5 +43,18 @@ export default class DataAdapters extends BaseAdapter {
             limit: data.limit,
             page: data.page,
         };
+    }
+
+    static getLocationPartialFromBody( request: IRequestPath ): IServiceProviderUpdate {
+        const { body } = request;
+        const locationPartial: IServiceProviderUpdate = {};
+
+        for ( const allowedFieldName of this.#allowedFieldsName ) {
+            if ( body[ allowedFieldName as keyof typeof body ] ) {
+                locationPartial[ allowedFieldName as keyof typeof locationPartial ] = body[ allowedFieldName as keyof typeof body ];
+            }
+        }
+
+        return locationPartial;
     }
 }

@@ -1,4 +1,4 @@
-import ServiceLocation, { IServiceProviderCreate, IServiceProviderPaginate } from '@models/serviceProvider';
+import ServiceLocation, { IServiceProviderCreate, IServiceProviderDocument, IServiceProviderPaginate, IServiceProviderUpdate } from '@models/serviceProvider';
 
 export default class ServiceProviderRepository {
     async getById( id: string ) {
@@ -25,5 +25,11 @@ export default class ServiceProviderRepository {
 
     async delete( id: string ) {
         return await ServiceLocation.findByIdAndRemove( id ); // mongo error check?
+    }
+
+    async update( id: string, data: IServiceProviderUpdate ): Promise<IServiceProviderDocument> {
+        return await ServiceLocation.findByIdAndUpdate( id, data, { // mongo error check?
+            new: true
+        } ) as IServiceProviderDocument;
     }
 }

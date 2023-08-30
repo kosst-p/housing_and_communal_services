@@ -1,4 +1,4 @@
-import { IServiceProviderCreate, IServiceProviderQueryParams } from '@models/serviceProvider';
+import { IServiceProviderCreate, IServiceProviderQueryParams, IServiceProviderUpdate } from '@models/serviceProvider';
 import { locationRepository, serviceProviderRepository } from '@repositories/index';
 import { NotFoundError, RelationsError } from '@/errors';
 
@@ -29,5 +29,16 @@ export default class Actions {
         }
 
         return await serviceProviderRepository.delete( id );
+    }
+
+    async update( id: string, data: IServiceProviderUpdate ) {
+        const serviceProvider = await serviceProviderRepository.update( id, data );
+        const attachedServiceProvider = await locationRepository.getAttachedServiceProvider( { serviceProviderId: id } );
+
+        if ( attachedServiceProvider ) {
+            await locationRepository.updateAttachedServiceProvider( attachedServiceProvider.id, { serviceProviderName: serviceProvider.name } );
+        }
+
+        return serviceProvider;
     }
 }

@@ -11,8 +11,14 @@ export interface IServiceProviderCreate {
     name: string
 }
 
+export interface IServiceProviderUpdate {
+    name?: string
+}
 
-export interface IServiceProviderDocument extends IServiceProvider, Document {}
+
+export interface IServiceProviderDocument extends IServiceProvider, Document {
+    name: string
+}
 
 export interface IServiceProviderQueryParams {
     search: string,
