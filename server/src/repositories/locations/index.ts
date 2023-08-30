@@ -2,7 +2,7 @@ import Location, { ILocationCreate, ILocationUpdate, ILocationQueryParams, ILoca
 import LocationServiceProvider, { ILocationServiceProviderAttach, ILocationServiceProviderFilterQuery, ILocationServiceProviderUpdate } from '@/models/locationServiceProvider';
 import { AlreadyExistError } from '@/errors';
 
-export default class LocationRepository {
+export default class Repository {
     async getById( id: string ) {
         // TODO check id before
         return await Location.findById( id ); // mongo error check?

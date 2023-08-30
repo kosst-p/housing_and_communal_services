@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import User, { IUserCreate } from '@models/user';
 import { AlreadyExistError } from '@errors/index';
 
-export default class UserRepository {
+export default class Repository {
     async createUser( data: IUserCreate ) {
 
         const { name, password } = data;

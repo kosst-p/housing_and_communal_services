@@ -1,7 +1,7 @@
 import { AlreadyExistError } from '@/errors';
 import ServiceProvider, { IServiceProvider, IServiceProviderDocument, IServiceProviderPaginate } from '@models/serviceProvider';
 
-export default class ServiceProviderRepository {
+export default class Repository {
     async getByName( name: string ) {
         return await ServiceProvider.findOne( { name } ); // mongo error check?
     }

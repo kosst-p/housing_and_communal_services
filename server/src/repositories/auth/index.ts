@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { IAuth, IValidationAccessResult } from './types';
 import { config } from '@config/index';
 
-export default class AuthRepository {
+export default class Repository {
     #minutes;
 
     constructor( expirationTime: number ) {
