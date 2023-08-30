@@ -1,7 +1,8 @@
 import { ITransactionCreate } from '@/models/transaction';
+import { transactionRepository } from '@/repositories';
 
 export default class Actions {
-    async createTransaction( data: ITransactionCreate ) {
-        console.log( data );
+    async create( data: ITransactionCreate ) {
+        return await transactionRepository.create( data );
     }
 }

@@ -1,6 +1,6 @@
 import DBService from '@services/dbService';
 
-import { ObjectId } from '@services/types';
+import { Document, ObjectId } from '@services/types';
 
 export interface ITransaction {
     locationServiceProviderId: typeof ObjectId,
@@ -13,6 +13,8 @@ export interface ITransactionCreate {
     date: Date,
     price: number
 }
+
+export interface ITransactionDocument extends ITransaction, Document {}
 
 const schema = DBService.getSchema<ITransaction>(
     {

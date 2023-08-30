@@ -6,8 +6,8 @@ import middlewares from '@http/middlewares/index';
 const router = express.Router();
 
 router.get( '/transactions/:id' );
-router.get( '/transactions/' );
-router.post( '/transactions/', middlewares.validationJwt, controller.createTransaction );
+router.get( '/transactions' );
+router.post( '/transactions', middlewares.validationJwt, controller.createTransaction );
 router.patch( '/transactions/:id' );
 router.delete( '/transactions/:id' );
 

@@ -1,12 +1,11 @@
 import { Request } from './index';
 
-export interface IRequestPostTransaction extends Request {
-    params: {
-        id: string,
-        attachedServiceProviderId: string
-    }
-    body: {
-        date: Date,
-        price: number
-    }
+export interface ITransactionPostData {
+    locationServiceProviderId: string,
+    date: Date,
+    price: number
+}
+
+export interface IRequestPost extends Request {
+    body: ITransactionPostData
 }
