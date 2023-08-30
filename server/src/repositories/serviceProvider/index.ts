@@ -1,14 +1,14 @@
 import { AlreadyExistError } from '@/errors';
-import ServiceProvider, { IServiceProvider, IServiceProviderDocument, IServiceProviderPaginate } from '@models/serviceProvider';
+import ServiceProvider, { IServiceProvider, IServiceProviderDocument, IServiceProviderFilterQuery, IServiceProviderPaginate } from '@models/serviceProvider';
 
 export default class Repository {
-    async getByName( name: string ) {
-        return await ServiceProvider.findOne( { name } ); // mongo error check?
-    }
-
     async getById( id: string ) {
         // TODO check id before
         return await ServiceProvider.findById( id ); // mongo error check?
+    }
+
+    async get<T extends IServiceProviderFilterQuery>( filter: T ) {
+        return await ServiceProvider.findOne( filter ); // mongo error check?
     }
 
     async paginate( data: IServiceProviderPaginate ) {
@@ -33,7 +33,7 @@ export default class Repository {
     }
 
     async update( id: string, data: IServiceProvider ): Promise<IServiceProviderDocument> {
-        const candidate = await this.getByName( data.name );
+        const candidate = await this.get( { name: data.name } );
 
         if ( candidate ) {
             throw new AlreadyExistError( 'This name is already taken.' );

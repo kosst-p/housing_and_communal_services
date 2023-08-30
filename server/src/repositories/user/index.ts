@@ -1,13 +1,21 @@
 import bcrypt from 'bcrypt';
 
-import User, { IUserCreate } from '@models/user';
+import User, { IUserCreate, IUserFilterQuery } from '@models/user';
 import { AlreadyExistError } from '@errors/index';
 
 export default class Repository {
-    async createUser( data: IUserCreate ) {
+    async getById( id: string ) {
+        return await User.findById( id ); // mongo error check?
+    }
+
+    async get<T extends IUserFilterQuery>( filter: T ) {
+        return await User.findOne( filter ); // mongo error check?
+    }
+
+    async create( data: IUserCreate ) {
 
         const { name, password } = data;
-        const candidate = await this.getUserByName( name );
+        const candidate = await this.get( { name } );
 
         if ( candidate ) {
             throw new AlreadyExistError( 'The user already exists.' );
@@ -16,14 +24,6 @@ export default class Repository {
         const hashPassword = bcrypt.hashSync( password, 7 );
 
         return await User.create( { ...data, password: hashPassword } ); // mongo error check?
-    }
-
-    async getUserByName( name: string ) {
-        return await User.findOne( { name } ); // mongo error check?
-    }
-
-    async getUserById( id: string ) {
-        return await User.findById( id ); // mongo error check?
     }
 
     async getUsers() {

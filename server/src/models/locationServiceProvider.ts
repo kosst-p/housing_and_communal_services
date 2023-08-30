@@ -1,6 +1,5 @@
-import DBService from '../services/dbService';
-
-import { Document, ObjectId, FilterQuery } from '../services/types';
+import { Document, ObjectId, FilterQuery } from '@services/types';
+import DBService from '@services/dbService';
 
 export interface ILocationServiceProvider {
     locationId: typeof ObjectId,

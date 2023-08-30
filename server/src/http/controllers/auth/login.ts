@@ -7,7 +7,7 @@ import { authRepository, userRepository } from '@repositories/index';
 
 export async function login( request: ILoginRequest, response: Response, next: NextFunction ) {
     try {
-        const user = await userRepository.getUserByName( request.body.name );
+        const user = await userRepository.get( { name: request.body.name } );
 
         if ( ! user ) {
             return response.status( 400 ).send( {

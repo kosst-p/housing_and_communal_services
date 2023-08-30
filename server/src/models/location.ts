@@ -1,7 +1,7 @@
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-import DBService from '../services/dbService';
-import { ObjectId, Document, SortOrder, PaginateModel } from '../services/types';
+import { ObjectId, Document, SortOrder, PaginateModel } from '@services/types';
+import DBService from '@services/dbService';
 
 export interface ILocation {
     userId: typeof ObjectId,

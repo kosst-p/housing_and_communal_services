@@ -1,7 +1,7 @@
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-import DBService from '../services/dbService';
-import { Document, SortOrder, PaginateModel } from '../services/types';
+import { Document, SortOrder, PaginateModel, FilterQuery } from '@services/types';
+import DBService from '@services/dbService';
 
 export interface IServiceProvider {
     name: string
@@ -29,5 +29,7 @@ const schema = DBService.getSchema<IServiceProvider>( {
         unique: true,
     }
 } );
+
+export interface IServiceProviderFilterQuery extends FilterQuery<IServiceProvider> {}
 
 export default DBService.getModel<IServiceProvider, PaginateModel<IServiceProvider>>( 'ServiceProvider', schema.plugin( mongoosePaginate ) );

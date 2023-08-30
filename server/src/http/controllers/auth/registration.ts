@@ -7,7 +7,7 @@ import UserDataAdapters from '@http/adapters/users';
 export async function registration( request: IRegistrationRequest, response: Response, next: NextFunction ) {
     try {
         const adaptUserData = UserDataAdapters.getUserDataFromBody( request );
-        const user = await userRepository.createUser( adaptUserData );
+        const user = await userRepository.create( adaptUserData );
         const token = authRepository.generateAccessToken( { id: user.id, name: user.name, email: user.email } );
 
         await cacheService.set( token, true );

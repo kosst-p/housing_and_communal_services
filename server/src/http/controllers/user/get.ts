@@ -3,7 +3,7 @@ import { userRepository } from '@repositories/index';
 
 export async function getUser( request: Request, response: Response, next: NextFunction ) {
     try {
-        const user = await userRepository.getUserById( request.params.id );
+        const user = await userRepository.getById( request.params.id );
 
         return response.json( user );
     }

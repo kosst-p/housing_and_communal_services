@@ -65,7 +65,7 @@ export default class Actions {
             throw new NotFoundError( 'Attached Service Provider doesn\'t exist.' );
         }
 
-        const currentUser = await userRepository.getUserById( user.id );
+        const currentUser = await userRepository.getById( user.id );
 
         if ( ! currentUser ) {
             throw new ForbiddenError();

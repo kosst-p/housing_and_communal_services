@@ -1,6 +1,5 @@
-import DBService from '@services/dbService';
-
 import { Document, FilterQuery, ObjectId } from '@services/types';
+import DBService from '@services/dbService';
 
 export interface ITransaction {
     locationServiceProviderId: typeof ObjectId,
