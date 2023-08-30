@@ -1,6 +1,11 @@
+import { AlreadyExistError } from '@/errors';
 import ServiceProvider, { IServiceProviderCreate, IServiceProviderDocument, IServiceProviderPaginate, IServiceProviderUpdate } from '@models/serviceProvider';
 
 export default class ServiceProviderRepository {
+    async getByName( name?: string ) {
+        return await ServiceProvider.findOne( { name } ); // mongo error check?
+    }
+
     async getById( id: string ) {
         // TODO check id before
         return await ServiceProvider.findById( id ); // mongo error check?
@@ -28,6 +33,12 @@ export default class ServiceProviderRepository {
     }
 
     async update( id: string, data: IServiceProviderUpdate ): Promise<IServiceProviderDocument> {
+        const candidate = await this.getByName( data.name );
+
+        if ( candidate ) {
+            throw new AlreadyExistError( 'This name is already taken.' );
+        }
+
         return await ServiceProvider.findByIdAndUpdate( id, data, { // mongo error check?
             new: true
         } ) as IServiceProviderDocument;
