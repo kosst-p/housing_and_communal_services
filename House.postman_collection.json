@@ -1,0 +1,687 @@
+{
+	"info": {
+		"_postman_id": "c6f94117-cb7b-45d4-b17a-c4a04c3f2435",
+		"name": "House",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8671063"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "get users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/64f056f9faeee780529a03bf",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"64f056f9faeee780529a03bf"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "locations",
+			"item": [
+				{
+					"name": "get locations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/locations",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get location",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/locations/64e8b56ca3d38c29c3124860",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"locations",
+								"64e8b56ca3d38c29c3124860"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create location",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country\": \"Россия\",\r\n    \"region\": \"Ростовсеий край\",\r\n    \"city\": \"Новочеркасск\",\r\n    \"address\": \"Платовская улица\",\r\n    \"houseNumber\": \"33\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/locations",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update location",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country\": \"Usa\",\r\n    \"houseNumber\": 33\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/locations/64e8b56ca3d38c29c3124860",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"locations",
+								"64e8b56ca3d38c29c3124860"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete location",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/locations/64ee58d7039ec2881ef30f11",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"locations",
+								"64ee58d7039ec2881ef30f11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attach serviceProvider",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"64e48ca1b3cb3187b400ef51\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/locations/64e8b56ca3d38c29c3124860/serviceProviders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"locations",
+								"64e8b56ca3d38c29c3124860",
+								"serviceProviders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detach serviceProvider",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/locations/64e8b56ca3d38c29c3124860/serviceProviders/64ef43d7c06502b7453e4171",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"locations",
+								"64e8b56ca3d38c29c3124860",
+								"serviceProviders",
+								"64ef43d7c06502b7453e4171"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"jwt_access_token\", responseJson.token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"jwt_access_token\", responseJson.token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"email\": \"1test21@test.com\",\r\n    \"password\": \"{{password}}\",\r\n    \"confirmPassword\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/registration",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "serviceProviders",
+			"item": [
+				{
+					"name": "create serviceProvider",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Газпром\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/serviceProviders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"serviceProviders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get serviceProviders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/serviceProviders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"serviceProviders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete serviceProvider",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/serviceProviders/64ef43d7c06502b7453e4171",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"serviceProviders",
+								"64ef43d7c06502b7453e4171"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update serviceProvider",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ТНС\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/serviceProviders/64efa9f2e23e715d36a14298",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"serviceProviders",
+								"64efa9f2e23e715d36a14298"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transactions",
+			"item": [
+				{
+					"name": "create transaction",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"locationServiceProviderId\": \"64ef43c1c06502b7453e416c\",\r\n    \"date\": \"{{date}}\",\r\n    \"price\": 63\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/transactions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get transaction",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/transactions/64ef36a0c92a7fc55a5e3508",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transactions",
+								"64ef36a0c92a7fc55a5e3508"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete transaction",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/transactions/64ef43fdc06502b7453e4173",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transactions",
+								"64ef43fdc06502b7453e4173"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update transaction",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"{{date}}\",\r\n    \"price\": 88\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/transactions/64ef4414c06502b7453e4179",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transactions",
+								"64ef4414c06502b7453e4179"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.collectionVariables.set(\"date\", new Date().toISOString());"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:3000/api",
+			"type": "string"
+		},
+		{
+			"key": "jwt_access_secret",
+			"value": "jwt-secret-key",
+			"type": "string"
+		},
+		{
+			"key": "jwt_refresh_secret",
+			"value": "jwt-refresh-key",
+			"type": "string"
+		},
+		{
+			"key": "jwt_access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "jwt_secret_token",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "date",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
