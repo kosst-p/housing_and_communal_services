@@ -11,7 +11,7 @@ export default class DataAdapters extends BaseAdapter {
 
         return {
             locationServiceProviderId,
-            date,
+            date: new Date( date ),
             price
         };
     }
@@ -20,7 +20,7 @@ export default class DataAdapters extends BaseAdapter {
         return {
             id: data.id,
             locationServiceProviderId: data.locationServiceProviderId.toString(),
-            date: data.date,
+            date: new Date( data.date ).toISOString(),
             price: data.price
         };
     }

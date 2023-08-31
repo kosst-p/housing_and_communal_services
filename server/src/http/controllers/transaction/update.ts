@@ -11,7 +11,6 @@ export async function updateTransaction( request: IRequestPath, response: Respon
         const adaptedUpdatedTransaction = TransactionsDataAdapters.getTransactionFull( updatedTransaction! );
 
         return response.send( adaptedUpdatedTransaction );
-
     }
     catch ( error ) {
         return next( error );

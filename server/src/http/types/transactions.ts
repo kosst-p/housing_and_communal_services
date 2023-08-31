@@ -2,12 +2,12 @@ import { Request } from './index';
 
 export interface ITransactionPostData {
     locationServiceProviderId: string,
-    date: Date,
+    date: string,
     price: number
 }
 
 export interface ITransactionPathData {
-    date?: Date,
+    date?: string,
     price?: number
 }
 
