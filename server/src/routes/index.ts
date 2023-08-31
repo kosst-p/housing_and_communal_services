@@ -5,6 +5,7 @@ import userRouter from './users';
 import locationRouter from './locations';
 import serviceProviderRouter from './serviceProvider';
 import transactionRouter from './transaction';
+import dataTransfersRouter from './dataTransfers';
 import middlewares from '@http/middlewares/index';
 
 const rootRouter = express.Router();
@@ -15,5 +16,6 @@ rootRouter.use( routePrefix, userRouter );
 rootRouter.use( routePrefix, middlewares.validationJwt, locationRouter );
 rootRouter.use( routePrefix, middlewares.validationJwt, serviceProviderRouter );
 rootRouter.use( routePrefix, middlewares.validationJwt, transactionRouter );
+rootRouter.use( routePrefix, middlewares.validationJwt, dataTransfersRouter );
 
 export default rootRouter;
