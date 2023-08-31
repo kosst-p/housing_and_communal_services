@@ -18,7 +18,7 @@ export default class Repository {
         return await User.create( { ...data, password: hashPassword } ); // mongo error check?
     }
 
-    async getUsers() {
+    async getAll() {
         return await User.find(); // mongo error check?
     }
 }

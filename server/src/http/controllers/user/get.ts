@@ -1,9 +1,9 @@
+import { usersActions } from '@/actions';
 import { Request, Response, NextFunction } from '@http/types/index';
-import { userRepository } from '@repositories/index';
 
 export async function getUser( request: Request, response: Response, next: NextFunction ) {
     try {
-        const user = await userRepository.getById( request.params.id );
+        const user = await usersActions.getById( request.params.id );
 
         return response.json( user );
     }
@@ -14,7 +14,7 @@ export async function getUser( request: Request, response: Response, next: NextF
 
 export async function getUsers( _request: Request, response: Response, next: NextFunction ) {
     try {
-        const users = await userRepository.getUsers();
+        const users = await usersActions.getAll();
 
         return response.json( users );
     }

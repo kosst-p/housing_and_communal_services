@@ -3,6 +3,16 @@ import { userRepository } from '@repositories/index';
 import { AlreadyExistError, NotFoundError } from '@/errors';
 
 export default class Actions {
+    async getById( id: string ) {
+        const user = await userRepository.getById( id );
+
+        if ( ! user ) {
+            throw new NotFoundError( 'User not found.' );
+        }
+
+        return user;
+    }
+
     async get( name: string ) {
         const user = await userRepository.get( { name } );
 
@@ -22,5 +32,9 @@ export default class Actions {
         }
 
         return await userRepository.create( data );
+    }
+
+    async getAll() {
+        return await userRepository.getAll();
     }
 }
