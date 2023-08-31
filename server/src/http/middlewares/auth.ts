@@ -1,12 +1,11 @@
 import { Request, Response, NextFunction } from '@http/types/index';
 
-import { authRepository } from '@repositories/index';
-import { cacheService } from '@services/index';
+import { cacheService, authService } from '@services/index';
 import { UnauthorizedError } from '@errors/index';
 
 export async function validationJwt( request: Request, _response: Response, next: NextFunction ) {
     try {
-        const accessToken = authRepository.parseAccessToken( request.headers.authorization );
+        const accessToken = authService.parseAccessToken( request.headers.authorization );
 
         if ( ! accessToken ) {
             throw new UnauthorizedError();
@@ -18,7 +17,7 @@ export async function validationJwt( request: Request, _response: Response, next
             throw new UnauthorizedError();
         }
 
-        const result = authRepository.validationAccessToken( accessToken );
+        const result = authService.validationAccessToken( accessToken );
 
         request.user = result;
         next();

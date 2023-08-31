@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from '@http/types/index';
-import { cacheService } from '@services/index';
-import { authRepository } from '@repositories/index';
+import { cacheService, authService } from '@services/index';
+
 import { ForbiddenError, UnauthorizedError } from '@errors/index';
 
 export async function logout( request: Request, response: Response, next: NextFunction ) {
@@ -11,7 +11,7 @@ export async function logout( request: Request, response: Response, next: NextFu
             throw new ForbiddenError();
         }
 
-        const accessToken = authRepository.parseAccessToken( request.headers.authorization );
+        const accessToken = authService.parseAccessToken( request.headers.authorization );
 
         if ( ! accessToken ) {
             throw new UnauthorizedError();
@@ -19,9 +19,8 @@ export async function logout( request: Request, response: Response, next: NextFu
 
         await cacheService.delete( accessToken );
 
-        return response.status( 200 ).send( {
-            status: 200,
-            message: 'Logout',
+        return response.send( {
+            message: 'Success',
         } );
     }
     catch ( error ) {

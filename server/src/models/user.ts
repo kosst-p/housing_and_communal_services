@@ -1,4 +1,4 @@
-import { FilterQuery } from '@/services/types';
+import { Document, FilterQuery } from '@/services/types';
 import DBService from '@services/dbService';
 
 interface IUser {
@@ -19,6 +19,8 @@ export interface IUserAuth {
 }
 
 export interface IUserFilterQuery extends FilterQuery<IUser> {}
+
+export interface IUserDocument extends IUser, Document {}
 
 const schema = DBService.getSchema<IUser>( {
     name: {

@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
 
 import User, { IUserCreate, IUserFilterQuery } from '@models/user';
-import { AlreadyExistError } from '@errors/index';
 
 export default class Repository {
     async getById( id: string ) {
@@ -13,14 +12,7 @@ export default class Repository {
     }
 
     async create( data: IUserCreate ) {
-
-        const { name, password } = data;
-        const candidate = await this.get( { name } );
-
-        if ( candidate ) {
-            throw new AlreadyExistError( 'The user already exists.' );
-        }
-
+        const { password } = data;
         const hashPassword = bcrypt.hashSync( password, 7 );
 
         return await User.create( { ...data, password: hashPassword } ); // mongo error check?
