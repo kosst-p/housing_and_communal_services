@@ -2,7 +2,7 @@ import * as express from 'express';
 
 import * as controller from '@http/controllers/auth/index';
 import { registrationValidation } from '@http/validations/auth';
-import middlewares from '@/http/middlewares/index';
+import middlewares from '@/http/middlewares';
 
 const router = express.Router();
 

@@ -5,14 +5,15 @@ import userRouter from './users';
 import locationRouter from './locations';
 import serviceProviderRouter from './serviceProvider';
 import transactionRouter from './transaction';
+import middlewares from '@http/middlewares/index';
 
 const rootRouter = express.Router();
 const routePrefix = '/api';
 
 rootRouter.use( routePrefix, authRouter );
 rootRouter.use( routePrefix, userRouter );
-rootRouter.use( routePrefix, locationRouter );
-rootRouter.use( routePrefix, serviceProviderRouter );
-rootRouter.use( routePrefix, transactionRouter );
+rootRouter.use( routePrefix, middlewares.validationJwt, locationRouter );
+rootRouter.use( routePrefix, middlewares.validationJwt, serviceProviderRouter );
+rootRouter.use( routePrefix, middlewares.validationJwt, transactionRouter );
 
 export default rootRouter;
