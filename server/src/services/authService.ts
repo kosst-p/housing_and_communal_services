@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 import { IPayload, IValidationAccessResult } from './types';
 import { config } from '@config/index';
@@ -40,5 +41,9 @@ export default class AuthService {
         }
 
         return token.split( ' ' )[ 1 ];
+    }
+
+    comparePassword( password: string, savedPassword: string ) {
+        return bcrypt.compareSync( password, savedPassword );
     }
 }
