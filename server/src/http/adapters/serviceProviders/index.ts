@@ -5,7 +5,7 @@ import { PaginateResult } from '@/services/types';
 import BaseAdapter from '../base';
 
 export default class DataAdapters extends BaseAdapter {
-    static #allowedFieldsName = [ 'name' ];
+    static #allowedFieldNames = [ 'name' ];
 
     static getServiceProviderFromBody( request: IRequestPost ): IServiceProvider {
         const { name } = request.body;
@@ -46,6 +46,6 @@ export default class DataAdapters extends BaseAdapter {
     }
 
     static getLocationPartialFromBody( request: IRequestPath ): IServiceProvider {
-        return super.getPartialFromBody<IRequestPath, IServiceProvider>( request, this.#allowedFieldsName );
+        return super.getPartialFromBody<IRequestPath, IServiceProvider>( request, this.#allowedFieldNames );
     }
 }

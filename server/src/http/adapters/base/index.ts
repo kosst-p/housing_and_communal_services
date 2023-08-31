@@ -52,11 +52,11 @@ export default class BaseAdapter {
         return parsedLimit < this.defaultMaxLimitParam ? parsedLimit : this.defaultMaxLimitParam;
     }
 
-    static getPartialFromBody<T extends Request, U>( request: T, fieldsName: string[] ): U {
+    static getPartialFromBody<T extends Request, U>( request: T, fieldNames: string[] ): U {
         const { body } = request;
         const partial: U = {} as U;
 
-        for ( const fieldName of fieldsName ) {
+        for ( const fieldName of fieldNames ) {
             if ( body[ fieldName as keyof typeof body ] ) {
                 partial[ fieldName as keyof typeof partial ] = body[ fieldName as keyof typeof body ];
             }

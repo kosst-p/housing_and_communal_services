@@ -2,7 +2,7 @@ import * as express from 'express';
 
 import * as controller from '@http/controllers/location/index';
 import middlewares from '@http/middlewares/index';
-import { validateRequestBodyForUpdate, validateRequestBodyForCreate } from '@/http/validations/locationsRequest';
+import { validateRequestBodyForUpdate, validateRequestBodyForCreate, validateRequestBodyForAttach } from '@/http/validations/locationsRequest';
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ router.get( '/locations', middlewares.validationJwt, controller.paginateLocation
 router.post( '/locations', middlewares.validationJwt, validateRequestBodyForCreate, controller.createLocation );
 router.patch( '/locations/:id', middlewares.validationJwt, validateRequestBodyForUpdate, controller.updateLocation );
 router.delete( '/locations/:id', middlewares.validationJwt, controller.deleteLocation );
-router.post( '/locations/:id/serviceProviders', middlewares.validationJwt, controller.attachServiceProvider ); // validate
+router.post( '/locations/:id/serviceProviders', middlewares.validationJwt, validateRequestBodyForAttach, controller.attachServiceProvider );
 router.delete( '/locations/:id/serviceProviders/:attachedServiceProviderId', middlewares.validationJwt, controller.detachServiceProvider );
 
 export default router;

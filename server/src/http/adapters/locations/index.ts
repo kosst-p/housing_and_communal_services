@@ -6,7 +6,7 @@ import { ILocationFull, ILocationPaginateResult, ILocationServiceProviderFull } 
 import BaseAdapter from '../base';
 
 export default class DataAdapters extends BaseAdapter {
-    static #allowedFieldsName = [ 'country', 'region', 'city', 'address', 'houseNumber' ];
+    static #allowedFieldNames = [ 'country', 'region', 'city', 'address', 'houseNumber' ];
 
     static getLocationFromBody( request: IRequestPost ): ILocationCreate {
         const { country, region, city, address, houseNumber } = request.body;
@@ -21,7 +21,7 @@ export default class DataAdapters extends BaseAdapter {
     }
 
     static getLocationPartialFromBody( request: IRequestPath ): ILocationUpdate {
-        return super.getPartialFromBody<IRequestPath, ILocationUpdate>( request, this.#allowedFieldsName );
+        return super.getPartialFromBody<IRequestPath, ILocationUpdate>( request, this.#allowedFieldNames );
     }
 
     static getLocationFull( data: ILocationDocument ): ILocationFull {

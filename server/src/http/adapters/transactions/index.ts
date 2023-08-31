@@ -4,7 +4,7 @@ import { ITransactionFull } from './types';
 import BaseAdapter from '../base';
 
 export default class DataAdapters extends BaseAdapter {
-    static #allowedFieldsName = [ 'date', 'price' ];
+    static #allowedFieldNames = [ 'date', 'price' ];
 
     static getTransactionFromBody( request: IRequestPost ): ITransactionCreate {
         const { locationServiceProviderId, date, price } = request.body;
@@ -26,6 +26,6 @@ export default class DataAdapters extends BaseAdapter {
     }
 
     static getLocationPartialFromBody( request: IRequestPath ): ITransaction {
-        return super.getPartialFromBody<IRequestPath, ITransaction>( request, this.#allowedFieldsName );
+        return super.getPartialFromBody<IRequestPath, ITransaction>( request, this.#allowedFieldNames );
     }
 }

@@ -28,9 +28,9 @@ export function getValidationRequestBodyForUpdate<T extends Request>( fieldNames
     return function ( request: T, _response: Response, next: NextFunction ) {
         const { body } = request;
         const errorFieldNames: string[] = [];
-        const currentFieldsName = Object.keys( body );
+        const currentFieldNames = Object.keys( body );
 
-        if ( currentFieldsName.length === 0 ) {
+        if ( currentFieldNames.length === 0 ) {
             throw new ValidationError( message );
         }
 
@@ -38,14 +38,9 @@ export function getValidationRequestBodyForUpdate<T extends Request>( fieldNames
             if ( Object.prototype.hasOwnProperty.call( body, key ) ) {
                 const value = body[ key as keyof typeof body ];
 
-                if ( ! value ) {
+                if ( fieldNames.includes( key ) && ! value ) {
                     errorFieldNames.push( key );
                 }
-
-                if ( ! fieldNames.includes( key ) ) {
-                    errorFieldNames.push( key );
-                }
-
             }
         }
 
