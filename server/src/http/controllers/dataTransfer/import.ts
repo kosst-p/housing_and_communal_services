@@ -47,11 +47,12 @@ export async function importDataToDB( request: Request, response: Response, next
             // }
 
             for ( const sheetName of workSheetNames ) {
+                let location;
                 const adaptedLocationFromFile = LocationsDataAdapters.getLocationFromFile( sheetName );
                 const locationCandidate = await locationsActions.get( request.user, adaptedLocationFromFile );
 
                 if ( ! locationCandidate ) {
-                    const createdLocation = await locationsActions.create( request.user, adaptedLocationFromFile );
+                    location = await locationsActions.create( request.user, adaptedLocationFromFile );
                 }
 
                 const currentSheetData = workbook.Sheets[ sheetName ];
@@ -61,9 +62,15 @@ export async function importDataToDB( request: Request, response: Response, next
                     const range = XLSX.utils.decode_range( currentSheetDataRef );
                     const parsedDataJsonFromSheet: ParsedSheetData[] = XLSX.utils.sheet_to_json( currentSheetData, { range } );
 
-                    console.log( '***', parsedDataJsonFromSheet );
+                    console.log( '--- sheetName' );
+                    console.log( sheetName );
+                    console.log( '--- sheetName' );
+                    console.log( '--- parsedDataJsonFromSheet' );
+                    console.log( parsedDataJsonFromSheet );
+                    console.log( '--- parsedDataJsonFromSheet' );
 
                     for ( const data of parsedDataJsonFromSheet ) {
+                        let serviceProvider;
                         const serviceProviderName = data[ '__EMPTY' ];
 
                         if ( serviceProviderName && serviceProviderName !== 'Итого:' ) {
@@ -71,9 +78,24 @@ export async function importDataToDB( request: Request, response: Response, next
                             const serviceProviderCandidate = await serviceProvidersActions.get( adaptedServiceProviderFromFile );
 
                             if ( ! serviceProviderCandidate ) {
-                                const createdServiceProvider = await serviceProvidersActions.create( adaptedServiceProviderFromFile );
+                                serviceProvider = await serviceProvidersActions.create( adaptedServiceProviderFromFile );
+                            }
+                            else {
+                                serviceProvider = serviceProviderCandidate;
                             }
                         }
+
+                        if ( location && serviceProvider ) {
+                            const candidateAttachedServiceProvider = await locationsActions.getAttachedServiceProvider( {
+                                locationId: location.id,
+                                serviceProviderId: serviceProvider.id,
+                            } );
+
+                            if ( ! candidateAttachedServiceProvider ) {
+                                const attachedServiceProvider = await locationsActions.attachServiceProvider( location, serviceProvider );
+                            }
+                        }
+
                     }
 
 

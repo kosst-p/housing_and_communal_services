@@ -2,7 +2,8 @@ import { ILocationCreate, ILocationUpdate, ILocationQueryParams, ILocationDocume
 import { IUserAuth } from '@models/user';
 import { IServiceProviderDocument } from '@/models/serviceProvider';
 import { locationRepository, transactionRepository, userRepository } from '@repositories/index';
-import { NotFoundError, ForbiddenError, RelationsError, AlreadyExistError } from '@errors/index';
+import { NotFoundError, ForbiddenError, RelationsError } from '@errors/index';
+import { ILocationServiceProviderFilterQuery } from '@/models/locationServiceProvider';
 
 export default class Actions {
     async getById( user: IUserAuth, id: string ) {
@@ -83,16 +84,11 @@ export default class Actions {
         return item;
     }
 
+    async getAttachedServiceProvider<T extends ILocationServiceProviderFilterQuery>( filter: T ) {
+        return await locationRepository.getAttachedServiceProvider( filter );
+    }
+
     async attachServiceProvider( location: ILocationDocument, serviceProvider: IServiceProviderDocument ) {
-        const candidate = await locationRepository.getAttachedServiceProvider( {
-            locationId: location.id,
-            serviceProviderId: serviceProvider.id,
-        } );
-
-        if ( candidate ) {
-            throw new AlreadyExistError( 'Attached Service Provider is already exist.' );
-        }
-
         const locationFullName = [ location.country, location.region, location.city, location.address, location.houseNumber ].filter( Boolean ).join( ', ' );
 
         return await locationRepository.attachServiceProvider( {
