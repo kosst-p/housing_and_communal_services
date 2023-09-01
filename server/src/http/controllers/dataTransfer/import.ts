@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from '@http/types/index';
-import { locationsActions } from '@/actions';
+import { locationsActions, serviceProvidersActions } from '@/actions';
 import LocationsDataAdapters from '@http/adapters/locations';
+import ServiceProvidersDataAdapters from '@http/adapters/serviceProviders';
 
 import XLSX from 'xlsx';
+import { ParsedSheetData } from '@/http/types/dataTransfer';
 
 export async function importDataToDB( request: Request, response: Response, next: NextFunction ) {
     try {
@@ -21,9 +23,9 @@ export async function importDataToDB( request: Request, response: Response, next
 
             const workSheetNames: string[] = workbook.SheetNames; // locations
 
-            console.log( '--- workSheets' );
-            console.log( workSheetNames );
-            console.log( '--- workSheets' );
+            // console.log( '--- workSheets' );
+            // console.log( workSheetNames );
+            // console.log( '--- workSheets' );
 
             // const workSheets: { [key: string]: unknown[] } = {};
 
@@ -46,10 +48,35 @@ export async function importDataToDB( request: Request, response: Response, next
 
             for ( const sheetName of workSheetNames ) {
                 const adaptedLocationFromFile = LocationsDataAdapters.getLocationFromFile( sheetName );
-                const candidate = await locationsActions.get( request.user, adaptedLocationFromFile );
+                const locationCandidate = await locationsActions.get( request.user, adaptedLocationFromFile );
 
-                if ( ! candidate ) {
-                    await locationsActions.create( request.user, adaptedLocationFromFile );
+                if ( ! locationCandidate ) {
+                    const createdLocation = await locationsActions.create( request.user, adaptedLocationFromFile );
+                }
+
+                const currentSheetData = workbook.Sheets[ sheetName ];
+                const currentSheetDataRef = currentSheetData[ '!ref' ];
+
+                if ( currentSheetDataRef ) {
+                    const range = XLSX.utils.decode_range( currentSheetDataRef );
+                    const parsedDataJsonFromSheet: ParsedSheetData[] = XLSX.utils.sheet_to_json( currentSheetData, { range } );
+
+                    console.log( '***', parsedDataJsonFromSheet );
+
+                    for ( const data of parsedDataJsonFromSheet ) {
+                        const serviceProviderName = data[ '__EMPTY' ];
+
+                        if ( serviceProviderName && serviceProviderName !== 'Итого:' ) {
+                            const adaptedServiceProviderFromFile = ServiceProvidersDataAdapters.getServiceProviderFromFile( serviceProviderName );
+                            const serviceProviderCandidate = await serviceProvidersActions.get( adaptedServiceProviderFromFile );
+
+                            if ( ! serviceProviderCandidate ) {
+                                const createdServiceProvider = await serviceProvidersActions.create( adaptedServiceProviderFromFile );
+                            }
+                        }
+                    }
+
+
                 }
 
             }

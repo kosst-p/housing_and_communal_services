@@ -45,7 +45,13 @@ export default class DataAdapters extends BaseAdapter {
         };
     }
 
-    static getLocationPartialFromBody( request: IRequestPath ): IServiceProvider {
+    static getServiceProviderPartialFromBody( request: IRequestPath ): IServiceProvider {
         return super.getPartialFromBody<IRequestPath, IServiceProvider>( request, this.#allowedFieldNames );
+    }
+
+    static getServiceProviderFromFile( name: string ) {
+        return {
+            name
+        };
     }
 }

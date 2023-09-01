@@ -6,7 +6,7 @@ import { serviceProvidersActions } from '@actions/index';
 export async function updateServiceProvider( request: IRequestPath, response: Response, next: NextFunction ) {
     try {
         const serviceProvider = await serviceProvidersActions.getById( request.params.id );
-        const adaptedServiceProviderFromBody = ServiceProvidersDataAdapters.getLocationPartialFromBody( request );
+        const adaptedServiceProviderFromBody = ServiceProvidersDataAdapters.getServiceProviderPartialFromBody( request );
         const updatedServiceProvider = await serviceProvidersActions.update( serviceProvider.id, adaptedServiceProviderFromBody );
         const adaptedUpdatedServiceProvider = ServiceProvidersDataAdapters.getServiceProviderFull( updatedServiceProvider! );
 

@@ -1,4 +1,4 @@
-import { IServiceProvider, IServiceProviderQueryParams } from '@models/serviceProvider';
+import { IServiceProvider, IServiceProviderFilterQuery, IServiceProviderQueryParams } from '@models/serviceProvider';
 import { locationRepository, serviceProviderRepository } from '@repositories/index';
 import { AlreadyExistError, NotFoundError, RelationsError } from '@/errors';
 
@@ -13,17 +13,15 @@ export default class Actions {
         return item;
     }
 
+    async get<T extends IServiceProviderFilterQuery>( filter: T ) {
+        return serviceProviderRepository.get( filter );
+    }
+
     async paginate( params: IServiceProviderQueryParams ) {
         return await serviceProviderRepository.paginate( params );
     }
 
     async create( data: IServiceProvider ) {
-        const candidate = await serviceProviderRepository.get( { name: data.name } );
-
-        if ( candidate ) {
-            throw new AlreadyExistError( 'The Service Provider already exists.' );
-        }
-
         return await serviceProviderRepository.create( data );
     }
 
