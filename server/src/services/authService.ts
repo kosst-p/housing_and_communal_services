@@ -5,14 +5,14 @@ import { IPayload, IValidationAccessResult } from './types';
 import { config } from '@config/index';
 
 export default class AuthService {
-    #minutes;
+    #expirationTimeInMinutes;
 
     constructor( expirationTime: number ) {
-        this.#minutes = expirationTime / 60;
+        this.#expirationTimeInMinutes = expirationTime / 60;
     }
 
     generateAccessToken( payload: IPayload ) {
-        return jwt.sign( payload, config.jwt.accessKey, { expiresIn: `${ this.#minutes }m` } );
+        return jwt.sign( payload, config.jwt.accessKey, { expiresIn: `${ this.#expirationTimeInMinutes }m` } );
     }
 
     generateRefreshToken( payload: IPayload ) {
