@@ -1,10 +1,14 @@
-import Location, { ILocationCreate, ILocationUpdate, ILocationQueryParams, ILocationDocument } from '@models/location';
+import Location, { ILocationCreate, ILocationUpdate, ILocationQueryParams, ILocationDocument, ILocationFilterQuery } from '@models/location';
 import LocationServiceProvider, { ILocationServiceProviderAttach, ILocationServiceProviderFilterQuery, ILocationServiceProviderUpdate } from '@/models/locationServiceProvider';
 
 export default class Repository {
     async getById( id: string ) {
         // TODO check id before
         return await Location.findById( id ); // mongo error check?
+    }
+
+    async get<T extends ILocationFilterQuery>( filter: T ) {
+        return await Location.findOne( filter ); // mongo error check?
     }
 
     async paginate( params: ILocationQueryParams & { userId: string } ) {

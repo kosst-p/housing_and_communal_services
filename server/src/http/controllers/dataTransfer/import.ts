@@ -1,34 +1,58 @@
 import { Request, Response, NextFunction } from '@http/types/index';
+import { locationsActions } from '@/actions';
+import LocationsDataAdapters from '@http/adapters/locations';
 
 import XLSX from 'xlsx';
 
 export async function importDataToDB( request: Request, response: Response, next: NextFunction ) {
     try {
-        console.log( '---' );
+        //
+
+        console.log( '--- request.file' );
         console.log( request.file );
-        console.log( '---' );
+        console.log( '--- request.file' );
 
         if ( request.file?.buffer ) {
+            const workbook = XLSX.read( request.file?.buffer, { type: 'buffer' } );
 
-            const fileContent = XLSX.read( request.file?.buffer, { type: 'buffer' } );
-            const sheetNames = fileContent.SheetNames;
-            const sheetName = fileContent.SheetNames[ 1 ];
+            console.log( '--- workbook' );
+            console.log( workbook );
+            console.log( '--- workbook' );
 
+            const workSheetNames: string[] = workbook.SheetNames; // locations
 
+            console.log( '--- workSheets' );
+            console.log( workSheetNames );
+            console.log( '--- workSheets' );
 
-            if ( fileContent.Sheets[ sheetName ][ '!ref' ] ) {
+            // const workSheets: { [key: string]: unknown[] } = {};
 
-                const range = XLSX.utils.decode_range( fileContent.Sheets[ sheetName ][ '!ref' ]! );
-                const data = XLSX.utils.sheet_to_json( fileContent.Sheets[ sheetName ], { range } );
+            // for ( const sheetName of workbook.SheetNames ) {
+            //     workSheets[ sheetName as keyof typeof workSheets ] = XLSX.utils.sheet_to_json( workbook.Sheets[ sheetName ] );
+            // }
 
-                console.log( '***', range );
-                console.log( '***', data );
+            // console.log( '--- workSheets' );
+            // console.log( workSheets );
+            // console.log( '--- workSheets' );
+
+            // if ( workbook.Sheets[ sheetName ][ '!ref' ] ) {
+
+            //     const range = XLSX.utils.decode_range( workbook.Sheets[ sheetName ][ '!ref' ]! );
+            //     const data = XLSX.utils.sheet_to_json( workbook.Sheets[ sheetName ], { range } );
+
+            //     console.log( '***', range );
+            //     console.log( '***', data );
+            // }
+
+            for ( const sheetName of workSheetNames ) {
+                const adaptedLocationFromFile = LocationsDataAdapters.getLocationFromFile( sheetName );
+                const candidate = await locationsActions.get( request.user, adaptedLocationFromFile );
+
+                if ( ! candidate ) {
+                    await locationsActions.create( request.user, adaptedLocationFromFile );
+                }
+
             }
-
-
-            fileContent;
-            console.log( '**', fileContent );
-            console.log( '***', sheetNames );
         }
 
 
@@ -38,3 +62,5 @@ export async function importDataToDB( request: Request, response: Response, next
         return next( error );
     }
 }
+
+

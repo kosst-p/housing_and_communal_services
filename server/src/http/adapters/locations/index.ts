@@ -65,4 +65,13 @@ export default class DataAdapters extends BaseAdapter {
             serviceProviderId: data.serviceProviderId.toString()
         };
     }
+
+    static getLocationFromFile( location: string ) {
+        const parsedLocation = location.split( ', ' );
+
+        return {
+            address: parsedLocation[ 0 ],
+            houseNumber: parsedLocation[ 1 ]
+        };
+    }
 }

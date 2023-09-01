@@ -1,6 +1,6 @@
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-import { ObjectId, Document, SortOrder, PaginateModel } from '@services/types';
+import { ObjectId, Document, SortOrder, PaginateModel, FilterQuery } from '@services/types';
 import DBService from '@services/dbService';
 
 export interface ILocation {
@@ -13,11 +13,11 @@ export interface ILocation {
 }
 
 export interface ILocationCreate {
-    country: string,
-    region: string,
-    city: string,
+    country?: string,
+    region?: string,
+    city?: string,
     address: string,
-    houseNumber: string
+    houseNumber?: string
 }
 
 export interface ILocationUpdate {
@@ -41,6 +41,8 @@ export interface ILocationQueryParams {
     skip: number
 }
 
+export interface ILocationFilterQuery extends FilterQuery<ILocation> {}
+
 const schema = DBService.getSchema<ILocationDocument>(
     {
         userId: {
@@ -50,15 +52,12 @@ const schema = DBService.getSchema<ILocationDocument>(
         },
         country: {
             type: String,
-            required: true,
         },
         region: {
             type: String,
-            required: true,
         },
         city: {
             type: String,
-            required: true,
         },
         address: {
             type: String,
@@ -66,7 +65,6 @@ const schema = DBService.getSchema<ILocationDocument>(
         },
         houseNumber: {
             type: String,
-            required: true,
         },
     },
     // { timestamps: true }

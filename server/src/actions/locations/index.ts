@@ -1,4 +1,4 @@
-import { ILocationCreate, ILocationUpdate, ILocationQueryParams, ILocationDocument } from '@models/location';
+import { ILocationCreate, ILocationUpdate, ILocationQueryParams, ILocationDocument, ILocationFilterQuery } from '@models/location';
 import { IUserAuth } from '@models/user';
 import { IServiceProviderDocument } from '@/models/serviceProvider';
 import { locationRepository, transactionRepository, userRepository } from '@repositories/index';
@@ -17,6 +17,15 @@ export default class Actions {
         }
 
         return item;
+    }
+
+    async get<T extends ILocationFilterQuery>( user: IUserAuth, filter: T ) {
+        const updatedFilter: T & { userId: string } = {
+            userId: user.id,
+            ...filter,
+        };
+
+        return await locationRepository.get( updatedFilter );
     }
 
     async paginate( user: IUserAuth, params: ILocationQueryParams ) {
