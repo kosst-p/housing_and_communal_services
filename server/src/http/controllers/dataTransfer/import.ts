@@ -1,14 +1,17 @@
+import XLSX from 'xlsx';
+
 import { Request, Response, NextFunction } from '@http/types/index';
 import { locationsActions, serviceProvidersActions } from '@/actions';
 import LocationsDataAdapters from '@http/adapters/locations';
 import ServiceProvidersDataAdapters from '@http/adapters/serviceProviders';
-
-import XLSX from 'xlsx';
 import { ParsedSheetData } from '@/http/types/dataTransfer';
+import { ILocationDocument } from '@/models/location'; // ?
+import { IServiceProviderDocument } from '@/models/serviceProvider'; // ?
+import { ILocationServiceProviderDocument } from '@/models/locationServiceProvider';
 
-export async function importDataToDB( request: Request, response: Response, next: NextFunction ) {
+export async function importData( request: Request, response: Response, next: NextFunction ) {
     try {
-        //
+        // check extension.
 
         console.log( '--- request.file' );
         console.log( request.file );
@@ -23,38 +26,8 @@ export async function importDataToDB( request: Request, response: Response, next
 
             const workSheetNames: string[] = workbook.SheetNames; // locations
 
-            // console.log( '--- workSheets' );
-            // console.log( workSheetNames );
-            // console.log( '--- workSheets' );
-
-            // const workSheets: { [key: string]: unknown[] } = {};
-
-            // for ( const sheetName of workbook.SheetNames ) {
-            //     workSheets[ sheetName as keyof typeof workSheets ] = XLSX.utils.sheet_to_json( workbook.Sheets[ sheetName ] );
-            // }
-
-            // console.log( '--- workSheets' );
-            // console.log( workSheets );
-            // console.log( '--- workSheets' );
-
-            // if ( workbook.Sheets[ sheetName ][ '!ref' ] ) {
-
-            //     const range = XLSX.utils.decode_range( workbook.Sheets[ sheetName ][ '!ref' ]! );
-            //     const data = XLSX.utils.sheet_to_json( workbook.Sheets[ sheetName ], { range } );
-
-            //     console.log( '***', range );
-            //     console.log( '***', data );
-            // }
-
             for ( const sheetName of workSheetNames ) {
-                let location;
-                const adaptedLocationFromFile = LocationsDataAdapters.getLocationFromFile( sheetName );
-                const locationCandidate = await locationsActions.get( request.user, adaptedLocationFromFile );
-
-                if ( ! locationCandidate ) {
-                    location = await locationsActions.create( request.user, adaptedLocationFromFile );
-                }
-
+                const location = await generateLocation( request, sheetName );
                 const currentSheetData = workbook.Sheets[ sheetName ];
                 const currentSheetDataRef = currentSheetData[ '!ref' ];
 
@@ -70,40 +43,21 @@ export async function importDataToDB( request: Request, response: Response, next
                     console.log( '--- parsedDataJsonFromSheet' );
 
                     for ( const data of parsedDataJsonFromSheet ) {
-                        let serviceProvider;
-                        const serviceProviderName = data[ '__EMPTY' ];
-
-                        if ( serviceProviderName && serviceProviderName !== 'Итого:' ) {
-                            const adaptedServiceProviderFromFile = ServiceProvidersDataAdapters.getServiceProviderFromFile( serviceProviderName );
-                            const serviceProviderCandidate = await serviceProvidersActions.get( adaptedServiceProviderFromFile );
-
-                            if ( ! serviceProviderCandidate ) {
-                                serviceProvider = await serviceProvidersActions.create( adaptedServiceProviderFromFile );
-                            }
-                            else {
-                                serviceProvider = serviceProviderCandidate;
-                            }
-                        }
+                        const serviceProvider = await generateServiceProvider( data );
 
                         if ( location && serviceProvider ) {
-                            const candidateAttachedServiceProvider = await locationsActions.getAttachedServiceProvider( {
-                                locationId: location.id,
-                                serviceProviderId: serviceProvider.id,
-                            } );
 
-                            if ( ! candidateAttachedServiceProvider ) {
-                                const attachedServiceProvider = await locationsActions.attachServiceProvider( location, serviceProvider );
-                            }
+                            console.log( '--- data' );
+                            console.log( data );
+                            console.log( '--- data' );
+
+
+                            const attachedServiceProvider = await generateAttachedServiceProvider( location, serviceProvider );
                         }
-
                     }
-
-
                 }
-
             }
         }
-
 
         return response.send( { message: 'OK' } );
     }
@@ -112,4 +66,50 @@ export async function importDataToDB( request: Request, response: Response, next
     }
 }
 
+async function generateLocation( request: Request, sheetName: string ) {
+    let location;
+    const adaptedLocationFromFile = LocationsDataAdapters.getLocationFromFile( sheetName );
+    const locationCandidate = await locationsActions.get( request.user, adaptedLocationFromFile );
 
+    if ( ! locationCandidate ) {
+        location = await locationsActions.create( request.user, adaptedLocationFromFile );
+    }
+
+    return location;
+}
+
+async function generateServiceProvider( data: ParsedSheetData ) {
+    let serviceProvider;
+    const serviceProviderName = data[ '__EMPTY' ];
+
+    if ( serviceProviderName && serviceProviderName !== 'Итого:' ) {
+        const adaptedServiceProviderFromFile = ServiceProvidersDataAdapters.getServiceProviderFromFile( serviceProviderName );
+        const serviceProviderCandidate = await serviceProvidersActions.get( adaptedServiceProviderFromFile );
+
+        if ( ! serviceProviderCandidate ) {
+            serviceProvider = await serviceProvidersActions.create( adaptedServiceProviderFromFile );
+        }
+        else {
+            serviceProvider = serviceProviderCandidate;
+        }
+    }
+
+    return serviceProvider;
+}
+
+async function generateAttachedServiceProvider( location: ILocationDocument, serviceProvider: IServiceProviderDocument ) {
+    let attachedServiceProvider;
+
+    const candidateAttachedServiceProvider = await locationsActions.getAttachedServiceProvider( {
+        locationId: location.id,
+        serviceProviderId: serviceProvider.id,
+    } );
+
+    if ( ! candidateAttachedServiceProvider ) {
+        attachedServiceProvider = await locationsActions.attachServiceProvider( location, serviceProvider );
+    }
+
+    return attachedServiceProvider;
+}
+
+function generateTransactions() {}

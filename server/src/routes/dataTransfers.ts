@@ -7,7 +7,7 @@ import * as controller from '@http/controllers/dataTransfer/index';
 
 const router = express.Router();
 
-router.post( '/import', upload.single( 'file' ), controller.importDataToDB );
+router.post( '/import', upload.single( 'file' ), controller.importData );
 router.post( '/export', );
 
 
