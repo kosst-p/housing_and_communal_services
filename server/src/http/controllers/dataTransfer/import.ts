@@ -13,16 +13,16 @@ export async function importData( request: Request, response: Response, next: Ne
     try {
         // check extension.
 
-        console.log( '--- request.file' );
-        console.log( request.file );
-        console.log( '--- request.file' );
+        // console.log( '--- request.file' );
+        // console.log( request.file );
+        // console.log( '--- request.file' );
 
         if ( request.file?.buffer ) {
             const workbook = XLSX.read( request.file?.buffer, { type: 'buffer' } );
 
-            console.log( '--- workbook' );
-            console.log( workbook );
-            console.log( '--- workbook' );
+            // console.log( '--- workbook' );
+            // console.log( workbook );
+            // console.log( '--- workbook' );
 
             const workSheetNames: string[] = workbook.SheetNames; // locations
 
@@ -35,24 +35,26 @@ export async function importData( request: Request, response: Response, next: Ne
                     const range = XLSX.utils.decode_range( currentSheetDataRef );
                     const parsedDataJsonFromSheet: ParsedSheetData[] = XLSX.utils.sheet_to_json( currentSheetData, { range } );
 
-                    console.log( '--- sheetName' );
-                    console.log( sheetName );
-                    console.log( '--- sheetName' );
-                    console.log( '--- parsedDataJsonFromSheet' );
-                    console.log( parsedDataJsonFromSheet );
-                    console.log( '--- parsedDataJsonFromSheet' );
+                    // console.log( '--- sheetName' );
+                    // console.log( sheetName );
+                    // console.log( '--- sheetName' );
+                    // console.log( '--- parsedDataJsonFromSheet' );
+                    // console.log( parsedDataJsonFromSheet );
+                    // console.log( '--- parsedDataJsonFromSheet' );
 
                     for ( const data of parsedDataJsonFromSheet ) {
                         const serviceProvider = await generateServiceProvider( data );
 
                         if ( location && serviceProvider ) {
 
-                            console.log( '--- data' );
-                            console.log( data );
-                            console.log( '--- data' );
+                            // console.log( '--- data' );
+                            // console.log( data );
+                            // console.log( '--- data' );
 
 
                             const attachedServiceProvider = await generateAttachedServiceProvider( location, serviceProvider );
+
+                            generateTransactions( data );
                         }
                     }
                 }
@@ -73,6 +75,9 @@ async function generateLocation( request: Request, sheetName: string ) {
 
     if ( ! locationCandidate ) {
         location = await locationsActions.create( request.user, adaptedLocationFromFile );
+    }
+    else {
+        location = locationCandidate;
     }
 
     return location;
@@ -108,8 +113,27 @@ async function generateAttachedServiceProvider( location: ILocationDocument, ser
     if ( ! candidateAttachedServiceProvider ) {
         attachedServiceProvider = await locationsActions.attachServiceProvider( location, serviceProvider );
     }
+    else {
+        attachedServiceProvider = candidateAttachedServiceProvider;
+    }
 
     return attachedServiceProvider;
 }
 
-function generateTransactions() {}
+function generateTransactions( data: ParsedSheetData ) {
+    let transaction;
+
+
+    console.log( '1', data );
+    // candidate
+    // if candidate
+    // create
+    // else
+    // update
+
+    // const createdTransaction = await transactionsActions.create( adaptedTransactionFromBody );
+    // const updatedTransaction = await transactionsActions.update( transaction.id, adaptedTransactionFromBody );
+
+
+    return transaction;
+}
