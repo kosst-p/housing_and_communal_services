@@ -14,7 +14,7 @@ export async function importData( request: Request, response: Response, next: Ne
         // check extension.
 
         if ( request.file?.buffer ) {
-            const workbook = fileParserService.getWorkBook( request.file?.buffer );
+            const workbook = fileParserService.getWorkBook( request.file?.buffer, { type: 'buffer' } );
             const workSheetNames: string[] = workbook.SheetNames;
 
             for ( const sheetName of workSheetNames ) {
@@ -24,8 +24,8 @@ export async function importData( request: Request, response: Response, next: Ne
 
                 if ( currentSheetDataRef ) {
                     const range = fileParserService.getDecodeRange( currentSheetDataRef );
-                    const parsedDataJsonFromSheet: unknown[] = fileParserService.parseSheetToJson( currentSheetData, { range } );
-                    const actualParsedDataJsonFromSheet = getActualParsedDataJsonFromSheet( parsedDataJsonFromSheet );
+                    const parsedDataJsonFromSheet = fileParserService.parseSheetToJson<ParsedSheetData[]>( currentSheetData, { range } );
+                    const actualParsedDataJsonFromSheet = getActualParsedDataJsonFromSheet<ParsedSheetData[]>( parsedDataJsonFromSheet );
 
                     for ( const data of actualParsedDataJsonFromSheet ) {
                         const serviceProvider = await generateServiceProvider( data );
@@ -56,8 +56,8 @@ export async function importData( request: Request, response: Response, next: Ne
 }
 /* Get all data before an empty(blank) line. */
 
-function getActualParsedDataJsonFromSheet( sheetData: ParsedSheetData[] ) {
-    const actualData: ParsedSheetData[] = [];
+function getActualParsedDataJsonFromSheet<T>( sheetData: T ) {
+    const actualData: T = [];
 
     for ( const data of sheetData ) {
         if ( isEmptyObject( data ) ) {
