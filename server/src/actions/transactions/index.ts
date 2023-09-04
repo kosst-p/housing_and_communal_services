@@ -1,4 +1,4 @@
-import { ITransactionCreate, ITransactionUpdate } from '@/models/transaction';
+import { ITransactionCreate, ITransactionFilterQuery, ITransactionUpdate } from '@/models/transaction';
 import { transactionRepository } from '@/repositories';
 import { NotFoundError } from '@/errors';
 
@@ -11,6 +11,10 @@ export default class Actions {
         }
 
         return item;
+    }
+
+    async get<T extends ITransactionFilterQuery>( filter: T ) {
+        return await transactionRepository.get( filter );
     }
 
     async create( data: ITransactionCreate ) {
