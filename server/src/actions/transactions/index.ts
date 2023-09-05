@@ -78,7 +78,7 @@ export default class Actions {
         }
     }
 
-    async generateTransaction( attachedServiceProviderId: string, date: string, price: string | number ) {
+    private async generateTransaction( attachedServiceProviderId: string, date: string, price: string | number ) {
         let transaction = null;
         const parsedDate = TransactionsDataAdapters.getTransactionDateFromFile( date );
         const parsedPrice = TransactionsDataAdapters.getTransactionPriceFromFile( price );
