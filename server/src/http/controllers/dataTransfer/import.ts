@@ -54,10 +54,11 @@ export async function importData( request: Request, response: Response, next: Ne
         return next( error );
     }
 }
+
 /* Get all data before an empty(blank) line. */
 
-function getActualParsedDataJsonFromSheet<T>( sheetData: T ) {
-    const actualData: T = [];
+function getActualParsedDataJsonFromSheet<T extends unknown[]>( sheetData: T ): T {
+    const actualData = [] as unknown[] as T;
 
     for ( const data of sheetData ) {
         if ( isEmptyObject( data ) ) {
