@@ -56,6 +56,14 @@ class RelationsError extends CustomError {
     }
 }
 
+class ImportFileError extends CustomError {
+    constructor( message: string ) {
+        super( message );
+        this.statusCode = 403;
+        this.message = message;
+    }
+}
+
 export {
     CustomError,
     ValidationError,
@@ -63,5 +71,6 @@ export {
     ForbiddenError,
     NotFoundError,
     AlreadyExistError,
-    RelationsError
+    RelationsError,
+    ImportFileError
 };

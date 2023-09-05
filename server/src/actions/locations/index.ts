@@ -4,6 +4,7 @@ import { IServiceProviderDocument } from '@/models/serviceProvider';
 import { locationRepository, transactionRepository, userRepository } from '@repositories/index';
 import { NotFoundError, ForbiddenError, RelationsError } from '@errors/index';
 import { ILocationServiceProviderFilterQuery } from '@/models/locationServiceProvider';
+import LocationsDataAdapters from '@http/adapters/locations';
 
 export default class Actions {
     async getById( user: IUserAuth, id: string ) {
@@ -107,5 +108,38 @@ export default class Actions {
         }
 
         return await locationRepository.detachServiceProvider( attachedServiceProviderId );
+    }
+
+    async generateLocation( user: IUserAuth, sheetName: string ) {
+        let location = null;
+        const adaptedLocationFromFile = LocationsDataAdapters.getLocationFromFile( sheetName );
+        const locationCandidate = await this.get( user, adaptedLocationFromFile );
+
+        if ( ! locationCandidate ) {
+            location = await this.create( user, adaptedLocationFromFile );
+        }
+        else {
+            location = locationCandidate;
+        }
+
+        return location;
+    }
+
+    async generateAttachedServiceProvider( location: ILocationDocument, serviceProvider: IServiceProviderDocument ) {
+        let attachedServiceProvider = null;
+
+        const candidateAttachedServiceProvider = await this.getAttachedServiceProvider( {
+            locationId: location.id,
+            serviceProviderId: serviceProvider.id,
+        } );
+
+        if ( ! candidateAttachedServiceProvider ) {
+            attachedServiceProvider = await this.attachServiceProvider( location, serviceProvider );
+        }
+        else {
+            attachedServiceProvider = candidateAttachedServiceProvider;
+        }
+
+        return attachedServiceProvider;
     }
 }

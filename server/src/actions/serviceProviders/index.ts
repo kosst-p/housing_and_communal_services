@@ -1,6 +1,8 @@
 import { IServiceProvider, IServiceProviderFilterQuery, IServiceProviderQueryParams } from '@models/serviceProvider';
+import { ParsedSheetData } from '@/http/types/dataTransfer';
 import { locationRepository, serviceProviderRepository } from '@repositories/index';
 import { AlreadyExistError, NotFoundError, RelationsError } from '@/errors';
+import ServiceProvidersDataAdapters from '@http/adapters/serviceProviders';
 
 export default class Actions {
     async getById( id: string ) {
@@ -47,6 +49,25 @@ export default class Actions {
 
         if ( attachedServiceProvider ) {
             await locationRepository.updateAttachedServiceProvider( attachedServiceProvider.id, { serviceProviderName: serviceProvider.name } );
+        }
+
+        return serviceProvider;
+    }
+
+    async generateServiceProvider( data: ParsedSheetData ) {
+        let serviceProvider = null;
+        const serviceProviderName = data[ '__EMPTY' ];
+
+        if ( serviceProviderName ) {
+            const adaptedServiceProviderFromFile = ServiceProvidersDataAdapters.getServiceProviderFromFile( serviceProviderName );
+            const serviceProviderCandidate = await this.get( adaptedServiceProviderFromFile );
+
+            if ( ! serviceProviderCandidate ) {
+                serviceProvider = await this.create( adaptedServiceProviderFromFile );
+            }
+            else {
+                serviceProvider = serviceProviderCandidate;
+            }
         }
 
         return serviceProvider;
