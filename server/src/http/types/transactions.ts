@@ -18,3 +18,8 @@ export interface IRequestPost extends Request {
 export interface IRequestPath extends Request {
     body: ITransactionPathData
 }
+
+export interface ParsedSheetData {
+    __EMPTY: string,
+    [key: string]: string | number
+}

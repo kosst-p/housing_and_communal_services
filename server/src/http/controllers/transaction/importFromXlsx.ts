@@ -2,14 +2,14 @@ import { Request, Response, NextFunction } from '@http/types/index';
 import { locationsActions, serviceProvidersActions, transactionsActions } from '@/actions';
 import LocationsDataAdapters from '@http/adapters/locations';
 import ServiceProvidersDataAdapters from '@http/adapters/serviceProviders';
-import { ParsedSheetData } from '@/http/types/dataTransfer';
+import { ParsedSheetData } from '@/http/types/transactions';
 import TransactionsDataAdapters from '@http/adapters/transactions';
 import { ILocationDocument } from '@/models/location'; // ?
 import { IServiceProviderDocument } from '@/models/serviceProvider'; // ?
 import { isEmptyObject } from '@/utils/object';
 import { fileParserService } from '@/services';
 
-export async function importData( request: Request, response: Response, next: NextFunction ) {
+export async function importFromXlsx( request: Request, response: Response, next: NextFunction ) {
     try {
         // check extension.
 
@@ -17,7 +17,7 @@ export async function importData( request: Request, response: Response, next: Ne
             return;
         }
 
-        const workbook = fileParserService.getWorkBook( request.file?.buffer, { type: 'buffer' } );
+        const workbook = fileParserService.getWorkBook( request.file.buffer, { type: 'buffer' } );
         const workSheetNames: string[] = workbook.SheetNames;
 
         for ( const sheetName of workSheetNames ) {
