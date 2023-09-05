@@ -618,6 +618,40 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "importFromXlsx",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/transactions/importFromXlsx",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transactions",
+								"importFromXlsx"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

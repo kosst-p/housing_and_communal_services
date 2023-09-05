@@ -1,7 +1,7 @@
 import { IRequestPost, IRequestPath, IRequestPostLocationServiceProvider } from '@http/types/locations';
 import { getValidationRequestBodyForUpdate, getValidationRequestBodyForCreate } from './base';
 
-const fieldNames = [ 'address', ];
+const fieldNames = [ 'address' ];
 const fieldNamesForAttach = [ 'id' ];
 
 export const validateRequestBodyForCreate = getValidationRequestBodyForCreate<IRequestPost>( fieldNames );
