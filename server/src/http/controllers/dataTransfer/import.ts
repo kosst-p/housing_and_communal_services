@@ -13,36 +13,46 @@ export async function importData( request: Request, response: Response, next: Ne
     try {
         // check extension.
 
-        if ( request.file?.buffer ) {
-            const workbook = fileParserService.getWorkBook( request.file?.buffer, { type: 'buffer' } );
-            const workSheetNames: string[] = workbook.SheetNames;
+        if ( ! request.file?.buffer ) {
+            return;
+        }
 
-            for ( const sheetName of workSheetNames ) {
-                const location = await generateLocation( request, sheetName );
-                const currentSheetData = workbook.Sheets[ sheetName ];
-                const currentSheetDataRef = currentSheetData[ '!ref' ];
+        const workbook = fileParserService.getWorkBook( request.file?.buffer, { type: 'buffer' } );
+        const workSheetNames: string[] = workbook.SheetNames;
 
-                if ( currentSheetDataRef ) {
-                    const range = fileParserService.getDecodeRange( currentSheetDataRef );
-                    const parsedDataJsonFromSheet = fileParserService.parseSheetToJson<ParsedSheetData[]>( currentSheetData, { range } );
-                    const actualParsedDataJsonFromSheet = getActualParsedDataJsonFromSheet<ParsedSheetData[]>( parsedDataJsonFromSheet );
+        for ( const sheetName of workSheetNames ) {
+            const location = await generateLocation( request, sheetName );
+            const currentSheetData = workbook.Sheets[ sheetName ];
+            const currentSheetDataRef = currentSheetData[ '!ref' ];
 
-                    for ( const data of actualParsedDataJsonFromSheet ) {
-                        const serviceProvider = await generateServiceProvider( data );
+            if ( ! currentSheetDataRef ) {
+                continue;
+            }
 
-                        if ( location && serviceProvider ) {
-                            const attachedServiceProvider = await generateAttachedServiceProvider( location, serviceProvider );
+            const range = fileParserService.getDecodeRange( currentSheetDataRef );
+            const parsedSheetData = fileParserService.parseSheetToJson<ParsedSheetData[]>( currentSheetData, { range } );
+            const actualParsedSheetData = getActualParsedSheetData<ParsedSheetData[]>( parsedSheetData );
 
-                            if ( attachedServiceProvider ) {
-                                for ( const key in data ) {
-                                    if ( Object.prototype.hasOwnProperty.call( data, key ) ) {
-                                        const value = data[ key ];
+            console.log( 'actualParsedSheetData', actualParsedSheetData );
 
-                                        await generateTransaction( attachedServiceProvider.id, key, value );
-                                    }
-                                }
-                            }
+            for ( const rowSheetData of actualParsedSheetData ) {
+                const serviceProvider = await generateServiceProvider( rowSheetData );
+
+                if ( ! location || ! serviceProvider ) {
+                    continue;
+                }
+
+                const attachedServiceProvider = await generateAttachedServiceProvider( location, serviceProvider );
+
+                if ( attachedServiceProvider ) {
+                    for ( const cellSheetKey in rowSheetData ) {
+                        if ( ! Object.prototype.hasOwnProperty.call( rowSheetData, cellSheetKey ) ) {
+                            continue;
                         }
+
+                        const cellSheetValue = rowSheetData[ cellSheetKey ];
+
+                        await generateTransaction( attachedServiceProvider.id, cellSheetKey, cellSheetValue );
                     }
                 }
             }
@@ -57,7 +67,7 @@ export async function importData( request: Request, response: Response, next: Ne
 
 /* Get all data before an empty(blank) line. */
 
-function getActualParsedDataJsonFromSheet<T extends unknown[]>( sheetData: T ): T {
+function getActualParsedSheetData<T extends unknown[]>( sheetData: T ): T {
     const actualData = [] as unknown[] as T;
 
     for ( const data of sheetData ) {
