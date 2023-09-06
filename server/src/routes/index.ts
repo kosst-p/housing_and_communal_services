@@ -8,12 +8,12 @@ import transactionRouter from './transaction';
 import middlewares from '@http/middlewares/index';
 
 const rootRouter = express.Router();
-const routePrefix = '/api';
+const routerPrefix = '/api';
 
-rootRouter.use( routePrefix, authRouter );
-rootRouter.use( routePrefix, userRouter );
-rootRouter.use( routePrefix, middlewares.validationJwt, locationRouter );
-rootRouter.use( routePrefix, middlewares.validationJwt, serviceProviderRouter );
-rootRouter.use( routePrefix, middlewares.validationJwt, transactionRouter );
+rootRouter.use( routerPrefix, authRouter );
+rootRouter.use( routerPrefix, userRouter );
+rootRouter.use( routerPrefix, middlewares.validationJwt, locationRouter );
+rootRouter.use( routerPrefix, middlewares.validationJwt, serviceProviderRouter );
+rootRouter.use( routerPrefix, middlewares.validationJwt, transactionRouter );
 
 export default rootRouter;

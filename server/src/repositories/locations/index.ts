@@ -15,7 +15,7 @@ export default class Repository {
         return await Location.paginate(
             {
                 userId: params.userId,
-                country: { $regex: params.search, $options: 'i' }
+                address: { $regex: params.search, $options: 'i' }
             },
             {
                 sort: params.sort,
