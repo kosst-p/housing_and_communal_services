@@ -110,7 +110,7 @@ export default class Actions {
         return await locationRepository.detachServiceProvider( attachedServiceProviderId );
     }
 
-    async generateLocation( user: IUserAuth, sheetName: string ) {
+    async generateExcelLocation( user: IUserAuth, sheetName: string ) {
         let location = null;
         const adaptedLocationFromFile = LocationsDataAdapters.getLocationFromFile( sheetName );
         const locationCandidate = await this.get( user, adaptedLocationFromFile );
@@ -125,7 +125,7 @@ export default class Actions {
         return location;
     }
 
-    async generateAttachedServiceProvider( location: ILocationDocument, serviceProvider: IServiceProviderDocument ) {
+    async generateExcelAttachedServiceProvider( location: ILocationDocument, serviceProvider: IServiceProviderDocument ) {
         let attachedServiceProvider = null;
 
         const candidateAttachedServiceProvider = await this.getAttachedServiceProvider( {

@@ -13,7 +13,7 @@ router.get( '/transactions' );
 router.post( '/transactions', validateRequestBodyForCreate, controller.createTransaction );
 router.patch( '/transactions/:id', validateRequestBodyForUpdate, controller.updateTransaction );
 router.delete( '/transactions/:id', controller.deleteTransaction );
-router.post( '/transactions/importFromXlsx', upload.single( 'file' ), validateImport, controller.importFromXlsx );
-router.post( '/export' );
+router.post( '/transactions/importExcel', upload.single( 'file' ), validateImport, controller.importExcel );
+router.post( '/transactions/exportExcel' );
 
 export default router;

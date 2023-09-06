@@ -35,12 +35,12 @@ export default class Actions {
         return await transactionRepository.update( id, data );
     }
 
-    async importFromXlsx( user: IUserAuth, buffer: Buffer ) {
+    async importExcel( user: IUserAuth, buffer: Buffer ) {
         const workbook = fileParserService.getWorkBook( buffer, { type: 'buffer' } );
         const workSheetNames: string[] = workbook.SheetNames;
 
         for ( const sheetName of workSheetNames ) {
-            const location = await locationsActions.generateLocation( user, sheetName );
+            const location = await locationsActions.generateExcelLocation( user, sheetName );
             const currentSheetData = workbook.Sheets[ sheetName ];
             const currentSheetDataRef = currentSheetData[ '!ref' ];
 
@@ -52,16 +52,14 @@ export default class Actions {
             const parsedSheetData = fileParserService.parseSheetToJson<ParsedSheetData[]>( currentSheetData, { range } );
             const actualParsedSheetData = this.getActualParsedSheetData<ParsedSheetData[]>( parsedSheetData );
 
-            console.log( 'actualParsedSheetData', actualParsedSheetData );
-
             for ( const rowSheetData of actualParsedSheetData ) {
-                const serviceProvider = await serviceProvidersActions.generateServiceProvider( rowSheetData );
+                const serviceProvider = await serviceProvidersActions.generateExcelServiceProvider( rowSheetData );
 
                 if ( ! location || ! serviceProvider ) {
                     continue;
                 }
 
-                const attachedServiceProvider = await locationsActions.generateAttachedServiceProvider( location, serviceProvider );
+                const attachedServiceProvider = await locationsActions.generateExcelAttachedServiceProvider( location, serviceProvider );
 
                 if ( attachedServiceProvider ) {
                     for ( const cellSheetKey in rowSheetData ) {
@@ -71,14 +69,14 @@ export default class Actions {
 
                         const cellSheetValue = rowSheetData[ cellSheetKey ];
 
-                        await this.generateTransaction( attachedServiceProvider.id, cellSheetKey, cellSheetValue );
+                        await this.generateExcelTransaction( attachedServiceProvider.id, cellSheetKey, cellSheetValue );
                     }
                 }
             }
         }
     }
 
-    private async generateTransaction( attachedServiceProviderId: string, date: string, price: string | number ) {
+    private async generateExcelTransaction( attachedServiceProviderId: string, date: string, price: string | number ) {
         let transaction = null;
         const parsedDate = TransactionsDataAdapters.getTransactionDateFromFile( date );
         const parsedPrice = TransactionsDataAdapters.getTransactionPriceFromFile( price );

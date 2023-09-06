@@ -54,7 +54,7 @@ export default class Actions {
         return serviceProvider;
     }
 
-    async generateServiceProvider( data: ParsedSheetData ) {
+    async generateExcelServiceProvider( data: ParsedSheetData ) {
         let serviceProvider = null;
         const serviceProviderName = data[ '__EMPTY' ];
 

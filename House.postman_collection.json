@@ -620,7 +620,7 @@
 					"response": []
 				},
 				{
-					"name": "importFromXlsx",
+					"name": "importExcel",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -641,13 +641,13 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/transactions/importFromXlsx",
+							"raw": "{{url}}/transactions/importExcel",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"transactions",
-								"importFromXlsx"
+								"importExcel"
 							]
 						}
 					},
