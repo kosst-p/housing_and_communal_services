@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "dev server",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}/server",
+            "restart": true,
+            "sourceMaps": true,
+            "runtimeExecutable": "${workspaceRoot}/server/node_modules/nodemon/bin/nodemon.js",
+            "program": "${workspaceRoot}/server/src/index.ts",
+            "runtimeArgs": [
+                "--exec",
+                "ts-node",
+                "-r",
+                "tsconfig-paths/register",
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "TS_NODE_PROJECT": "${workspaceRoot}/server/tsconfig.json",
+            },
+        }
+    ]
+}
