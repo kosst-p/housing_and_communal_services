@@ -35,13 +35,13 @@ const env = cleanEnv( process.env, {
     CLIENT_URL: str( { default: 'http://localhost:8080' } ),
     MONGO_DB_ROOT_USER_NAME: str( { default: '' } ),
     MONGO_DB_ROOT_PASSWORD: str( { default: '' } ),
-    MONGO_DB_PORT: num( { default: 27017 } ),
+    MONGO_DB_PORT_EXTERNAL: num( { default: 27017 } ),
     MONGO_DB_DATABASE_NAME: str( { default: 'test' } ),
     MONGO_DB_HOST_NAME: str( { default: 'localhost' } ),
     JWT_ACCESS_SECRET: str( { default: '' } ),
     JWT_REFRESH_SECRET: str( { default: '' } ),
     JWT_ACCESS_EXPIRATION_TIME_IN_SECONDS: num( { default: 900 } ),
-    REDIS_PORT: num( { default: 6379 } ),
+    REDIS_PORT_EXTERNAL: num( { default: 6379 } ),
     REDIS_HOST_NAME: str( { default: 'localhost' } )
 } );
 
@@ -49,7 +49,7 @@ export const config: IConfig = {
     serverPort: env.PORT,
     clientUrl: env.CLIENT_URL,
     db: {
-        port: env.MONGO_DB_PORT,
+        port: env.MONGO_DB_PORT_EXTERNAL,
         dbName: env.MONGO_DB_DATABASE_NAME,
         userName: env.MONGO_DB_ROOT_USER_NAME,
         password: env.MONGO_DB_ROOT_PASSWORD,
@@ -61,7 +61,7 @@ export const config: IConfig = {
         accessExpirationTimeInSeconds: env.JWT_ACCESS_EXPIRATION_TIME_IN_SECONDS
     },
     cache: {
-        port: env.REDIS_PORT,
+        port: env.REDIS_PORT_EXTERNAL,
         hostName: env.REDIS_HOST_NAME,
     }
 };
