@@ -6,10 +6,6 @@ services:
     image: mongo:4.4-focal
     restart: always
     container_name: mongodb-house
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_DB_ROOT_USER_NAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_DB_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_DB_DATABASE_NAME}
     ports:
       - ${MONGO_DB_PORT_EXTERNAL}:${MONGO_DB_PORT_INTERNAL}
     volumes:
