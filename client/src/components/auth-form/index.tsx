@@ -3,7 +3,7 @@ import React from 'react';
 import SignUpForm from './sign-up-form';
 import LoginForm from './login-form';
 
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 interface IAuthFormProps {
     isUserRegistered: boolean

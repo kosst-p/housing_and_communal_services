@@ -6,6 +6,8 @@ import AuthForm from '../auth-form';
 export default function App() {
     const [ isUserRegistered, setIsUserRegistered ] = useState( false );
 
+    console.log( setIsUserRegistered );
+
     return (
         <React.StrictMode>
             <AuthForm isUserRegistered={ isUserRegistered } />

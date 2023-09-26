@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 import FormField from '../../form-field';
 
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 export default function SignUpForm(): React.JSX.Element {
     const [ details, setDetails ] = useState( {
         name: '',
         email: '',
         password: '',
-        confirmPassword: '',
+        confirmPassword: ''
     } );
 
     async function handleClickCta( event: React.MouseEvent<HTMLButtonElement> ) {

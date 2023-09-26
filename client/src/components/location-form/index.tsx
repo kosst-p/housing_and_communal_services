@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import FormField from '../form-field';
 
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 export default function LocationForm(): React.JSX.Element {
     const [ details, setDetails ] = useState( {

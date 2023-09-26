@@ -14,13 +14,7 @@ module.exports = {
             version: 'detect'
         },
     },
-    parserOptions: {
-        sourceType: 'module',
-        ecmaVersion: 2017,
-        babelOptions: {
-            presets: [ '@babel/preset-react' ]
-        }
-    },
+    parser: '@typescript-eslint/parser',
     rules: {
         'indent': [ 'error', 4 ],
         'quote-props': [
@@ -163,6 +157,7 @@ module.exports = {
         'react/jsx-no-useless-fragment': [ 'error' ],
         'react/jsx-pascal-case': [ 'error' ],
         'react/jsx-tag-spacing': [ 'error' ],
+        'react/react-in-jsx-scope': 'off'
     },
     ignorePatterns: [ 'node_modules/', 'dist/' ]
 };
