@@ -3,7 +3,7 @@ module.exports = {
     env: {
         es2021: true,
         node: true,
-        commonjs: true
+        commonjs: true,
     },
     extends: [
         'eslint:recommended',
@@ -16,19 +16,19 @@ module.exports = {
     ],
     parserOptions: {
         ecmaVersion: 2018,
-        sourceType: 'module'
+        sourceType: 'module',
     },
     rules: {
-        '@typescript-eslint/no-unused-vars': [ 'error', { argsIgnorePattern: '^_', ignoreRestSiblings: true } ],
+        '@typescript-eslint/no-unused-vars': [ 'error', { argsIgnorePattern: '^_', ignoreRestSiblings: true, } ],
         '@typescript-eslint/type-annotation-spacing': [ 'error', {
             before: false,
             after: true,
             overrides: {
                 arrow: {
                     before: true,
-                    after: true
-                }
-            }
+                    after: true,
+                },
+            },
         } ],
         'indent': [ 'error', 4 ],
         'quote-props': [
@@ -50,7 +50,7 @@ module.exports = {
             {
                 anonymous: 'always',
                 named: 'never',
-                asyncArrow: 'always'
+                asyncArrow: 'always',
             }
         ],
         'space-in-parens': [ 'error', 'always' ], 'space-infix-ops': 'error',
@@ -62,9 +62,9 @@ module.exports = {
         'no-trailing-spaces': 'error',
         'no-multi-spaces': 'error',
         'block-spacing': [ 'error', 'always' ],
-        'comma-spacing': [ 'error', { before: false, after: true } ],
+        'comma-spacing': [ 'error', { before: false, after: true, } ],
         'template-curly-spacing': [ 'error', 'always' ],
-        'key-spacing': [ 'error', { beforeColon: false, afterColon: true } ],
+        'key-spacing': [ 'error', { beforeColon: false, afterColon: true, } ],
         'computed-property-spacing': [ 'error', 'always' ],
         'padding-line-between-statements': [
             'error',
@@ -79,7 +79,7 @@ module.exports = {
                     'continue',
                     'iife',
                     'return',
-                    'throw',
+                    'throw'
                 ],
             },
             {
@@ -90,18 +90,18 @@ module.exports = {
                     'export',
                     'const',
                     'let',
-                    'block-like',
+                    'block-like'
                 ],
                 next: '*',
             },
             {
                 blankLine: 'always',
                 prev: [
-                    'expression',
+                    'expression'
                 ],
                 next: [
                     'const',
-                    'let',
+                    'let'
                 ],
             },
             {
@@ -123,20 +123,25 @@ module.exports = {
                 blankLine: 'any',
                 prev: [
                     'const',
-                    'let',
+                    'let'
                 ],
                 next: [
                     'const',
-                    'let',
+                    'let'
                 ],
-            },
+            }
         ],
-        'space-unary-ops': [ 'error', { words: true, nonwords: false, overrides: { '!': true } } ],
+        'space-unary-ops': [ 'error', { words: true, nonwords: false, overrides: { '!': true, }, } ],
         'eol-last': 'error',
         'brace-style': [
             'error',
-            'stroustrup',
+            'stroustrup'
         ],
+        'max-params': [ 'error', 3 ],
+        'require-await': 'error',
+        'comma-dangle': [ 'error', {
+            objects: 'always',
+        } ],
     },
-    ignorePatterns: [ 'node_modules/', 'dist/' ]
+    ignorePatterns: [ 'node_modules/', 'dist/' ],
 };
