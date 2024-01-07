@@ -12,17 +12,17 @@ export default class AuthService {
     }
 
     generateAccessToken( payload: IPayload ) {
-        return jwt.sign( payload, config.jwt.accessKey, { expiresIn: `${ this.#expirationTimeInMinutes }m` } );
+        return jwt.sign( payload, config.jwt.accessKey, { expiresIn: `${ this.#expirationTimeInMinutes }m`, } );
     }
 
     generateRefreshToken( payload: IPayload ) {
-        return jwt.sign( payload, config.jwt.refreshKey, { expiresIn: '30d' } );
+        return jwt.sign( payload, config.jwt.refreshKey, { expiresIn: '30d', } );
     }
 
     generateTokens( payload: IPayload ) {
         return {
             accessToken: this.generateAccessToken( payload ),
-            refreshToken: this.generateRefreshToken( payload )
+            refreshToken: this.generateRefreshToken( payload ),
         };
     }
 

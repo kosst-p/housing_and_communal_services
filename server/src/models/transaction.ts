@@ -36,7 +36,7 @@ const schema = DBService.getSchema<ITransaction>(
         price: {
             type: Number,
             required: true,
-        }
+        },
     }
 );
 

@@ -50,17 +50,17 @@ export default class Actions {
 
     async update( id: string, data: ILocationUpdate ) {
         const location = await locationRepository.update( id, data );
-        const attachedServiceProvider = await locationRepository.getAttachedServiceProvider( { locationId: id } );
+        const attachedServiceProvider = await locationRepository.getAttachedServiceProvider( { locationId: id, } );
 
         if ( attachedServiceProvider ) {
-            await locationRepository.updateAttachedServiceProvider( attachedServiceProvider.id, { locationFullName: location.fullName } );
+            await locationRepository.updateAttachedServiceProvider( attachedServiceProvider.id, { locationFullName: location.fullName, } );
         }
 
         return location;
     }
 
     async delete( id: string ) {
-        const attachedServiceProvider = await locationRepository.getAttachedServiceProvider( { locationId: id } );
+        const attachedServiceProvider = await locationRepository.getAttachedServiceProvider( { locationId: id, } );
 
         if ( attachedServiceProvider ) {
             throw new RelationsError( 'This Location has relations and cannot be removed.' );
@@ -96,12 +96,12 @@ export default class Actions {
             locationId: location.id,
             locationFullName: locationFullName,
             serviceProviderId: serviceProvider.id,
-            serviceProviderName: serviceProvider.name
+            serviceProviderName: serviceProvider.name,
         } );
     }
 
     async detachServiceProvider( attachedServiceProviderId: string ) {
-        const transaction = await transactionRepository.get( { locationServiceProviderId: attachedServiceProviderId } );
+        const transaction = await transactionRepository.get( { locationServiceProviderId: attachedServiceProviderId, } );
 
         if ( transaction ) {
             throw new RelationsError( 'This Location Service Provider has relations and cannot be removed.' );

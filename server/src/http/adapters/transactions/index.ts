@@ -10,12 +10,12 @@ export default class DataAdapters extends BaseAdapter {
     static #formatDateString = 'LLL-yy';
 
     static getTransactionFromBody( request: IRequestPost ): ITransactionCreate {
-        const { locationServiceProviderId, date, price } = request.body;
+        const { locationServiceProviderId, date, price, } = request.body;
 
         return {
             locationServiceProviderId,
             date: new Date( date ),
-            price
+            price,
         };
     }
 
@@ -24,7 +24,7 @@ export default class DataAdapters extends BaseAdapter {
             id: data.id,
             locationServiceProviderId: data.locationServiceProviderId.toString(),
             date: new Date( data.date ).toISOString(),
-            price: data.price
+            price: data.price,
         };
     }
 

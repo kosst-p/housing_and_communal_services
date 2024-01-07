@@ -13,12 +13,12 @@ export default class Repository {
     async paginate( data: IServiceProviderPaginate ) {
         return await ServiceProvider.paginate(
             {
-                name: { $regex: data.search, $options: 'i' }
+                name: { $regex: data.search, $options: 'i', },
             },
             {
                 sort: data.sort,
                 limit: data.limit,
-                offset: data.skip
+                offset: data.skip,
             }
         );
     }
@@ -33,7 +33,7 @@ export default class Repository {
 
     async update( id: string, data: IServiceProvider ): Promise<IServiceProviderDocument> {
         return await ServiceProvider.findByIdAndUpdate( id, data, { // mongo error check?
-            new: true
+            new: true,
         } ) as IServiceProviderDocument;
     }
 }
