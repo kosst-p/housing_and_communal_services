@@ -138,6 +138,7 @@ module.exports = {
             'stroustrup'
         ],
         'max-params': [ 'error', 3 ],
+        'require-await': 'error',
         'comma-dangle': [ 'error', {
             objects: 'always',
         } ],
