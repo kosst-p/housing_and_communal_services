@@ -8,10 +8,10 @@ export default class DataAdapters extends BaseAdapter {
     static #allowedFieldNames = [ 'name' ];
 
     static getServiceProviderFromBody( request: IRequestPost ): IServiceProvider {
-        const { name } = request.body;
+        const { name, } = request.body;
 
         return {
-            name
+            name,
         };
     }
 
@@ -51,7 +51,7 @@ export default class DataAdapters extends BaseAdapter {
 
     static getServiceProviderFromFile( name: string ) {
         return {
-            name
+            name,
         };
     }
 }

@@ -35,7 +35,7 @@ const schema = DBService.getSchema<IUser>( {
     password: {
         type: String,
         required: true,
-    }
+    },
 } );
 
 export default DBService.getModel<IUser>( 'User', schema );

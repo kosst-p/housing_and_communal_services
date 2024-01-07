@@ -6,7 +6,8 @@
     "scripts": {
         "compile": "npx tsc -w",
         "dev": "nodemon --exec node -r tsconfig-paths/register --loader ts-node/esm src/index.ts",
-        "lint": "eslint . --ext .ts",
+        "lint": "eslint src/ --ext .ts --ext .js",
+        "lint:fix": "eslint --fix src/ --ext .ts --ext .js",
         "reinstall": "rm -rf node_modules/ && npm i"
     },
     "author": "Konstantin P",

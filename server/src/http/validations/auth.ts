@@ -6,7 +6,7 @@ const message = 'Fields are filled in incorrectly.';
 
 export function registrationValidation( request: IRegistrationRequest, _response: Response, next: NextFunction ): void {
     const fieldNames = [ 'name', 'email', 'password', 'confirmPassword' ];
-    const { body } = request;
+    const { body, } = request;
     const errorFieldNames: string[] = [];
 
     for ( const name of fieldNames ) {

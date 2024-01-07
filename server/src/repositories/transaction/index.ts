@@ -19,7 +19,7 @@ export default class Repository {
 
     async update( id: string, data: ITransactionUpdate ) {
         return await Transaction.findByIdAndUpdate( id, data, {
-            new: true
+            new: true,
         } );
     }
 }

@@ -15,12 +15,12 @@ export default class Repository {
         return await Location.paginate(
             {
                 userId: params.userId,
-                address: { $regex: params.search, $options: 'i' }
+                address: { $regex: params.search, $options: 'i', },
             },
             {
                 sort: params.sort,
                 limit: params.limit,
-                offset: params.skip
+                offset: params.skip,
             }
         );
     }
@@ -31,7 +31,7 @@ export default class Repository {
 
     async update( id: string, data: ILocationUpdate ): Promise<ILocationDocument> {
         return await Location.findByIdAndUpdate( id, data, { // mongo error check?
-            new: true
+            new: true,
         } ) as ILocationDocument;
     }
 
@@ -57,7 +57,7 @@ export default class Repository {
 
     async updateAttachedServiceProvider( attachedServiceProviderId: string, data: ILocationServiceProviderUpdate ) {
         return await LocationServiceProvider.findByIdAndUpdate( attachedServiceProviderId, data, { // mongo error check?
-            new: true
+            new: true,
         } );
     }
 }

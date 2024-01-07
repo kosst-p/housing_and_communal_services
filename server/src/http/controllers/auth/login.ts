@@ -13,13 +13,13 @@ export async function login( request: ILoginRequest, response: Response, next: N
             throw new ValidationError( 'Password is not valid.' );
         }
 
-        const token = authService.generateAccessToken( { id: user.id, name: user.name } );
+        const token = authService.generateAccessToken( { id: user.id, name: user.name, } );
 
         await cacheService.set( token, token );
 
         return response.send( {
             message: 'Success',
-            token
+            token,
         } );
     }
     catch ( error ) {

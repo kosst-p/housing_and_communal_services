@@ -1,14 +1,15 @@
 import expressWinston from 'express-winston';
 import { createLogger, transports, format } from 'winston';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const customFormat = format.printf( ( info ) => `[${ info.timestamp }] - [${ info.level.toLocaleUpperCase() }] - ${ info.message }` );
-const customFormatTimestamp = format.timestamp( { format: 'HH:mm:ss DD-MM-YYYY' } );
+const customFormatTimestamp = format.timestamp( { format: 'HH:mm:ss DD-MM-YYYY', } );
 
 const transportConsole = new transports.Console( {
     format: format.combine(
         format.json(),
         customFormatTimestamp,
-        format.prettyPrint(),
+        format.prettyPrint()
     ),
 } ) ;
 
@@ -18,7 +19,7 @@ const transportFileError = new transports.File( {
     format: format.combine(
         format.json(),
         customFormatTimestamp,
-        format.prettyPrint(),
+        format.prettyPrint()
     ),
 } ) ;
 
@@ -28,7 +29,7 @@ const transportFileWarning = new transports.File( {
     format: format.combine(
         format.json(),
         customFormatTimestamp,
-        format.prettyPrint(),
+        format.prettyPrint()
     ),
 } );
 
@@ -51,4 +52,4 @@ const logger = createLogger( {
     ],
 } );
 
-export default { routerLogger, logger };
+export default { routerLogger, logger, };

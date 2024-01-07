@@ -9,7 +9,7 @@ export default class DataAdapters extends BaseAdapter {
     static #allowedFieldNames = [ 'country', 'region', 'city', 'address', 'houseNumber' ];
 
     static getLocationFromBody( request: IRequestPost ): ILocationCreate {
-        const { country, region, city, address, houseNumber } = request.body;
+        const { country, region, city, address, houseNumber, } = request.body;
 
         return {
             country,
@@ -31,7 +31,7 @@ export default class DataAdapters extends BaseAdapter {
             region: data.region,
             city: data.city,
             address: data.address,
-            houseNumber: data.houseNumber
+            houseNumber: data.houseNumber,
         };
     }
 
@@ -62,7 +62,7 @@ export default class DataAdapters extends BaseAdapter {
         return {
             id: data.id,
             locationId: data.locationId.toString(),
-            serviceProviderId: data.serviceProviderId.toString()
+            serviceProviderId: data.serviceProviderId.toString(),
         };
     }
 
@@ -71,7 +71,7 @@ export default class DataAdapters extends BaseAdapter {
 
         return {
             address: parsedLocation[ 0 ],
-            houseNumber: parsedLocation[ 1 ]
+            houseNumber: parsedLocation[ 1 ],
         };
     }
 }

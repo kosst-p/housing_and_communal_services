@@ -27,7 +27,7 @@ const schema = DBService.getSchema<IServiceProvider>( {
         type: String,
         required: true,
         unique: true,
-    }
+    },
 } );
 
 export interface IServiceProviderFilterQuery extends FilterQuery<IServiceProvider> {}

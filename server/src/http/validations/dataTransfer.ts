@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from '@http/types/index';
 import { ImportFileError } from '@/errors';
 
 export function validateImport( request: Request, _response: Response, next: NextFunction ): void {
-    const { file } = request;
+    const { file, } = request;
 
     if ( ! file?.buffer ) {
         throw new ImportFileError( 'Data import error.' );

@@ -14,7 +14,7 @@ export default class Actions {
     }
 
     async get( name: string ) {
-        const user = await userRepository.get( { name } );
+        const user = await userRepository.get( { name, } );
 
         if ( ! user ) {
             throw new NotFoundError( 'User not found.' );
@@ -24,8 +24,8 @@ export default class Actions {
     }
 
     async create( data: IUserCreate ) {
-        const { name } = data;
-        const candidate = await userRepository.get( { name } );
+        const { name, } = data;
+        const candidate = await userRepository.get( { name, } );
 
         if ( candidate ) {
             throw new AlreadyExistError( 'The user already exists.' );
