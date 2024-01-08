@@ -1,6 +1,6 @@
 name: Server Workflow.
 on: pull_request
-    # branches: master
+    branches: [master]
     # paths:
     #   - 'server/**'
 jobs:
