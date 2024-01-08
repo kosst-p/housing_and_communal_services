@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [ opened, edited, reopened ]
 jobs:
-  merge-request-linting:
+  merge-request-linting-server:
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code.
