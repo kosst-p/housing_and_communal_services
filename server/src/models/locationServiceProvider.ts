@@ -44,7 +44,7 @@ const schema = DBService.getSchema<ILocationServiceProvider>(
             type: String,
             required: true,
         },
-    },
+    }
 );
 
 export default DBService.getModel<ILocationServiceProvider>( 'LocationServiceProvider', schema );

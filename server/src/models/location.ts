@@ -66,11 +66,11 @@ const schema = DBService.getSchema<ILocationDocument>(
         houseNumber: {
             type: String,
         },
-    },
+    }
     // { timestamps: true }
 );
 
-schema.set( 'toJSON', { virtuals: true } );
+schema.set( 'toJSON', { virtuals: true, } );
 schema.virtual( 'fullName' ).get( function () {
     return [ this.country, this.region, this.city, this.address, this.houseNumber ].filter( Boolean ).join( ', ' );
 } );

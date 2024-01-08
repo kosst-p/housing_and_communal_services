@@ -5,7 +5,7 @@ export async function importExcel( request: Request, response: Response, next: N
     try {
         await transactionsActions.importExcel( request.user, request.file!.buffer );
 
-        return response.send( { message: 'Success' } );
+        return response.send( { message: 'Success', } );
     }
     catch ( error ) {
         return next( error );

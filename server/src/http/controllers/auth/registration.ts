@@ -8,13 +8,13 @@ export async function registration( request: IRegistrationRequest, response: Res
     try {
         const adaptUserData = UserDataAdapters.getUserDataFromBody( request );
         const user = await usersActions.create( adaptUserData );
-        const token = authService.generateAccessToken( { id: user.id, name: user.name } );
+        const token = authService.generateAccessToken( { id: user.id, name: user.name, } );
 
         await cacheService.set( token, true );
 
         return response.send( {
             message: 'Success',
-            token
+            token,
         } );
     }
     catch ( error ) {
