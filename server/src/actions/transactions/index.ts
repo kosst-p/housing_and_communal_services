@@ -36,7 +36,7 @@ export default class Actions {
     }
 
     async importExcel( user: IUserAuth, buffer: Buffer ) {
-        const workbook = fileParserService.getWorkBook( buffer, { type: 'buffer' } );
+        const workbook = fileParserService.getWorkBook( buffer, { type: 'buffer', } );
         const workSheetNames: string[] = workbook.SheetNames;
 
         for ( const sheetName of workSheetNames ) {
@@ -49,7 +49,7 @@ export default class Actions {
             }
 
             const range = fileParserService.getDecodeRange( currentSheetDataRef );
-            const parsedSheetData = fileParserService.parseSheetToJson<ParsedSheetData[]>( currentSheetData, { range } );
+            const parsedSheetData = fileParserService.parseSheetToJson<ParsedSheetData[]>( currentSheetData, { range, } );
             const actualParsedSheetData = this.getActualParsedSheetData<ParsedSheetData[]>( parsedSheetData );
 
             for ( const rowSheetData of actualParsedSheetData ) {
@@ -87,18 +87,18 @@ export default class Actions {
 
         const candidate = await this.get( {
             locationServiceProviderId: attachedServiceProviderId,
-            date: parsedDate
+            date: parsedDate,
         } );
 
         if ( ! candidate ) {
             transaction = await this.create( {
                 locationServiceProviderId: attachedServiceProviderId,
                 date: parsedDate,
-                price: parsedPrice
+                price: parsedPrice,
             } );
         }
         else {
-            transaction = await this.update( candidate.id, { price: parsedPrice } );
+            transaction = await this.update( candidate.id, { price: parsedPrice, } );
         }
 
         return transaction;

@@ -18,4 +18,4 @@ function parseSheetToJson<T = unknown[]>( worksheet: XLSX.WorkSheet, options: XL
     ) as T;
 }
 
-export default { getWorkBook, getDecodeRange, parseSheetToJson };
+export default { getWorkBook, getDecodeRange, parseSheetToJson, };

@@ -12,10 +12,10 @@ export default class Repository {
     }
 
     async create( data: IUserCreate ) {
-        const { password } = data;
+        const { password, } = data;
         const hashPassword = bcrypt.hashSync( password, 7 );
 
-        return await User.create( { ...data, password: hashPassword } ); // mongo error check?
+        return await User.create( { ...data, password: hashPassword, } ); // mongo error check?
     }
 
     async getAll() {

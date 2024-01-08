@@ -3,7 +3,7 @@ import { IRequestGet, TSortOrderValue, ISortParam } from './types';
 
 export default class BaseAdapter {
     protected static defaultSortParam: ISortParam = {
-        _id: 'asc'
+        _id: 'asc',
     };
     protected static defaultSearchParam = '';
     protected static defaultPageParam = '1';
@@ -11,7 +11,7 @@ export default class BaseAdapter {
     protected static defaultMaxLimitParam = 500;
 
     static getSortQueryParam( request: IRequestGet ): ISortParam {
-        const { sort } = request.query;
+        const { sort, } = request.query;
         const sortQueries = sort?.split( '|' );
 
         if ( ! sortQueries?.length ) {
@@ -34,26 +34,26 @@ export default class BaseAdapter {
     }
 
     static getSearchQueryParam( request: IRequestGet ): string {
-        const { search } = request.query;
+        const { search, } = request.query;
 
         return search || this.defaultSearchParam;
     }
 
     static getPageQueryParam( request: IRequestGet ): number {
-        const { page = this.defaultPageParam } = request.query;
+        const { page = this.defaultPageParam, } = request.query;
 
         return parseInt( page );
     }
 
     static getLimitQueryParam( request: IRequestGet ): number {
-        const { limit = this.defaultLimitParam } = request.query;
+        const { limit = this.defaultLimitParam, } = request.query;
         const parsedLimit = parseInt( limit );
 
         return parsedLimit < this.defaultMaxLimitParam ? parsedLimit : this.defaultMaxLimitParam;
     }
 
     static getPartialFromBody<T extends Request, U>( request: T, fieldNames: string[] ): U {
-        const { body } = request;
+        const { body, } = request;
         const partial: U = {} as U;
 
         for ( const fieldName of fieldNames ) {

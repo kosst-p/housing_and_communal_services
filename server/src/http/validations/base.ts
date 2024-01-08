@@ -5,7 +5,7 @@ const message = 'Fields are filled in incorrectly.';
 
 export function getValidationRequestBodyForCreate<T extends Request>( fieldNames: string[] ): ( request: T, response: Response, next: NextFunction ) => void {
     return function ( request: T, _response: Response, next: NextFunction ) {
-        const { body } = request;
+        const { body, } = request;
         const errorFieldNames: string[] = [];
 
         for ( const name of fieldNames ) {
@@ -26,7 +26,7 @@ export function getValidationRequestBodyForCreate<T extends Request>( fieldNames
 
 export function getValidationRequestBodyForUpdate<T extends Request>( fieldNames: string[] ): ( request: T, response: Response, next: NextFunction ) => void {
     return function ( request: T, _response: Response, next: NextFunction ) {
-        const { body } = request;
+        const { body, } = request;
         const errorFieldNames: string[] = [];
         const currentFieldNames = Object.keys( body );
 

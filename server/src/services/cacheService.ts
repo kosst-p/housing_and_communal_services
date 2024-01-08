@@ -8,7 +8,7 @@ export default class CacheService {
 
     constructor( config: ICacheConfig, expirationTime: number ) {
         this.#client = redis.createClient( {
-            url: `redis://${ config.hostName }:${ config.port }`
+            url: `redis://${ config.hostName }:${ config.port }`,
         } );
         this.#seconds = expirationTime;
 
@@ -27,7 +27,7 @@ export default class CacheService {
 
     async set<T>( key: string, value: T ): Promise<void> {
         await this.#client.SET( key, JSON.stringify( value ), {
-            EX: this.#seconds
+            EX: this.#seconds,
         } ); // handle error?
     }
 

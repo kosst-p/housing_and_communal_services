@@ -7,7 +7,7 @@ const withCors = cors( {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     optionsSuccessStatus: 204,
-    credentials: true
+    credentials: true,
 } );
 
 export { withCors };
