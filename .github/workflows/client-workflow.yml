@@ -1,7 +1,6 @@
 name: Client Workflow.
 on:
   pull_request:
-    types: [ opened, edited, reopened ]
 jobs:
   merge-request-linting-client:
     runs-on: ubuntu-latest

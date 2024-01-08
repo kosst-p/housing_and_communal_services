@@ -1,7 +1,6 @@
 name: Server Workflow.
 on:
   pull_request:
-    types: [ opened, edited, reopened ]
 jobs:
   merge-request-linting-server:
     runs-on: ubuntu-latest
