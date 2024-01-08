@@ -1,6 +1,8 @@
 name: Server Workflow.
 on:
   pull_request:
+    branches:
+      - 'master'
 jobs:
   merge-request-linting-server:
     runs-on: ubuntu-latest
